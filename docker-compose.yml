@@ -1,0 +1,39 @@
+version: '3.0'
+services:
+  db:
+    image: postgres:13.1-alpine
+    hostname: ${POSTGRES_HOSTNAME:-db}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: tiedeapp
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?err}
+  web:
+    build: .
+    command: bash -c "rm -f /myapp/tmp/pids/server.pid && rails db:migrate && rails s -p 3000 -b '0.0.0.0'"
+    networks:
+      - reverse_proxy
+      - default
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:?err}
+      POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME:-db}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?err}
+      DOMAIN: ${DOMAIN:?err}
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: 'true'
+      RAILS_LOG_TO_STDOUT: 'true'
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=reverse_proxy
+      - traefik.http.routers.${ROUTER_NAME:-tiedeapp}.rule=Host(`${DOMAIN:?err}`)
+      - traefik.http.routers.${ROUTER_NAME:-tiedeapp}.tls.certresolver=letsencrypt
+volumes:
+  db-data:
+networks:
+  reverse_proxy:
+    external:
+      name: reverse_proxy

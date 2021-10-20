@@ -1,0 +1,29 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Tiedeapp
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    %meta{content: "width=device-width, initial-scale=1, shrink-to-fit=no", name: "viewport"}
+
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body.bg-dark
+    %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      .container-fluid
+        %a.navbar-brand
+          Tiedeapp
+        %button.navbar-toggler{ data: {bs: {toggle: 'collapse', target: '#navbarToggler'}}, aria: {controls: 'navbarToggler', expanded: false, label: 'Toggle navigation'}, type: 'button'}
+          %span.navbar-toggler-icon
+        .collapse.navbar-collapse{ id: 'navbarToggler' }
+          %ul.navbar-nav.me-auto.mb-2.mb-lg-0
+            = nav_item 'Home', root_path
+
+    .container{id: :flashbox }
+      - flash.each do |key, value|
+        .alert.alert-dismissible.mt-3{class: "alert-#{key}", role: 'alert'}
+          = value
+          %button.btn-close.close{data: {bs: {dismiss: 'alert'}}, aria: {label: 'Close'}, type: 'button'}
+
+      = yield
