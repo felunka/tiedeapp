@@ -1,0 +1,16 @@
+.card.mt-3
+  .card-header
+    Anmeldung
+
+  .card-body
+    = simple_form_for @registration do |f|
+      = f.input :single_rooms
+      = f.input :double_rooms
+      = f.input :with_dog
+      = f.fields_for :registration_entries do |entry|
+        = render 'registration_entry_fields', f: entry
+      .links
+        = link_to_add_association f, :registration_entries, class: 'btn btn-primary mt-3' do
+          %i.fas.fa-plus
+          = 'Person hinzufügen'
+      = f.submit 'Verbindlich Anmelden', class: 'btn btn-primary mt-3 float-end'

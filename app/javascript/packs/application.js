@@ -8,6 +8,7 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("jquery")
+require("@nathanvda/cocoon")
 
 require("bootstrap")
 import "../stylesheets/application";
@@ -17,29 +18,11 @@ import "@fortawesome/fontawesome-free/css/all"
 import 'select2'
 import 'select2/dist/css/select2.css'
 
-import * as Credential from "credential";
-
 document.addEventListener("turbolinks:load", function() {
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
     $('[data-toggle="popover"]').popover()
     $('.js-states').select2()
-  })
-  $("#registration_form").on('ajax:success', function(event, data){
-    let credentialOptions = event.detail[0]
-    console.log(event.detail[0])
-
-    if (credentialOptions["user"]) {
-      let callback_url = `/registration/callback`
-      
-      Credential.create(encodeURI(callback_url), credentialOptions);
-    }
-  })
-  $("#session_form").on('ajax:success', function(event, data){
-    let credentialOptions = event.detail[0]
-    console.log(event.detail[0])
-
-    Credential.get(credentialOptions);
   })
   $(document).on('ajax:error', function(xhr, status, error) {
     let alert = document.createElement('div');
