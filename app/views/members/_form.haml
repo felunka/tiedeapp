@@ -1,0 +1,27 @@
+.card.mt-3
+  %h5.card-header.d-flex.justify-content-between.align-items-center
+    Mitglied
+    .row
+      - if @member.id.present?
+        .col.p-0
+          = button_to 'Löschen', member_path(@member), class: 'btn btn-danger', method: :delete
+      .col
+        = button_to 'Abbrechen', members_path, class: 'btn btn-secondary', method: :get
+
+  .card-body
+    = simple_form_for @member do |f|
+      .row
+        .col
+          = f.input :first_name
+        .col
+          = f.input :last_name
+      = f.input :street
+      .row
+        .col-2
+          = f.input :zip
+        .col
+          = f.input :city
+      = f.input :county
+      = f.input :email
+      = f.input :phone
+      = f.submit 'Speichern', class: 'btn btn-primary mt-2'

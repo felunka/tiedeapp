@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   resources :registrations
   resources :events
+  resources :members
 end

@@ -1,0 +1,48 @@
+.card.mt-3
+  %h5.card-header.d-flex.justify-content-between.align-items-center
+    Mitglieder
+    = button_to 'Mitglied erstellen', new_member_path, class: 'btn btn-primary', method: :get
+  .table-responsive
+    %table.table
+      %tr
+        %th
+          Vorname
+        %th
+          Nachname
+        %th
+          E-Mail
+        %th
+          Telefonnummer
+        %th
+          Straße
+        %th
+          PLZ
+        %th
+          Stadt
+        %th
+          Land
+        %th
+      - @members.each do |member|
+        %tr
+          %td
+            = member.first_name
+          %td
+            = member.last_name
+          %td
+            = member.email
+          %td
+            = member.phone
+          %td
+            = member.street
+          %td
+            = member.zip
+          %td
+            = member.city
+          %td
+            = member.county
+          %td
+            .d-flex
+              = button_to edit_member_path(member), class: 'btn btn-primary', method: :get do
+                %i.fas.fa-pen
+              = button_to member_path(member), class: 'btn btn-danger', method: :delete, data: { confirm: "Sind Sie sicher?" } do
+                %i.fa.fa-trash-alt

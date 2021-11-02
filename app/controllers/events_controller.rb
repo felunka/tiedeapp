@@ -30,4 +30,10 @@ class EventsController < ApplicationController
       render :edit
     end
   end
+
+  def destroy
+    Event.find_by(params.permit(:id)).destroy
+    flash[:danger] = 'Familientag gelöscht'
+    redirect_to action: 'index'
+  end
 end

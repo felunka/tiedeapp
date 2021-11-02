@@ -20,6 +20,7 @@
           %ul.navbar-nav.me-auto.mb-2.mb-lg-0
             = nav_item 'Home', root_path
             = nav_item 'Familientage', events_path
+            = nav_item 'Mitglieder', members_path
 
     .container{id: :flashbox }
       - flash.each do |key, value|
