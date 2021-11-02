@@ -8,7 +8,7 @@ class MembersController < ApplicationController
   end
 
   def create
-    @member = Member.new params.require(:member).permit(:first_name, :last_name, :email, :phone, :street, :zip, :city, :county)
+    @member = Member.new params.require(:member).permit(:first_name, :last_name, :email, :phone, :street, :zip, :city, :country)
     if @member.save
       flash[:success] = 'Mitglied angelegt'
       redirect_to action: 'index'
@@ -23,7 +23,7 @@ class MembersController < ApplicationController
 
   def update
     @member = Member.find_by params.permit(:id)
-    if @member.update params.require(:member).permit(:first_name, :last_name, :email, :phone, :street, :zip, :city, :county)
+    if @member.update params.require(:member).permit(:first_name, :last_name, :email, :phone, :street, :zip, :city, :country)
       flash[:success] = 'Mitglied aktualisiert'
       redirect_to action: 'index'
     else

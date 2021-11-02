@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_161415) do
+ActiveRecord::Schema.define(version: 2021_11_02_200436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,29 @@ ActiveRecord::Schema.define(version: 2021_11_02_161415) do
     t.date "event_start"
     t.date "event_end"
     t.date "deadline_signup"
+  end
+
+  create_table "member_events", force: :cascade do |t|
+    t.bigint "member_id", null: false
+    t.bigint "event_id", null: false
+    t.string "token"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_member_events_on_event_id"
+    t.index ["member_id"], name: "index_member_events_on_member_id"
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone"
+    t.string "street"
+    t.string "zip"
+    t.string "city"
+    t.string "country"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "registration_entries", force: :cascade do |t|
@@ -47,6 +70,17 @@ ActiveRecord::Schema.define(version: 2021_11_02_161415) do
     t.index ["event_id"], name: "index_registrations_on_event_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.bigint "member_id", null: false
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_users_on_member_id"
+  end
+
+  add_foreign_key "member_events", "events"
+  add_foreign_key "member_events", "members"
   add_foreign_key "registration_entries", "registrations"
   add_foreign_key "registrations", "events"
+  add_foreign_key "users", "members"
 end

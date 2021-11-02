@@ -1,9 +1,56 @@
 .card.mt-3
   .card-header
+    = @event.name
+  .card-body
+    .row.mb-3
+      .col
+        Ort
+        .fw-bold=@event.location
+      .col
+        Start
+        .fw-bold=@event.event_start
+      .col
+        Ende
+        .fw-bold=@event.event_end
+      .col
+        Anmeldeschluss
+        .fw-bold=@event.deadline_signup
+    = @event.description
+
+.card.mt-3
+  .card-header
+    Preise
+  .card-body
+    .fw-bold
+      Grundpreis im Doppelzimmer:
+    .row
+      .col
+        .fw-bold='TODO'
+        Mitglieder
+      .col
+        .fw-bold='TODO'
+        Studenten und Auszubildende
+      .col
+        .fw-bold='TODO'
+        Kinder (bis 18 Jahre)
+      .col
+        .fw-bold='TODO'
+        Gäste
+    .fw-bold
+      Einzelzimmerzuschlag:
+    .fw-bold
+      Mitgliederbeitrag:
+    .row
+      .col
+        .fw-bold=number_to_currency(30)
+
+.card.mt-3
+  .card-header
     Anmeldung
 
   .card-body
     = simple_form_for @registration do |f|
+      = f.input :token, as: :hidden, input_html: { value: @token }
       = f.input :single_rooms
       = f.input :double_rooms
       = f.input :with_dog

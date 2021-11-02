@@ -1,0 +1,32 @@
+.card.mt-3
+  .card-body
+    .row
+      .col.border-end
+        .d-flex.justify-content-center
+          - if @token.present?
+            = button_to 'Ohne Account fortfahren', new_registration_path, class: 'btn btn-primary', method: :get, params: { token: @token }
+          - else
+            = button_to 'Ohne Account fortfahren', nil, class: 'btn btn-primary', disabled: true
+        %ul.list-group.list-group-flush
+          %li.list-group-item
+            %i.fas.fa-check
+            Kein Passwort notwendig
+          %li.list-group-item
+            %i.fas.fa-times
+            Anmeldung kann nicht geändert werden
+          %li.list-group-item
+            %i.fas.fa-times
+            Daten müssen neu eingetragen werden
+      .col
+        .d-flex.justify-content-center
+          = button_to 'Account erstellen oder anmelden', new_session_path, class: 'btn btn-primary', method: :get, params: { token: @token }
+        %ul.list-group.list-group-flush
+          %li.list-group-item
+            %i.fas.fa-times
+            Passwort notwendig (kann beim ersten Mal erstellt werden)
+          %li.list-group-item
+            %i.fas.fa-check
+            Anmeldung kann geändert werden
+          %li.list-group-item
+            %i.fas.fa-check
+            Daten können von letzter Anmeldung übernommen werden

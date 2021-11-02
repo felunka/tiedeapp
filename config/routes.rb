@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   resources :registrations
   resources :events
   resources :members
+  resource :session, only: [:new, :create, :destroy] do
+    get :landing
+  end
 end
