@@ -10,15 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_20_142334) do
+ActiveRecord::Schema.define(version: 2021_11_02_161415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.string "description"
+    t.date "event_start"
+    t.date "event_end"
+    t.date "deadline_signup"
+  end
+
   create_table "registration_entries", force: :cascade do |t|
     t.bigint "registration_id", null: false
-    t.string "name"
-    t.integer "type"
+    t.string "name", null: false
+    t.integer "user_type", default: 0, null: false
     t.boolean "is_vegetarian"
     t.boolean "with_accomondation"
     t.datetime "created_at", precision: 6, null: false
@@ -34,7 +43,10 @@ ActiveRecord::Schema.define(version: 2021_10_20_142334) do
     t.boolean "with_dog", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "event_id", null: false
+    t.index ["event_id"], name: "index_registrations_on_event_id"
   end
 
   add_foreign_key "registration_entries", "registrations"
+  add_foreign_key "registrations", "events"
 end
