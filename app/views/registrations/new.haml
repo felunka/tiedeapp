@@ -1,63 +1,80 @@
-.card.mt-3
-  .card-header
-    = @event.name
-  .card-body
-    .row.mb-3
-      .col
-        Ort
-        .fw-bold=@event.location
-      .col
-        Start
-        .fw-bold=@event.event_start
-      .col
-        Ende
-        .fw-bold=@event.event_end
-      .col
-        Anmeldeschluss
-        .fw-bold=@event.deadline_signup
-    = @event.description
+- if @event.present?
+  .card.mt-3
+    .card-header
+      = @event.name
+    .card-body
+      .row.mb-3
+        .col
+          = t 'simple_form.labels.event.location'
+          .fw-bold=@event.location
+        .col
+          = t 'simple_form.labels.event.event_start'
+          .fw-bold=@event.event_start
+        .col
+          = t 'simple_form.labels.event.event_end'
+          .fw-bold=@event.event_end
+        .col
+          = t 'simple_form.labels.event.deadline_signup'
+          .fw-bold=@event.deadline_signup
+      = @event.description
 
-.card.mt-3
-  .card-header
-    Preise
-  .card-body
-    .fw-bold
-      Grundpreis im Doppelzimmer:
-    .row
-      .col
-        .fw-bold='TODO'
-        Mitglieder
-      .col
-        .fw-bold='TODO'
-        Studenten und Auszubildende
-      .col
-        .fw-bold='TODO'
-        Kinder (bis 18 Jahre)
-      .col
-        .fw-bold='TODO'
-        Gäste
-    .fw-bold
-      Einzelzimmerzuschlag:
-    .fw-bold
-      Mitgliederbeitrag:
-    .row
-      .col
-        .fw-bold=number_to_currency(30)
+  .card.mt-3
+    .card-header
+      = t 'model.event.base_price'
+    .card-body
+      .row
+        .col
+          .fw-bold=number_to_currency(@event.fee_member)
+          = t 'simple_form.labels.event.fee_member'
+        .col
+          .fw-bold=number_to_currency(@event.fee_student)
+          = t 'simple_form.labels.event.fee_student'
+        .col
+          .fw-bold=number_to_currency(@event.fee_childen)
+          = t 'simple_form.labels.event.fee_childen'
+        .col
+          .fw-bold=number_to_currency(@event.fee_guest)
+          = t 'simple_form.labels.event.fee_guest'
+  .card.mt-3
+    .card-header
+      = t 'model.event.single_room_fee'
+    .card-body
+      .row
+        .col
+          .fw-bold=number_to_currency(@event.fee_member_single_room)
+          = t 'simple_form.labels.event.fee_member_single_room'
+        .col
+          .fw-bold=number_to_currency(@event.fee_guest_single_room)
+          = t 'simple_form.labels.event.fee_guest_single_room'
+  .card.mt-3
+    .card-header
+      = t 'model.event.member_fee'
+    .card-body
+      .row
+        .col
+          = t 'model.event.member_fee_normal'
+          .fw-bold=number_to_currency(Rails.configuration.x.membership_fee.normal)
+        .col
+          = t 'model.event.member_fee_reduced'
+          .fw-bold=number_to_currency(Rails.configuration.x.membership_fee.reduced)
 
-.card.mt-3
-  .card-header
-    Anmeldung
+  .card.mt-3
+    .card-header
+      = t 'model.registration._name'
 
-  .card-body
-    = simple_form_for @registration do |f|
-      = f.input :token, as: :hidden, input_html: { value: @token }
-      = f.input :single_rooms
-      = f.input :double_rooms
-      = f.input :with_dog
-      = f.fields_for :registration_entries do |entry|
-        = render 'registration_entry_fields', f: entry
-      .links
-        = link_to_add_association f, :registration_entries, class: 'btn btn-primary mt-3' do
-          %i.fas.fa-plus
-          = 'Person hinzufügen'
-      = f.submit 'Verbindlich Anmelden', class: 'btn btn-primary mt-3 float-end'
+    .card-body
+      = simple_form_for @registration do |f|
+        = f.input :token, as: :hidden, input_html: { value: @token }
+        = f.input :single_rooms
+        = f.input :double_rooms
+        = f.input :with_dog
+        = f.fields_for :registration_entries do |entry|
+          = render 'registration_entry_fields', f: entry
+        .links
+          = link_to_add_association f, :registration_entries, class: 'btn btn-primary mt-3' do
+            %i.fas.fa-plus
+            = t 'model.registration.add_person'
+        = f.submit class: 'btn btn-primary mt-3 float-end'
+- else
+  .alert.alert-danger.mt-3
+    = t 'model.registration.error.only_with_token'

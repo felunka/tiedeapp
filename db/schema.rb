@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_200436) do
+ActiveRecord::Schema.define(version: 2021_11_04_170806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 2021_11_02_200436) do
     t.date "event_start"
     t.date "event_end"
     t.date "deadline_signup"
+    t.decimal "fee_member", precision: 10, scale: 2, default: "0.0"
+    t.decimal "fee_student", precision: 10, scale: 2, default: "0.0"
+    t.decimal "fee_childen", precision: 10, scale: 2, default: "0.0"
+    t.decimal "fee_guest", precision: 10, scale: 2, default: "0.0"
+    t.decimal "fee_member_single_room", precision: 10, scale: 2, default: "0.0"
+    t.decimal "fee_guest_single_room", precision: 10, scale: 2, default: "0.0"
+    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
   end
 
   create_table "member_events", force: :cascade do |t|
@@ -30,8 +38,10 @@ ActiveRecord::Schema.define(version: 2021_11_02_200436) do
     t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "registration_id"
     t.index ["event_id"], name: "index_member_events_on_event_id"
     t.index ["member_id"], name: "index_member_events_on_member_id"
+    t.index ["registration_id"], name: "index_member_events_on_registration_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -52,7 +62,6 @@ ActiveRecord::Schema.define(version: 2021_11_02_200436) do
     t.string "name", null: false
     t.integer "user_type", default: 0, null: false
     t.boolean "is_vegetarian"
-    t.boolean "with_accomondation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["registration_id"], name: "index_registration_entries_on_registration_id"
@@ -80,6 +89,7 @@ ActiveRecord::Schema.define(version: 2021_11_02_200436) do
 
   add_foreign_key "member_events", "events"
   add_foreign_key "member_events", "members"
+  add_foreign_key "member_events", "registrations"
   add_foreign_key "registration_entries", "registrations"
   add_foreign_key "registrations", "events"
   add_foreign_key "users", "members"

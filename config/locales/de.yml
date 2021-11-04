@@ -1,0 +1,49 @@
+de:
+  number:
+    currency:
+      format:
+        delimiter: "."
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "€"
+  helpers:
+    submit:
+      confirm: 'Sind Sie sicher?'
+      cancel: 'Abbrechen'
+      delete: 'Löschen'
+      create: 'Erstellen'
+      update: 'Speichern'
+      registration:
+        create: 'Verbindlich anmelden'
+  model:
+    event: 
+      _name: 'Familientag'
+      base_price: 'Grundpreis im Doppelzimmer'
+      single_room_fee: 'Einzelzimmerzuschlag'
+      member_fee: 'Mitgliederbeitrag'
+      member_fee_normal: 'Normal'
+      member_fee_reduced: 'Studenten und Auszubildende'
+    registration:
+      _name: 'Anmeldung'
+      add_person: 'Person hinzufügen'
+      error:
+        only_with_token: 'Eine Anmeldung ist nur möglich, wenn Sie eingeloggt sind oder einen Token haben.'
+    member:
+      _name: 'Mitglied'
+  messages:
+    model:
+      created: 'Erfolgreich angelegt'
+      updated: 'Erfolgreich aktualisiert'
+      deleted: 'Eintrag wurde gelöscht'
+  landing:
+    continue_without_account: 'Ohne Account fortfahren'
+    create_account_or_login: 'Account erstellen oder anmelden'
+    no_password: 'Kein Passwort notwendig'
+    registration_can_not_be_changed: 'Anmeldung kann nicht geändert werden'
+    data_needs_to_be_entered: 'Daten müssen neu eingetragen werden'
+    needs_password: 'Passwort notwendig (kann beim ersten Mal erstellt werden)'
+    registration_can_be_changed: 'Anmeldung kann geändert werden'
+    data_can_be_from_last_time: 'Daten können von letzter Anmeldung übernommen werden'

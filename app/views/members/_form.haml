@@ -1,12 +1,12 @@
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
-    Mitglied
+    = t('model.member._name')
     .row
       - if @member.id.present?
         .col.p-0
-          = button_to 'Löschen', member_path(@member), class: 'btn btn-danger', method: :delete
+          = button_to t('helpers.submit.delete'), member_path(@member), class: 'btn btn-danger', method: :delete
       .col
-        = button_to 'Abbrechen', members_path, class: 'btn btn-secondary', method: :get
+        = button_to t('helpers.submit.cancel'), members_path, class: 'btn btn-secondary', method: :get
 
   .card-body
     = simple_form_for @member do |f|
@@ -24,4 +24,4 @@
       = f.input :country
       = f.input :email
       = f.input :phone
-      = f.submit 'Speichern', class: 'btn btn-primary mt-2'
+      = f.submit class: 'btn btn-primary mt-2'

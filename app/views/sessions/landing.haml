@@ -4,29 +4,29 @@
       .col.border-end
         .d-flex.justify-content-center
           - if @token.present?
-            = button_to 'Ohne Account fortfahren', new_registration_path, class: 'btn btn-primary', method: :get, params: { token: @token }
+            = button_to t('landing.continue_without_account'), new_registration_path, class: 'btn btn-primary', method: :get, params: { token: @token }
           - else
-            = button_to 'Ohne Account fortfahren', nil, class: 'btn btn-primary', disabled: true
+            = button_to t('landing.continue_without_account'), nil, class: 'btn btn-primary', disabled: true
         %ul.list-group.list-group-flush
           %li.list-group-item
             %i.fas.fa-check
-            Kein Passwort notwendig
+            = t 'landing.no_password'
           %li.list-group-item
             %i.fas.fa-times
-            Anmeldung kann nicht geändert werden
+            = t 'landing.registration_can_not_be_changed'
           %li.list-group-item
             %i.fas.fa-times
-            Daten müssen neu eingetragen werden
+            = t 'landing.data_needs_to_be_entered'
       .col
         .d-flex.justify-content-center
-          = button_to 'Account erstellen oder anmelden', new_session_path, class: 'btn btn-primary', method: :get, params: { token: @token }
+          = button_to t('landing.create_account_or_login'), new_session_path, class: 'btn btn-primary', method: :get, params: { token: @token }
         %ul.list-group.list-group-flush
           %li.list-group-item
             %i.fas.fa-times
-            Passwort notwendig (kann beim ersten Mal erstellt werden)
+            = t 'landing.needs_password'
           %li.list-group-item
             %i.fas.fa-check
-            Anmeldung kann geändert werden
+            = t 'landing.registration_can_be_changed'
           %li.list-group-item
             %i.fas.fa-check
-            Daten können von letzter Anmeldung übernommen werden
+            = t 'landing.data_can_be_from_last_time'

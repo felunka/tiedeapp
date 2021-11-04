@@ -8,9 +8,9 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new params.require(:event).permit(:name, :location, :description, :event_start, :event_end, :deadline_signup)
+    @event = Event.new permit(params)
     if @event.save
-      flash[:success] = 'Familientag angelegt'
+      flash[:success] = t('messages.model.created')
       redirect_to action: 'index'
     else
       render :new
@@ -23,8 +23,8 @@ class EventsController < ApplicationController
 
   def update
     @event = Event.find_by params.permit(:id)
-    if @event.update params.require(:event).permit(:name, :location, :description, :event_start, :event_end, :deadline_signup)
-      flash[:success] = 'Familientag aktualisiert'
+    if @event.update permit(params)
+      flash[:success] = t('messages.model.updated')
       redirect_to action: 'index'
     else
       render :edit
@@ -33,7 +33,26 @@ class EventsController < ApplicationController
 
   def destroy
     Event.find_by(params.permit(:id)).destroy
-    flash[:danger] = 'Familientag gelöscht'
+    flash[:danger] = t('messages.model.deleted')
     redirect_to action: 'index'
+  end
+
+  private
+
+  def permit(params)
+    params.require(:event).permit(
+      :name,
+      :location,
+      :description,
+      :event_start,
+      :event_end,
+      :deadline_signup,
+      :fee_member,
+      :fee_student,
+      :fee_childen,
+      :fee_guest,
+      :fee_member_single_room,
+      :fee_guest_single_room
+    )
   end
 end

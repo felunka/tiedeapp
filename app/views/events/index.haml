@@ -1,20 +1,20 @@
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
-    Familientage
-    = button_to 'Familientag erstellen', new_event_path, class: 'btn btn-primary', method: :get
+    = t('model.event._name')
+    = button_to t('helpers.submit.create'), new_event_path, class: 'btn btn-primary', method: :get
   .table-responsive
     %table.table
       %tr
         %th
-          Name
+          = t 'simple_form.labels.event.name'
         %th
-          Ort
+          = t 'simple_form.labels.event.location'
         %th
-          Start
+          = t 'simple_form.labels.event.event_start'
         %th
-          Ende
+          = t 'simple_form.labels.event.event_end'
         %th
-          Anmeldeschluss
+          = t 'simple_form.labels.event.deadline_signup'
         %th
       - @events.each do |event|
         %tr
@@ -32,5 +32,5 @@
             .d-flex
               = button_to edit_event_path(event), class: 'btn btn-primary', method: :get do
                 %i.fas.fa-pen
-              = button_to event_path(event), class: 'btn btn-danger', method: :delete, data: { confirm: "Sind Sie sicher?" } do
+              = button_to event_path(event), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
                 %i.fa.fa-trash-alt

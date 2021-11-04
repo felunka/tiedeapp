@@ -20,6 +20,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'haml', '~> 5.1'
 gem 'simple_form'
+gem 'country_select'
 gem 'cocoon'
 
 # Reduces boot times through caching; required in config/boot.rb

@@ -1,26 +1,26 @@
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
-    Mitglieder
-    = button_to 'Mitglied erstellen', new_member_path, class: 'btn btn-primary', method: :get
+    = t('model.member._name')
+    = button_to t('helpers.submit.create'), new_member_path, class: 'btn btn-primary', method: :get
   .table-responsive
     %table.table
       %tr
         %th
-          Vorname
+          = t 'simple_form.labels.member.first_name'
         %th
-          Nachname
+          = t 'simple_form.labels.member.last_name'
         %th
-          E-Mail
+          = t 'simple_form.labels.member.email'
         %th
-          Telefonnummer
+          = t 'simple_form.labels.member.phone'
         %th
-          Straße
+          = t 'simple_form.labels.member.street'
         %th
-          PLZ
+          = t 'simple_form.labels.member.zip'
         %th
-          Stadt
+          = t 'simple_form.labels.member.city'
         %th
-          Land
+          = t 'simple_form.labels.member.country'
         %th
       - @members.each do |member|
         %tr
@@ -39,10 +39,10 @@
           %td
             = member.city
           %td
-            = member.county
+            = member.country
           %td
             .d-flex
               = button_to edit_member_path(member), class: 'btn btn-primary', method: :get do
                 %i.fas.fa-pen
-              = button_to member_path(member), class: 'btn btn-danger', method: :delete, data: { confirm: "Sind Sie sicher?" } do
+              = button_to member_path(member), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
                 %i.fa.fa-trash-alt

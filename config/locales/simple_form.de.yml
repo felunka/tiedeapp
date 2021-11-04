@@ -1,0 +1,46 @@
+de:
+  simple_form:
+    "yes": 'Ja'
+    "no": 'Nein'
+    required:
+      text: 'Pflichtfeld'
+      mark: '*'
+    error_notification:
+      default_message: 'Bitte beachten Sie folgenden Fehler:'
+    options:
+      defaults:
+        user_type:
+          member: 'Mitglied'
+          student: 'Student und Auszubildender'
+          child: 'Kind'
+          guest: 'Gast'
+    labels:
+      event:
+        location: 'Ort'
+        description: 'Beschreibung'
+        event_start: 'Start Datum'
+        event_end: 'End Datum'
+        deadline_signup: 'Anmeldeschluss'
+        fee_member: 'Preis Mitglieder'
+        fee_student: 'Preis Studenten und Auszubildende'
+        fee_childen: 'Preis Kinder (unter 18 Jahre)'
+        fee_guest: 'Preis Gäste'
+        fee_member_single_room: 'Einzelzimmerzuschlag Mitglieder'
+        fee_guest_single_room: 'Einzelzimmerzuschlag Gäste'
+      registration:
+        single_rooms: 'Anzahl Einzelzimmer'
+        double_rooms: 'Anzahl Doppelzimmer'
+        with_dog: 'Mit Hund'
+        registration_entries:
+          name: 'Name'
+          user_type: 'Art'
+          is_vegetarian: 'Vegetarisch?'
+      member:
+        first_name: 'Vorname'
+        last_name: 'Nachname'
+        street: 'Straße'
+        zip: 'PLZ'
+        city: 'Stadt'
+        country: 'Land'
+        email: 'E-Mail'
+        phone: 'Telefonnummer'

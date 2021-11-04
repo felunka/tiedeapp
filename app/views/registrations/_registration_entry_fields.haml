@@ -2,6 +2,5 @@
   = link_to_remove_association f, class: 'float-end text-danger' do
     %i.fa.fa-trash-alt
   = f.input :name
-  = f.input :user_type, collection: RegistrationEntry.user_types, include_blank: false, include_hidden: false, label: 'Art', input_html: {class: 'js-states'}
+  = f.input :user_type, collection: RegistrationEntry.user_types.symbolize_keys.keys, include_blank: false, include_hidden: false, input_html: {class: 'js-states'}
   = f.input :is_vegetarian, as: :boolean
-  = f.input :with_accomondation, as: :boolean
