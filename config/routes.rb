@@ -3,9 +3,15 @@ Rails.application.routes.draw do
 
   root 'sessions#landing'
 
-  resources :registrations
   resources :events
   resources :members
+  resources :member_events, only: [:index]
+  resources :users, only: [:new, :create]
+  resources :registrations, only: [:new, :create] do
+    member do
+      get :success
+    end
+  end
   resource :session, only: [:new, :create, :destroy] do
     get :landing
   end

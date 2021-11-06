@@ -16,6 +16,16 @@
       = f.input :event_start, as: :date, html5: true
       = f.input :event_end, as: :date, html5: true
       = f.input :deadline_signup, as: :date, html5: true
+
+      = f.input :base_fee_member do
+        .input-group
+          %span.input-group-text=t 'number.currency.format.unit'
+          = f.input_field :base_fee_member, class: 'form-control'
+      = f.input :base_fee_guest do
+        .input-group
+          %span.input-group-text=t 'number.currency.format.unit'
+          = f.input_field :base_fee_guest, class: 'form-control'
+
       = f.input :fee_member do
         .input-group
           %span.input-group-text=t 'number.currency.format.unit'

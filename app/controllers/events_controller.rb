@@ -52,7 +52,9 @@ class EventsController < ApplicationController
       :fee_childen,
       :fee_guest,
       :fee_member_single_room,
-      :fee_guest_single_room
+      :fee_guest_single_room,
+      :base_fee_member,
+      :base_fee_guest
     )
   end
 end

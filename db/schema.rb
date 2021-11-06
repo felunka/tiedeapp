@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_04_170806) do
+ActiveRecord::Schema.define(version: 2021_11_05_125104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 2021_11_04_170806) do
     t.decimal "fee_guest_single_room", precision: 10, scale: 2, default: "0.0"
     t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.decimal "base_fee_member", precision: 10, scale: 2, default: "0.0"
+    t.decimal "base_fee_guest", precision: 10, scale: 2, default: "0.0"
   end
 
   create_table "member_events", force: :cascade do |t|
@@ -64,19 +66,14 @@ ActiveRecord::Schema.define(version: 2021_11_04_170806) do
     t.boolean "is_vegetarian"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "accommodation", default: 0, null: false
+    t.boolean "with_dog"
     t.index ["registration_id"], name: "index_registration_entries_on_registration_id"
   end
 
   create_table "registrations", force: :cascade do |t|
-    t.string "email"
-    t.string "token"
-    t.integer "single_rooms", default: 0, null: false
-    t.integer "double_rooms", default: 0, null: false
-    t.boolean "with_dog", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "event_id", null: false
-    t.index ["event_id"], name: "index_registrations_on_event_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -91,6 +88,5 @@ ActiveRecord::Schema.define(version: 2021_11_04_170806) do
   add_foreign_key "member_events", "members"
   add_foreign_key "member_events", "registrations"
   add_foreign_key "registration_entries", "registrations"
-  add_foreign_key "registrations", "events"
   add_foreign_key "users", "members"
 end

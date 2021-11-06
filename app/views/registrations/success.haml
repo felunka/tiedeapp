@@ -1,0 +1,5 @@
+.card.bg-success.text-white.mt-3
+  .card-body
+    .h5
+      = t 'model.registration.success'
+    = t 'model.registration.transfer_amount', total_price: number_to_currency(@registration.total_price), membership_fee: number_to_currency(@registration.membership_fee)

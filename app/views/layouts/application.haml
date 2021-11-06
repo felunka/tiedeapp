@@ -13,6 +13,7 @@
     %nav.navbar.navbar-expand-lg.navbar-light.bg-light
       .container-fluid
         %a.navbar-brand
+          = image_tag(image_path('logo.png'), width: 30, height: 30, class: 'd-inline-block align-top')
           Tiedeapp
         %button.navbar-toggler{ data: {bs: {toggle: 'collapse', target: '#navbarToggler'}}, aria: {controls: 'navbarToggler', expanded: false, label: 'Toggle navigation'}, type: 'button'}
           %span.navbar-toggler-icon

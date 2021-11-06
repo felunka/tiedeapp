@@ -9,5 +9,5 @@
       = f.submit 'Login', class: 'btn btn-primary mt-2'
   - if @token.present?
     .card-footer
-      Noch keinen Account?
-      = link_to 'Jetzt erstellen', '#'
+      = t 'login.no_account'
+      = link_to t('login.create_account'), new_user_path(token: @token)

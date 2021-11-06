@@ -1,0 +1,25 @@
+.card.mt-3
+  .card-header
+    = t 'model.member._name'
+  .card-body
+    .row
+      .col-sm
+        .fw-bold=@member.first_name
+        = t 'simple_form.labels.member.first_name'
+      .col-sm
+        .fw-bold=@member.last_name
+        = t 'simple_form.labels.member.last_name'
+      .col-sm
+        .fw-bold=@member.email
+        = t 'simple_form.labels.member.email'
+
+.card.mt-3
+  .card-header
+    = t 'model.user._name'
+  .card-body
+    = simple_form_for User.new do |f|
+      = f.input :member_id, as: :hidden, input_html: { value: @member.id }
+      = f.input :token, as: :hidden, input_html: { value: @token }
+      = f.input :password, required: true
+      = f.input :password_confirmation, required: true
+      = f.submit  class: 'btn btn-primary mt-3'

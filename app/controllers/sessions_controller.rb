@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def landing
+    redirect_to member_events_path if current_user
     @token = params[:token]
   end
 
@@ -13,7 +14,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params.require(:user)[:password])
       session[:user_id] = user.id
       flash[:success] = 'Login erfolgreich'
-      redirect_to root_path
+      redirect_to member_events_path
     else
       flash[:danger] = 'Login fehlgeschlagen'
       redirect_to action: 'new'

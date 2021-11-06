@@ -14,6 +14,10 @@ de:
           student: 'Student und Auszubildender'
           child: 'Kind'
           guest: 'Gast'
+        accommodation:
+          double_room: 'Im Doppenzimmer'
+          single_room: 'Im Einzelzimmer'
+          no_accommodation: 'Kein Hotelzimmer'
     labels:
       event:
         location: 'Ort'
@@ -21,18 +25,20 @@ de:
         event_start: 'Start Datum'
         event_end: 'End Datum'
         deadline_signup: 'Anmeldeschluss'
-        fee_member: 'Preis Mitglieder'
-        fee_student: 'Preis Studenten und Auszubildende'
-        fee_childen: 'Preis Kinder (unter 18 Jahre)'
-        fee_guest: 'Preis Gäste'
+        base_fee_member: 'Basispreis (ohne Hotel) für Mitglieder'
+        base_fee_guest: 'Basispreis (ohne Hotel) für Gäste'
+        fee_member: 'Basispreis (im DZ) für Mitglieder'
+        fee_student: 'Basispreis (im DZ) für Studenten und Auszubildende'
+        fee_childen: 'Basispreis (im DZ) für Kinder (unter 18 Jahre)'
+        fee_guest: 'Basispreis (im DZ) für Gäste'
         fee_member_single_room: 'Einzelzimmerzuschlag Mitglieder'
         fee_guest_single_room: 'Einzelzimmerzuschlag Gäste'
       registration:
         single_rooms: 'Anzahl Einzelzimmer'
         double_rooms: 'Anzahl Doppelzimmer'
-        with_dog: 'Mit Hund'
         registration_entries:
           name: 'Name'
+          with_dog: 'Mit Hund'
           user_type: 'Art'
           is_vegetarian: 'Vegetarisch?'
       member:
