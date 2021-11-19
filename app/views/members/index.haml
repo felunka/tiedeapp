@@ -1,7 +1,8 @@
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
     = t('model.member._name')
-    = button_to t('helpers.submit.create'), new_member_path, class: 'btn btn-primary', method: :get
+    - if current_user.admin?
+      = button_to t('helpers.submit.create'), new_member_path, class: 'btn btn-primary', method: :get
   .table-responsive
     %table.table
       %tr
@@ -42,7 +43,8 @@
             = member.country
           %td
             .d-flex.model-buttons
-              = button_to edit_member_path(member), class: 'btn btn-primary', method: :get do
-                %i.fas.fa-pen
-              = button_to member_path(member), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
-                %i.fa.fa-trash-alt
+              - if current_user.admin?
+                = button_to edit_member_path(member), class: 'btn btn-primary', method: :get do
+                  %i.fas.fa-pen
+                = button_to member_path(member), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
+                  %i.fa.fa-trash-alt

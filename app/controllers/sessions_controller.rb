@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login, only: [:landing, :new, :create]
+
   def landing
     redirect_to member_events_path if current_user
     @token = params[:token]
