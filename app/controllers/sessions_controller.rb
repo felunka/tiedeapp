@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = Member.find_by(params.require(:user).permit(:email)).user
+    user = Member.find_by(params.require(:user).permit(:email))&.user
 
     if user && user.authenticate(params.require(:user)[:password])
       session[:user_id] = user.id
