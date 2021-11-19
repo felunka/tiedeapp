@@ -248,6 +248,12 @@ de:
       add_person: 'Person hinzufügen'
       success: 'Die Anmeldung war erfolgreich!'
       transfer_amount: 'Bitte Überweisen Sie %{total_price} und den Mitgliederbeitrag von %{membership_fee} an folgende Bankverbindung:'
+      bank_information:
+        account_name: 'Name'
+        bank_name: 'Name der Bank'
+        iban: 'IBAN'
+        swift: 'SWIFT/BIC'
+        total_amount: 'Betrag total'
       error:
         only_with_token: 'Eine Anmeldung ist nur möglich, wenn Sie eingeloggt sind oder einen Token haben.'
         number_double_rooms_odd: 'Die Anzahl an Personen in einem Doppelzimmer muss eine gerade Zahl sein.'
