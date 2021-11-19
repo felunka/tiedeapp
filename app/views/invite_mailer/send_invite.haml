@@ -1,0 +1,70 @@
+%h2
+  = t('mails.invite.salutation', name: @member.full_name)
+%p
+  = t 'mails.invite.welcome_text'
+%p
+  = @event.description
+.devider
+%p
+  .row
+    .col
+      = t 'simple_form.labels.event.location'
+      .fw-bold=@event.location
+    .col
+      = t 'simple_form.labels.event.event_start'
+      .fw-bold=I18n.l @event.event_start
+    .col
+      = t 'simple_form.labels.event.event_end'
+      .fw-bold=I18n.l @event.event_end
+    .col
+      = t 'simple_form.labels.event.deadline_signup'
+      .fw-bold=I18n.l @event.deadline_signup
+.devider
+%p
+  %h4= t 'model.event.base_price'
+  .row
+    .col
+      .fw-bold=number_to_currency(@event.fee_member)
+      = t 'simple_form.labels.event.fee_member'
+    .col
+      .fw-bold=number_to_currency(@event.fee_student)
+      = t 'simple_form.labels.event.fee_student'
+    .col
+      .fw-bold=number_to_currency(@event.fee_childen)
+      = t 'simple_form.labels.event.fee_childen'
+    .col
+      .fw-bold=number_to_currency(@event.fee_guest)
+      = t 'simple_form.labels.event.fee_guest'
+.devider
+%p
+  %h4= t 'model.event.single_room_fee'
+  .row
+    .col
+      .fw-bold=number_to_currency(@event.fee_member_single_room)
+      = t 'simple_form.labels.event.fee_member_single_room'
+    .col
+      .fw-bold=number_to_currency(@event.fee_guest_single_room)
+      = t 'simple_form.labels.event.fee_guest_single_room'
+.devider
+%p
+  %h4= t 'model.event.member_fee'
+  .row
+    .col
+      = t 'model.event.member_fee_normal'
+      .fw-bold=number_to_currency(Rails.configuration.x.membership_fee.normal)
+    .col
+      = t 'model.event.member_fee_reduced'
+      .fw-bold=number_to_currency(Rails.configuration.x.membership_fee.reduced)
+.devider
+%p
+  %h4= t 'model.registration._name'
+  = t 'mails.invite.registration_option'
+  .row.mt-3
+    .col
+      .justify-content-center
+        = t 'mails.invite.registration_option_digital'
+      .justify-content-center
+        = button_to t('mails.invite.registration_button'), root_url, class: 'btn btn-primary', method: :get, params: { token: @token }
+    .col
+      .justify-content-center
+        = t 'mails.invite.registration_option_paper'

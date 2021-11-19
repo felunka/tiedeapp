@@ -283,3 +283,12 @@ de:
     no_account: 'Noch keinen Account?'
     no_token: 'Ein Account kann nur mit dem Link aus der Einladung erstellt werden.'
     create_account: 'Jetzt erstellen'
+  mails:
+    invite:
+      subject: 'Einladung: %{event_title}'
+      salutation: 'Guten Tag %{name}'
+      welcome_text: 'Der Familienrat lädt alle Mitglieder des von Tiedemannschen Familienverbandes zum Familientag ein:'
+      registration_option: 'Sie haben zwei option sich anzumelden:'
+      registration_option_digital: 'Option 1: Sie melden sich Sofort digial an.'
+      registration_button: 'Hier klicken zum Anmelden'
+      registration_option_paper: 'Option 2: Drucken Sie das PDF im Anhang und folgen Sie den Anweisungen.'
