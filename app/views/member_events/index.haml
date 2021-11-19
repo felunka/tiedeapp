@@ -27,7 +27,14 @@
             = I18n.l event.event_end
           %td
             = I18n.l event.deadline_signup
+            - if event.before_deadline_signup?
+              = " (#{distance_of_time_in_words Date.today, event.deadline_signup})"
           %td
-            .d-flex
-              = button_to new_registration_path, class: 'btn btn-primary', method: :get, params: { event_id: event.id } do
-                %i.fas.fa-pen
+            .d-flex.model-buttons
+              - if event.before_deadline_signup?
+                - if event.registration_id
+                  = button_to edit_registration_path(event.registration_id), class: 'btn btn-primary', method: :get do
+                    %i.fas.fa-pen
+                - else
+                  = button_to new_registration_path, class: 'btn btn-primary', method: :get, params: { event_id: event.id } do
+                    %i.fas.fa-plus

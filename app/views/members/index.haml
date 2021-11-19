@@ -41,7 +41,7 @@
           %td
             = member.country
           %td
-            .d-flex
+            .d-flex.model-buttons
               = button_to edit_member_path(member), class: 'btn btn-primary', method: :get do
                 %i.fas.fa-pen
               = button_to member_path(member), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do

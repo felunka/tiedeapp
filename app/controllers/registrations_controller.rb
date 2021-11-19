@@ -41,6 +41,20 @@ class RegistrationsController < ApplicationController
     end
   end
 
+  def edit
+    @registration = Registration.find params[:id]
+  end
+
+  def update
+    @registration = Registration.find params.permit(:id)
+
+    if @registration.update permit(params)
+      redirect_to success_registration_path(@registration)
+    else
+      render :edit
+    end
+  end
+
   def success
     @registration = Registration.find params[:id]
   end

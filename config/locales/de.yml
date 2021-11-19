@@ -1,4 +1,6 @@
 de:
+  :true: 'Ja'
+  :false: 'Nein'
   activerecord:
     errors:
       messages:
@@ -226,6 +228,8 @@ de:
       delete: 'Löschen'
       create: 'Erstellen'
       update: 'Speichern'
+      event:
+        back: 'Zurück zur Übersicht'
       registration:
         create: 'Verbindlich anmelden'
   model:
@@ -236,6 +240,9 @@ de:
       member_fee: 'Mitgliederbeitrag'
       member_fee_normal: 'Normal'
       member_fee_reduced: 'Studenten und Auszubildende'
+      error:
+        event_start_must_be_after_deadline: 'Das Startdatum muss nach dem Anmeldeschluss sein.'
+        event_end_must_be_after_start: 'Das Enddatum muss nach dem Startdatum sein.'
     registration:
       _name: 'Anmeldung'
       add_person: 'Person hinzufügen'
@@ -244,6 +251,7 @@ de:
       error:
         only_with_token: 'Eine Anmeldung ist nur möglich, wenn Sie eingeloggt sind oder einen Token haben.'
         number_double_rooms_odd: 'Die Anzahl an Personen in einem Doppelzimmer muss eine gerade Zahl sein.'
+        after_event_deadline: 'Es sind keine Anmeldungen oder Änderungen mehr möglich.'
     member:
       _name: 'Mitglied'
     user:

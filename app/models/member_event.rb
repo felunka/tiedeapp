@@ -1,7 +1,7 @@
 class MemberEvent < ApplicationRecord
   belongs_to :member
   belongs_to :event
-  belongs_to :registration, optional: true
+  belongs_to :registration, optional: true, dependent: :destroy
 
   before_create :set_token
 

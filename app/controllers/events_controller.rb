@@ -3,6 +3,11 @@ class EventsController < ApplicationController
     @events = Event.all
   end
 
+  def show
+    @event = Event.find params[:id]
+    @entries = RegistrationEntry.joins(registration: :event).where(events: { id: @event.id })
+  end
+
   def new
     @event = Event.new
   end

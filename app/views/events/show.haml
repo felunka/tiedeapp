@@ -1,0 +1,103 @@
+.card.mt-3
+  %h5.card-header.d-flex.justify-content-between.align-items-center
+    = @event.name
+    = button_to t('helpers.submit.event.back'), events_path, class: 'btn btn-primary', method: :get
+  .card-body
+    .row.mb-3
+      .col
+        = t 'simple_form.labels.event.location'
+        .fw-bold=@event.location
+      .col
+        = t 'simple_form.labels.event.event_start'
+        .fw-bold=I18n.l @event.event_start
+      .col
+        = t 'simple_form.labels.event.event_end'
+        .fw-bold=I18n.l @event.event_end
+      .col
+        = t 'simple_form.labels.event.deadline_signup'
+        .fw-bold=I18n.l @event.deadline_signup
+    = @event.description
+
+.card.mt-3
+  .card-header
+    = t 'model.event.base_price'
+  .card-body
+    .row
+      .col
+        .fw-bold=number_to_currency(@event.fee_member)
+        = t 'simple_form.labels.event.fee_member'
+      .col
+        .fw-bold=number_to_currency(@event.fee_student)
+        = t 'simple_form.labels.event.fee_student'
+      .col
+        .fw-bold=number_to_currency(@event.fee_childen)
+        = t 'simple_form.labels.event.fee_childen'
+      .col
+        .fw-bold=number_to_currency(@event.fee_guest)
+        = t 'simple_form.labels.event.fee_guest'
+.card.mt-3
+  .card-header
+    = t 'model.event.single_room_fee'
+  .card-body
+    .row
+      .col
+        .fw-bold=number_to_currency(@event.fee_member_single_room)
+        = t 'simple_form.labels.event.fee_member_single_room'
+      .col
+        .fw-bold=number_to_currency(@event.fee_guest_single_room)
+        = t 'simple_form.labels.event.fee_guest_single_room'
+
+.row.mt-3
+  .col
+    .card
+      .card-body
+        .h2
+          = @entries.where(accommodation: :single_room).count
+        = t 'simple_form.options.defaults.accommodation.single_room'
+  .col
+    .card
+      .card-body
+        .h2
+          = @entries.where(accommodation: :double_room).count
+        = t 'simple_form.options.defaults.accommodation.double_room'
+  .col
+    .card
+      .card-body
+        .h2
+          = @entries.where(with_dog: true).count
+        = t 'simple_form.labels.registration.registration_entries.with_dog'
+  .col
+    .card
+      .card-body
+        .h2
+          = @entries.where(is_vegetarian: true).count
+        = t 'simple_form.labels.registration.registration_entries.is_vegetarian'
+
+.card.mt-3
+  .card-header
+    = t 'model.registration._name'
+  .table-responsive
+    %table.table
+      %tr
+        %th
+          = t 'simple_form.labels.registration.registration_entries.name'
+        %th
+          = t 'simple_form.labels.registration.registration_entries.user_type'
+        %th
+          = t 'simple_form.labels.registration.registration_entries.accommodation'
+        %th
+          = t 'simple_form.labels.registration.registration_entries.is_vegetarian'
+        %th
+          = t 'simple_form.labels.registration.registration_entries.with_dog'
+      - @entries.each do |entry|
+        %tr
+          %td
+            = entry.name
+          %td
+            = t "simple_form.options.defaults.user_type.#{entry.user_type}"
+          %td
+            = t "simple_form.options.defaults.accommodation.#{entry.accommodation}"
+          %td
+            = t entry.is_vegetarian
+          %td
+            = t entry.with_dog

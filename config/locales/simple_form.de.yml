@@ -40,7 +40,7 @@ de:
           name: 'Name'
           with_dog: 'Mit Hund'
           user_type: 'Art'
-          is_vegetarian: 'Vegetarisch?'
+          is_vegetarian: 'Vegetarisch'
       member:
         first_name: 'Vorname'
         last_name: 'Nachname'
