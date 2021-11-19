@@ -11,7 +11,7 @@ de:
       defaults:
         user_type:
           member: 'Mitglied'
-          student: 'Student und Auszubildender'
+          student: 'Student oder Auszubildender'
           child: 'Kind'
           guest: 'Gast'
         accommodation:

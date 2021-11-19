@@ -46,7 +46,7 @@ class Registration < ApplicationRecord
   end
 
   def before_deadline
-    if event.after_deadline_signup?
+    if member_event.event.after_deadline_signup?
       errors.add(:base, I18n.t('model.registration.error.after_event_deadline'))
     end
   end

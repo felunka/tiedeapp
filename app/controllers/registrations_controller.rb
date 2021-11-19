@@ -1,4 +1,6 @@
 class RegistrationsController < ApplicationController
+  skip_before_action :require_login, only: [:new, :create, :success]
+
   def new
     if current_user
       @event = Event.find(params[:event_id])
@@ -18,19 +20,17 @@ class RegistrationsController < ApplicationController
 
   def create
     if current_user
-      @registration = Registration.create permit(params)
       member_event = MemberEvent.find_by(member: current_user.member, event_id: params[:registration][:event_id])
     else
-      if MemberEvent.find_by(token: params[:registration][:token], registration_id: nil)
-        @registration = Registration.create permit(params)
-        member_event = MemberEvent.find_by(token: params[:registration][:token])
-      else
+      unless member_event = MemberEvent.find_by(token: params[:registration][:token], registration_id: nil)
         flash[:danger] = t 'model.registration.error.only_with_token'
         redirect_to root_path
       end
     end
 
-    member_event.update(registration: @registration)
+    @registration = Registration.new permit(params)
+    @registration.member_event = member_event
+    @registration.save!
 
     if @registration.id
       redirect_to success_registration_path(@registration)
