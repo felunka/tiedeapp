@@ -262,6 +262,7 @@ de:
       _name: 'Mitglied'
     user:
       error:
+        only_with_token: 'Eine Anmeldung ist nur mit einem Einladungslink möglich.'
         token_invalid: 'Der Vewendete Token ist ungültig. Benutzer kann nicht erstellt werden'
   messages:
     model:
@@ -269,6 +270,7 @@ de:
       updated: 'Erfolgreich aktualisiert'
       deleted: 'Eintrag wurde gelöscht'
   landing:
+    registration_only_with_token: 'Ohne Account kann man sich nur mit einem Link aus der Einladung anmelden.'
     continue_without_account: 'Ohne Account fortfahren'
     create_account_or_login: 'Account erstellen oder anmelden'
     no_password: 'Kein Passwort notwendig'
@@ -279,4 +281,5 @@ de:
     data_can_be_from_last_time: 'Daten können von letzter Anmeldung übernommen werden'
   login:
     no_account: 'Noch keinen Account?'
+    no_token: 'Ein Account kann nur mit dem Link aus der Einladung erstellt werden.'
     create_account: 'Jetzt erstellen'

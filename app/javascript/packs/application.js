@@ -15,14 +15,12 @@ import "../stylesheets/application";
 
 import "@fortawesome/fontawesome-free/css/all"
 
-import 'select2'
-import 'select2/dist/css/select2.css'
-
 document.addEventListener("turbolinks:load", function() {
   $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-    $('[data-toggle="popover"]').popover()
-    $('.js-states').select2()
+    $('[data-bs-toggle="tooltip"]').tooltip({
+      container: 'body'
+    });
+    $('[data-toggle="popover"]').popover();
   })
   $(document).on('ajax:error', function(xhr, status, error) {
     let alert = document.createElement('div');

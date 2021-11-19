@@ -1,7 +1,18 @@
 class UsersController < ApplicationController
+  skip_before_action :require_login, only: [:new, :create]
+
   def new
     @token = params[:token]
+    unless @token.present?
+      flash[:danger] = t('model.user.error.only_with_token')
+      redirect_to root_path
+      return
+    end
     @member = Member.joins(:member_events).where(member_events: { token: @token }).first
+    unless @member.present?
+      flash[:danger] = t('model.user.error.token_invalid')
+      redirect_to root_path
+    end
   end
 
   def create
@@ -9,7 +20,7 @@ class UsersController < ApplicationController
     if Member.joins(:member_events).where(id: params[:user][:member_id], member_events: { token: params[:user].delete(:token) })
       # Check if user already exsist
       if User.find_by(member_id: params[:user][:member_id])
-        flash[:danger] = t('user.error.user_exists')
+        flash[:danger] = t('model.user.error.user_exists')
         redirect_to new_session_path
       else
         # Create user and log him in
@@ -19,8 +30,8 @@ class UsersController < ApplicationController
         redirect_to root_path
       end
     else
-      flash[:danger] = t('user.error.token_invalid')
-      redirect_to new_session_path
+      flash[:danger] = t('model.user.error.token_invalid')
+      redirect_to root_path
     end
   end
 end

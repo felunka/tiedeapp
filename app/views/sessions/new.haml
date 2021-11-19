@@ -7,7 +7,9 @@
       = f.input :email
       = f.input :password, as: :password
       = f.submit 'Login', class: 'btn btn-primary mt-2'
-  - if @token.present?
-    .card-footer
+  .card-footer
+    - if @token.present?
       = t 'login.no_account'
       = link_to t('login.create_account'), new_user_path(token: @token)
+    - else
+      = t 'login.no_token'

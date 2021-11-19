@@ -4,7 +4,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@nathanvda/cocoon": "^1.2.14",
-    "@popperjs/core": "2.0.0-alpha.1",
+    "@popperjs/core": "2.10.2",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -12,7 +12,6 @@
     "bootstrap": "^5.0.2",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
-    "select2": "^4.1.0-rc.0",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",

@@ -6,7 +6,8 @@
           - if @token.present?
             = button_to t('landing.continue_without_account'), new_registration_path, class: 'btn btn-primary', method: :get, params: { token: @token }
           - else
-            = button_to t('landing.continue_without_account'), nil, class: 'btn btn-primary', disabled: true
+            %span{data: { 'bs-toggle': :tooltip }, title: t('landing.registration_only_with_token')}
+              = button_to t('landing.continue_without_account'), nil, class: 'btn btn-primary', disabled: true
         %ul.list-group.list-group-flush
           %li.list-group-item
             %i.fas.fa-check
