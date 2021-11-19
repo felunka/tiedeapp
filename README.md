@@ -1,5 +1,7 @@
 # Tiedeapp
 
+[![CD](https://github.com/felunka/tiedeapp/actions/workflows/cd.yml/badge.svg)](https://github.com/felunka/tiedeapp/actions/workflows/cd.yml)
+
 This web application is written in ruby on rails 6 and is desinged to help with the signup process of the Familentag. Users can signup with a unique token or via thier user profile. Admin users can see registrations and create new events.
 
 ## Infrastructure
