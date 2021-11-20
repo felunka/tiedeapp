@@ -240,6 +240,9 @@ de:
       member_fee: 'Mitgliederbeitrag'
       member_fee_normal: 'Normal'
       member_fee_reduced: 'Studenten und Auszubildende'
+      send_invites: 'Einladung per Email senden'
+      send_invites_confirm: 'Es wird eine Einladung an alle Mitglieder per Email gesendet. Sind Sie sicher?'
+      invites_send: 'Einladungen wurden erfolgreich gesendet!'
       error:
         event_start_must_be_after_deadline: 'Das Startdatum muss nach dem Anmeldeschluss sein.'
         event_end_must_be_after_start: 'Das Enddatum muss nach dem Startdatum sein.'

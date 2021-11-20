@@ -42,6 +42,14 @@ class EventsController < ApplicationController
     redirect_to action: 'index'
   end
 
+  def send_invites
+    MemberEvent.where(event_id: params[:id]).each do |member_event|
+      InviteMailer.send_invite(member_event).deliver
+    end
+    flash[:success] = t('model.event.invites_send')
+    redirect_to event_path(params[:id])
+  end
+
   private
 
   def permit(params)
