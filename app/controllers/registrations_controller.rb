@@ -30,9 +30,8 @@ class RegistrationsController < ApplicationController
 
     @registration = Registration.new permit(params)
     @registration.member_event = member_event
-    @registration.save!
 
-    if @registration.id
+    if @registration.save
       redirect_to success_registration_path(@registration)
     else
       @event = member_event.event
