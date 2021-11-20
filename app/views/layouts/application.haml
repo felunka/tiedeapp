@@ -23,7 +23,7 @@
             = nav_item 'Familientage', events_path, admin: true
             = nav_item 'Mitglieder', members_path
 
-    .container{id: :flashbox }
+    .container-fluid{id: :flashbox }
       - flash.each do |key, value|
         .alert.alert-dismissible.mt-3{class: "alert-#{key}", role: 'alert'}
           = value
