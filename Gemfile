@@ -19,6 +19,7 @@ gem 'turbolinks', '~> 5'
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'haml', '~> 5.1'
+gem 'bootstrap-email'
 gem 'simple_form'
 gem 'country_select'
 gem 'cocoon'

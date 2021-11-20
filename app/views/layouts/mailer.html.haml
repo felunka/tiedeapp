@@ -1,93 +1,25 @@
-!!!
+!!! Strict
 %html
   %head
-    %link{href: "https://fonts.googleapis.com", rel: "preconnect"}
-    %link{crossorigin: true, href: "https://fonts.gstatic.com", rel: "preconnect"}
-    %link{href: "https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap", rel: "stylesheet"}
     %meta{content: "text/html; charset=utf-8", "http-equiv": "Content-Type"}
+    %meta{name: "x-apple-disable-message-reformatting"}/
+    %meta{content: "ie=edge", "http-equiv": "x-ua-compatible"}/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    %meta{content: "telephone=no, date=no, address=no, email=no", name: "format-detection"}/
     :css
-      body{
-        margin: 0;
-        font-family: 'Roboto', sans-serif;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-      }
-
-      .container{
-        padding-left: 1rem;
-        padding-right: 1rem;
-        margin-right: auto;
-        margin-left: auto;
-      }
-
       .logo img{
-        width: 8rem;
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-      }
-
-      .content{
-        margin-top: 8rem;
-      }
-
-      .row{
-        display: flex;
-        flex-wrap: wrap;
-      }
-
-      .col{
-        flex: 1 0;
-      }
-
-      .fw-bold{
-        font-weight:700 !important
+        max-height: 128px;
       }
 
       .devider{
         width: 100%;
         border: 1px solid gray;
-      }
-      
-      .mt-3 {
-        margin-top: 1rem !important;
-      }
-
-      .justify-content-center {
-        display: flex !important;
-        justify-content: center !important;
-      }
-
-      .btn {
-        display: inline-block;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #212529;
-        text-align: center;
-        text-decoration: none;
-        vertical-align: middle;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        background-color: transparent;
-        border: 1px solid transparent;
-        padding: 0.375rem 0.75rem;
-        font-size: 1rem;
-        border-radius: 0.25rem;
-        transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
-      }
-
-      .btn-primary {
-        color: #fff;
-        background-color: #0d6efd;
-        border-color: #0d6efd;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
       }
   %body
-    .container
-      .logo
+    .container.ax-center
+      .logo.text-right
         = email_image_tag('logo.png')
       .content
         = yield

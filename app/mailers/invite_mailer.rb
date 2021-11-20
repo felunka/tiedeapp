@@ -6,6 +6,6 @@ class InviteMailer < ApplicationMailer
     @event = member_event.event
     @token = member_event.token
 
-    mail to: @member.email, subject: t('mails.invite.subject', event_title: @event.name)
+    bootstrap_mail to: @member.email, subject: t('mails.invite.subject', event_title: @event.name)
   end
 end
