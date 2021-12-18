@@ -82,24 +82,43 @@
     %table.table
       %tr
         %th
-          = t 'simple_form.labels.registration.registration_entries.name'
+          = t 'model.registration.registred_from'
         %th
-          = t 'simple_form.labels.registration.registration_entries.user_type'
+          = t 'model.registration.registred_with'
         %th
           = t 'simple_form.labels.registration.registration_entries.accommodation'
         %th
           = t 'simple_form.labels.registration.registration_entries.is_vegetarian'
         %th
           = t 'simple_form.labels.registration.registration_entries.with_dog'
-      - @entries.each do |entry|
+        %th
+          = t 'model.registration_entry.registration_state'
+        %th
+          = t 'model.registration.grand_total'
+        %th
+          = t 'model.registration_entry.paid_amount'
+        %th
+      - @event.registrations.each do |registration|
+        - single_rooms = registration.registration_entries.where(accommodation: :single_room).count
+        - double_rooms = registration.registration_entries.where(accommodation: :double_room).count / 2
         %tr
           %td
-            = entry.name
+            = registration.member.full_name
           %td
-            = t "simple_form.options.defaults.user_type.#{entry.user_type}"
+            = registration.registration_entries.pluck(:name).join(', ')
           %td
-            = t "simple_form.options.defaults.accommodation.#{entry.accommodation}"
+            = "#{single_rooms}x #{t 'model.registration_entry.single_room_short'}, #{double_rooms}x #{t 'model.registration_entry.double_room_short'}"
           %td
-            = t entry.is_vegetarian
+            = "#{registration.registration_entries.where(is_vegetarian: true).count}x"
           %td
-            = t entry.with_dog
+            = "#{registration.registration_entries.where(with_dog: true).count}x"
+          %td
+            = registration.registration_state
+          %td
+            = number_to_currency(registration.total_price + registration.membership_fee)
+          %td
+            = number_to_currency(registration.paid_amount)
+          %td
+            = button_to admin_edit_registration_path(registration), class: 'btn btn-primary', method: :get do
+              %i.fas.fa-money-bill
+          

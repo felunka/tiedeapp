@@ -18,6 +18,11 @@ de:
           double_room: 'Im Doppenzimmer'
           single_room: 'Im Einzelzimmer'
           no_accommodation: 'Kein Hotelzimmer'
+        registration_state:
+          created: 'Erstellt'
+          final: 'Final'
+          partialy_paid: 'Zahlung teilweise erhalten'
+          paid: 'Zahlung vollständig'
     labels:
       event:
         location: 'Ort'
@@ -40,6 +45,8 @@ de:
           name: 'Name'
           with_dog: 'Mit Hund'
           user_type: 'Art'
+          accommodation: 'Unterkunft'
+          registration_state: 'Anmeldestatus'
           is_vegetarian: 'Vegetarisch'
       member:
         first_name: 'Vorname'

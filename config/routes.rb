@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :registrations do
     member do
       get :success
+      get :admin_edit
     end
   end
   resource :session, only: [:new, :create, :destroy] do

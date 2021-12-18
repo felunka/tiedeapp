@@ -1,5 +1,6 @@
 class RegistrationsController < ApplicationController
   skip_before_action :require_login, only: [:new, :create, :success]
+  before_action :require_admin, only: [:admin_edit]
 
   def new
     if current_user
@@ -38,6 +39,10 @@ class RegistrationsController < ApplicationController
       @token = member_event.token
       render :new
     end
+  end
+
+  def admin_edit
+    @registration = Registration.find params[:id]
   end
 
   def edit

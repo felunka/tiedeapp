@@ -1,9 +1,17 @@
 class Registration < ApplicationRecord
   has_one :member_event, dependent: :nullify
   has_one :event, through: :member_event
+  has_one :member, through: :member_event
 
   has_many :registration_entries, dependent: :destroy
   accepts_nested_attributes_for :registration_entries, reject_if: :all_blank, allow_destroy: true
+
+  enum registration_state: {
+    created: 0,
+    final: 1,
+    partialy_paid: 2,
+    paid: 3
+  }
 
   validates :registration_entries, presence: true
   validate :all_double_rooms_full
@@ -12,22 +20,7 @@ class Registration < ApplicationRecord
   def total_price
     price = 0.0
     registration_entries.each do |entry|
-      if entry.double_room?
-        price += event.send("fee_#{entry.user_type}")
-      elsif entry.single_room?
-        price += event.send("fee_#{entry.user_type}")
-        if entry.guest?
-          price += event.fee_guest_single_room
-        else
-          price += event.fee_member_single_room
-        end
-      else
-        if entry.guest?
-          price += event.base_fee_guest
-        else
-          price += event.base_fee_member
-        end
-      end
+      price += entry.price
     end
     return price
   end

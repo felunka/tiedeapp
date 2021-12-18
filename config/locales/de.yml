@@ -251,6 +251,13 @@ de:
       add_person: 'Person hinzufügen'
       success: 'Die Anmeldung war erfolgreich!'
       transfer_amount: 'Bitte Überweisen Sie %{total_price} und den Mitgliederbeitrag von %{membership_fee} an folgende Bankverbindung:'
+      registred_from: 'Anmeldung von'
+      registred_with: 'Personen'
+      signup_date: 'Anmeldedatum'
+      last_edited: 'Zuletzt bearbeitet'
+      total_price: 'Gesamtpreis (nur Familientag)'
+      membership_fee: 'Mitgliedsbeiträge'
+      grand_total: 'Summe total'
       bank_information:
         account_name: 'Name'
         bank_name: 'Name der Bank'
@@ -261,6 +268,11 @@ de:
         only_with_token: 'Eine Anmeldung ist nur möglich, wenn Sie eingeloggt sind oder einen Token haben.'
         number_double_rooms_odd: 'Die Anzahl an Personen in einem Doppelzimmer muss eine gerade Zahl sein.'
         after_event_deadline: 'Es sind keine Anmeldungen oder Änderungen mehr möglich.'
+    registration_entry:
+      registration_state: 'Anmeldestatus'
+      paid_amount: 'Bisher bezahlt'
+      single_room_short: 'EZ'
+      double_room_short: 'DZ'
     member:
       _name: 'Mitglied'
     user:

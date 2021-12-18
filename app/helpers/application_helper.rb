@@ -6,4 +6,12 @@ module ApplicationHelper
       link_to name, path, class: 'nav-link'
     end
   end
+
+  def bool_to_icon(value)
+    if value
+      content_tag :i, '', class: 'fas fa-check'
+    else
+      content_tag :i, '', class: 'fas fa-times'
+    end
+  end
 end

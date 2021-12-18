@@ -1,0 +1,65 @@
+.card.mt-3
+  .card-header
+    = t 'model.registration._name'
+
+  .card-body
+    .row.mb-3
+      .col
+        = t 'model.registration.signup_date'
+        .fw-bold=I18n.l @registration.created_at
+      .col
+        = t 'model.registration.last_edited'
+        .fw-bold=I18n.l @registration.updated_at
+      .col
+        = t 'model.registration.total_price'
+        .fw-bold=number_to_currency(@registration.total_price)
+      .col
+        = t 'model.registration.membership_fee'
+        .fw-bold=number_to_currency(@registration.membership_fee)
+      .col
+        = t 'model.registration.grand_total'
+        .fw-bold=number_to_currency(@registration.total_price + @registration.membership_fee)
+    = simple_form_for @registration do |f|
+      = f.input :registration_state, collection: Registration.registration_states.symbolize_keys.keys, include_blank: false, include_hidden: false, label: t('model.registration_entry.registration_state')
+      = f.input :paid_amount, label: t('model.registration_entry.paid_amount') do
+        .input-group
+          %span.input-group-text
+            %i.fas.fa-euro-sign
+          = f.input_field :paid_amount, class: 'form-control'
+      = f.submit class: 'btn btn-primary mt-3'
+
+.card.mt-3
+  .table-responsive
+    %table.table
+      %tr
+        %th
+          = t 'model.registration.registred_from'
+        %th
+          = t 'simple_form.labels.registration.registration_entries.accommodation'
+        %th
+          = t 'simple_form.labels.registration.registration_entries.is_vegetarian'
+        %th
+          = t 'simple_form.labels.registration.registration_entries.with_dog'
+        %th
+          = t 'model.registration.total_price'
+        %th
+          = t 'model.registration.membership_fee'
+        %th
+          = t 'model.registration.grand_total'
+      - @registration.registration_entries.each do |entry|
+        %tr
+          %td
+            = entry.name
+          %td
+            = t "simple_form.options.defaults.accommodation.#{entry.accommodation}"
+          %td
+            = bool_to_icon entry.is_vegetarian
+          %td
+            = bool_to_icon entry.with_dog
+          %td
+            = number_to_currency(entry.price)
+          %td
+            = number_to_currency(entry.membership_fee)
+          %td
+            = number_to_currency(entry.price + entry.membership_fee)
+            
