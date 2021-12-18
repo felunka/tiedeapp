@@ -113,7 +113,7 @@
           %td
             = "#{registration.registration_entries.where(with_dog: true).count}x"
           %td
-            = registration.registration_state
+            = t "simple_form.options.defaults.registration_state.#{registration.registration_state}"
           %td
             = number_to_currency(registration.total_price + registration.membership_fee)
           %td
