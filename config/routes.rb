@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
   resources :members do
-    resources :payments
+    resources :payments, only: [:index, :new, :create, :destroy]
     collection do
       get :autocomplete
     end
@@ -19,9 +19,9 @@ Rails.application.routes.draw do
   resources :registrations do
     member do
       get :success
-      get :admin_edit
     end
   end
+  resources :manage_registrations, only: [:edit, :update]
   resource :session, only: [:new, :create, :destroy] do
     get :landing
   end

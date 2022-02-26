@@ -17,47 +17,15 @@
       = f.input :event_end, as: :date, html5: true
       = f.input :deadline_signup, as: :date, html5: true
 
-      = f.input :base_fee_member do
-        .input-group
-          %span.input-group-text
-            %i.fas.fa-euro-sign
-          = f.input_field :base_fee_member, class: 'form-control'
-      = f.input :base_fee_guest do
-        .input-group
-          %span.input-group-text
-            %i.fas.fa-euro-sign
-          = f.input_field :base_fee_guest, class: 'form-control'
+      = f.input :base_fee_member, as: :currency
+      = f.input :base_fee_guest, as: :currency
 
-      = f.input :fee_member do
-        .input-group
-          %span.input-group-text
-            %i.fas.fa-euro-sign
-          = f.input_field :fee_member, class: 'form-control'
-      = f.input :fee_student do
-        .input-group
-          %span.input-group-text
-            %i.fas.fa-euro-sign
-          = f.input_field :fee_student, class: 'form-control'
-      = f.input :fee_childen do
-        .input-group
-          %span.input-group-text
-            %i.fas.fa-euro-sign
-          = f.input_field :fee_childen, class: 'form-control'
-      = f.input :fee_guest do
-        .input-group
-          %span.input-group-text
-            %i.fas.fa-euro-sign
-          = f.input_field :fee_guest, class: 'form-control'
+      = f.input :fee_member, as: :currency
+      = f.input :fee_student, as: :currency
+      = f.input :fee_childen, as: :currency
+      = f.input :fee_guest, as: :currency
 
-      = f.input :fee_member_single_room do
-        .input-group
-          %span.input-group-text
-            %i.fas.fa-euro-sign
-          = f.input_field :fee_member_single_room, class: 'form-control'
-      = f.input :fee_guest_single_room do
-        .input-group
-          %span.input-group-text
-            %i.fas.fa-euro-sign
-          = f.input_field :fee_guest_single_room, class: 'form-control'
+      = f.input :fee_member_single_room, as: :currency
+      = f.input :fee_guest_single_room, as: :currency
         
       = f.submit class: 'btn btn-primary mt-2'

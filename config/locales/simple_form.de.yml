@@ -23,6 +23,9 @@ de:
           final: 'Final'
           partialy_paid: 'Zahlung teilweise erhalten'
           paid: 'Zahlung vollständig'
+        payment_type:
+          membership_fee: 'Mitgliederbeitrag'
+          registration_fee: 'Familientag'
     labels:
       event:
         location: 'Ort'
@@ -39,6 +42,8 @@ de:
         fee_member_single_room: 'Einzelzimmerzuschlag Mitglieder'
         fee_guest_single_room: 'Einzelzimmerzuschlag Gäste'
       registration:
+        paid_amount: 'Bisher bezahlt'
+        add_payment_amount: 'Betrag hinzufügen'
         single_rooms: 'Anzahl Einzelzimmer'
         double_rooms: 'Anzahl Doppelzimmer'
         registration_entries:
@@ -58,3 +63,8 @@ de:
         country: 'Land'
         email: 'E-Mail'
         phone: 'Telefonnummer'
+      payment:
+        year: 'Jahr des Mitgliederbeitrags'
+        registration: 'Familientag für die Zahlung'
+        amount: 'Gezahlter Betrag'
+        created_at: 'Erfasst am'

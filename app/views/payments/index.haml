@@ -2,15 +2,34 @@
   %h5.card-header.d-flex.justify-content-between.align-items-center
     = t('model.payment._name')
     - if current_user.admin?
-      = button_to t('helpers.submit.create'), new_member_payment_path(@member), class: 'btn btn-primary', method: :get
+      .row
+        .col
+          = button_to t('helpers.submit.cancel'), members_path, class: 'btn btn-secondary', method: :get
+        .col
+          = button_to t('helpers.submit.create'), new_member_payment_path(@member), class: 'btn btn-primary', method: :get
   .table-responsive
     %table.table
       %tr
         %th
           = t 'simple_form.labels.payment.amount'
         %th
-          = t 'simple_form.labels.payment.type'
+          = t 'model.payment.type'
+        %th
+          = t 'simple_form.labels.payment.year'
         %th
           = t 'simple_form.labels.payment.created_at'
         %th
-      
+      - @payments.each do |payment|
+        %tr
+          %td
+            = number_to_currency payment.amount
+          %td
+            = t "simple_form.options.defaults.payment_type.#{payment.payment_type}"
+          %td
+            = payment.year
+          %td
+            = I18n.l payment.created_at
+          %td
+            .d-flex.model-buttons
+              = button_to member_payment_path(@member, payment), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
+                %i.fa.fa-trash-alt

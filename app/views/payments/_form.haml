@@ -1,0 +1,24 @@
+.card.mt-3
+  %h5.card-header.d-flex.justify-content-between.align-items-center
+    = t('model.payment._name')
+    .row
+      - if @payment.id.present?
+        .col.p-0
+          = button_to t('helpers.submit.delete'), payment_path(@payment), class: 'btn btn-danger', method: :delete
+      .col
+        = button_to t('helpers.submit.cancel'), member_payments_path(@member), class: 'btn btn-secondary', method: :get
+
+  .card-body
+    = simple_form_for @payment, url: member_payments_path(@member) do |f|
+      .row
+        .col
+          = f.association :registration, collection: Registration.joins(:registration_entries).where(registration_entries: {member: @member}), label_method: :label
+        .col
+          = f.input :year
+      = f.input :amount do
+        .input-group
+          %span.input-group-text
+            %i.fas.fa-euro-sign
+          = f.input_field :amount, class: 'form-control'
+      = f.error :amount, class: 'text-danger'
+      = f.submit class: 'btn btn-primary mt-2'

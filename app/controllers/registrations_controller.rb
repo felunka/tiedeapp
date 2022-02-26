@@ -43,6 +43,7 @@ class RegistrationsController < ApplicationController
 
   def admin_edit
     @registration = Registration.find params[:id]
+    @payments = Payment.where(registration: @registration).or(Payment.where(member: @registration.registered_members, year: @registration.event.event_start.year))
   end
 
   def edit

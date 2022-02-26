@@ -233,6 +233,11 @@ de:
       registration:
         create: 'Verbindlich anmelden'
   model:
+    payment:
+      _name: 'Zahlung'
+      type: 'Art der Zahlung'
+      error:
+        fee_too_large: 'Der eingegebene Betrag ist größer als der noch zu zahlende Betrag. Noch offener Betrag: %{fee_open}'
     event: 
       _name: 'Familientag'
       base_price: 'Grundpreis im Doppelzimmer'
@@ -248,6 +253,7 @@ de:
         event_end_must_be_after_start: 'Das Enddatum muss nach dem Startdatum sein.'
     registration:
       _name: 'Anmeldung'
+      label: 'Anmeldung für: %{event_name}'
       add_person: 'Person hinzufügen'
       success: 'Die Anmeldung war erfolgreich!'
       transfer_amount: 'Bitte Überweisen Sie %{total_price} und den Mitgliederbeitrag von %{membership_fee} an folgende Bankverbindung:'
@@ -257,6 +263,7 @@ de:
       last_edited: 'Zuletzt bearbeitet'
       total_price: 'Gesamtpreis (nur Familientag)'
       membership_fee: 'Mitgliedsbeiträge'
+      hint_membership_fee: 'Bereits gezahlte Beiträge werden abgezogen.'
       grand_total: 'Summe total'
       bank_information:
         account_name: 'Name'
@@ -268,6 +275,7 @@ de:
         only_with_token: 'Eine Anmeldung ist nur möglich, wenn Sie eingeloggt sind oder einen Token haben.'
         number_double_rooms_odd: 'Die Anzahl an Personen in einem Doppelzimmer muss eine gerade Zahl sein.'
         after_event_deadline: 'Es sind keine Anmeldungen oder Änderungen mehr möglich.'
+        payed_amount_too_much: 'Die Zahlung vom Mitglied ist größer als der offene Betrag! %{overpayed_amount} konnten nicht verrechnet werden.'
     registration_entry:
       registration_state: 'Anmeldestatus'
       paid_amount: 'Bisher bezahlt'

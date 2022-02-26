@@ -45,11 +45,9 @@ class RegistrationEntry < ApplicationRecord
   def membership_fee
     return 0 if member.nil?
 
-    if user_type == :student
-      return Rails.configuration.x.membership_fee.reduced
-    else
-      Rails.configuration.x.membership_fee.normal
-    end
+    payment_amount = Payment.where(member: member, year: event.event_start.year).sum(:amount)
+
+    member.membership_fee - payment_amount
   end
 
   def full_name

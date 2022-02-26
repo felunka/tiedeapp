@@ -1,10 +1,16 @@
 class Registration < ApplicationRecord
+  attr_accessor :add_payment_amount
+
   has_one :member_event, dependent: :nullify
   has_one :event, through: :member_event
   has_one :member, through: :member_event
 
   has_many :registration_entries, dependent: :destroy
   accepts_nested_attributes_for :registration_entries, reject_if: :all_blank, allow_destroy: true
+
+  has_many :registered_members, source: :member, through: :registration_entries
+
+  has_many :payments
 
   enum registration_state: {
     created: 0,
@@ -25,8 +31,16 @@ class Registration < ApplicationRecord
     return price
   end
 
+  def paid_amount
+    payments.sum(:amount)
+  end
+
   def membership_fee
     registration_entries.map{ |re| re.membership_fee }.sum
+  end
+
+  def label
+    I18n.t('model.registration.label', event_name: event.name)
   end
 
   private

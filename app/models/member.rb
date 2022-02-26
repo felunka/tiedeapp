@@ -12,6 +12,14 @@ class Member < ApplicationRecord
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 
+  def membership_fee
+    if member_type == :student
+      return Rails.configuration.x.membership_fee.reduced
+    else
+      return Rails.configuration.x.membership_fee.normal
+    end
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
