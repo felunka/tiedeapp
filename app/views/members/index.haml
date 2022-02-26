@@ -43,10 +43,11 @@
             = member.country
           %td
             .d-flex.model-buttons
+              - if current_user.member.id == member.id
+                = button_to edit_member_path(member), class: 'btn btn-primary', method: :get do
+                  %i.fas.fa-pen
               - if current_user.admin?
                 = button_to member_payments_path(member), class: 'btn btn-primary', method: :get do
                   %i.fas.fa-money-bill
-                = button_to edit_member_path(member), class: 'btn btn-primary', method: :get do
-                  %i.fas.fa-pen
                 = button_to member_path(member), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
                   %i.fa.fa-trash-alt

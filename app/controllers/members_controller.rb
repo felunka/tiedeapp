@@ -1,4 +1,6 @@
 class MembersController < ApplicationController
+  before_action :require_admin, only: [:new, :create, :destroy]
+
   def index
     @members = Member.all
   end
@@ -28,10 +30,14 @@ class MembersController < ApplicationController
   end
 
   def edit
+    raise ApplicationController::NotAuthorized unless current_user.admin? || current_user.member.id == params[:id].to_i
+
     @member = Member.find_by params.permit(:id)
   end
 
   def update
+    raise ApplicationController::NotAuthorized unless current_user.admin? || current_user.member.id == params[:id].to_i
+
     @member = Member.find_by params.permit(:id)
     if @member.update permit(params)
       flash[:success] = t('messages.model.updated')
