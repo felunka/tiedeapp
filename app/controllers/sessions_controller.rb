@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
     user = Member.find_by(params.require(:user).permit(:email))&.user
 
     if user && user.authenticate(params.require(:user)[:password])
+      reset_session
       session[:user_id] = user.id
       flash[:success] = 'Login erfolgreich'
       redirect_to member_events_path
@@ -24,7 +25,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    reset_session
 
     redirect_to action: 'new'
   end
