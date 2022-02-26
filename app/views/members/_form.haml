@@ -22,6 +22,8 @@
         .col
           = f.input :city
       = f.input :country
+      = f.input :member_type, collection: Member.member_types.symbolize_keys.keys, include_blank: false, include_hidden: false, label: t('model.member.member_type')
+      = f.input :date_of_birth, as: :date, html5: true
       = f.input :email
       = f.input :phone
       = f.submit class: 'btn btn-primary mt-2'

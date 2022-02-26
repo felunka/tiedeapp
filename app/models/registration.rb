@@ -26,8 +26,7 @@ class Registration < ApplicationRecord
   end
 
   def membership_fee
-    registration_entries.where(user_type: 'member').count * Rails.configuration.x.membership_fee.normal +
-    registration_entries.where(user_type: 'student').count * Rails.configuration.x.membership_fee.reduced
+    registration_entries.map{ |re| re.membership_fee }.sum
   end
 
   private

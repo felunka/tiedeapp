@@ -8,7 +8,12 @@ Rails.application.routes.draw do
       get :send_invites
     end
   end
-  resources :members
+  resources :members do
+    resources :payments
+    collection do
+      get :autocomplete
+    end
+  end
   resources :member_events, only: [:index]
   resources :users, only: [:new, :create]
   resources :registrations do

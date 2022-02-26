@@ -49,7 +49,7 @@
       - @registration.registration_entries.each do |entry|
         %tr
           %td
-            = entry.name
+            = entry.full_name
           %td
             = t "simple_form.options.defaults.accommodation.#{entry.accommodation}"
           %td

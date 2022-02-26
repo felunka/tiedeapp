@@ -9,7 +9,7 @@ de:
       default_message: 'Bitte beachten Sie folgenden Fehler:'
     options:
       defaults:
-        user_type:
+        member_type:
           member: 'Mitglied'
           student: 'Student oder Auszubildender'
           child: 'Kind'
@@ -43,14 +43,15 @@ de:
         double_rooms: 'Anzahl Doppelzimmer'
         registration_entries:
           name: 'Name'
+          member: 'Mitglied'
           with_dog: 'Mit Hund'
-          user_type: 'Art'
           accommodation: 'Unterkunft'
           registration_state: 'Anmeldestatus'
           is_vegetarian: 'Vegetarisch'
       member:
         first_name: 'Vorname'
         last_name: 'Nachname'
+        member_type: 'Art'
         street: 'Straße'
         zip: 'PLZ'
         city: 'Stadt'

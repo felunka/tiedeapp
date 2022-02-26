@@ -1,5 +1,5 @@
 - if @event.present?
-  = render partial: 'event_info', locals: {event: @registration.event}
+  = render partial: 'event_info', locals: {event: @event}
   = render partial: 'form', locals: {event: @event, registration: @registration, token: @token}
 - else
   .alert.alert-danger.mt-3

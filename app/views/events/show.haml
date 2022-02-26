@@ -105,7 +105,7 @@
           %td
             = registration.member.full_name
           %td
-            = registration.registration_entries.pluck(:name).join(', ')
+            = registration.registration_entries.map{ |re| re.full_name }.join(', ')
           %td
             = "#{single_rooms}x #{t 'model.registration_entry.single_room_short'}, #{double_rooms}x #{t 'model.registration_entry.double_room_short'}"
           %td
@@ -121,4 +121,3 @@
           %td
             = button_to admin_edit_registration_path(registration), class: 'btn btn-primary', method: :get do
               %i.fas.fa-money-bill
-          

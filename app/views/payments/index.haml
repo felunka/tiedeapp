@@ -1,0 +1,16 @@
+.card.mt-3
+  %h5.card-header.d-flex.justify-content-between.align-items-center
+    = t('model.payment._name')
+    - if current_user.admin?
+      = button_to t('helpers.submit.create'), new_member_payment_path(@member), class: 'btn btn-primary', method: :get
+  .table-responsive
+    %table.table
+      %tr
+        %th
+          = t 'simple_form.labels.payment.amount'
+        %th
+          = t 'simple_form.labels.payment.type'
+        %th
+          = t 'simple_form.labels.payment.created_at'
+        %th
+      

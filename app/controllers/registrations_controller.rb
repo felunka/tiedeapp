@@ -14,7 +14,7 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new
     @registration.registration_entries = [
       RegistrationEntry.new(
-        name: member.full_name
+        member: member
       )
     ]
   end
@@ -50,7 +50,7 @@ class RegistrationsController < ApplicationController
   end
 
   def update
-    @registration = Registration.find params.permit(:id)
+    @registration = Registration.find_by params.permit(:id)
 
     if @registration.update permit(params)
       redirect_to success_registration_path(@registration)
@@ -66,6 +66,6 @@ class RegistrationsController < ApplicationController
   private
 
   def permit(params)
-    params.require(:registration).permit(registration_entries_attributes: [:id, :name, :user_type, :accommodation, :is_vegetarian, :with_dog, :_destroy])
+    params.require(:registration).permit(registration_entries_attributes: [:id, :member_id, :name, :user_type, :accommodation, :is_vegetarian, :with_dog, :_destroy])
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_20_201755) do
+ActiveRecord::Schema.define(version: 2022_01_16_165406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,17 +57,30 @@ ActiveRecord::Schema.define(version: 2021_11_20_201755) do
     t.string "country"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "member_type", default: 0, null: false
+    t.date "date_of_birth"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.decimal "amount"
+    t.bigint "registration_id"
+    t.bigint "member_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_payments_on_member_id"
+    t.index ["registration_id"], name: "index_payments_on_registration_id"
   end
 
   create_table "registration_entries", force: :cascade do |t|
     t.bigint "registration_id", null: false
     t.string "name", null: false
-    t.integer "user_type", default: 0, null: false
     t.boolean "is_vegetarian"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "accommodation", default: 0, null: false
     t.boolean "with_dog"
+    t.bigint "member_id"
+    t.index ["member_id"], name: "index_registration_entries_on_member_id"
     t.index ["registration_id"], name: "index_registration_entries_on_registration_id"
   end
 
@@ -90,6 +103,9 @@ ActiveRecord::Schema.define(version: 2021_11_20_201755) do
   add_foreign_key "member_events", "events"
   add_foreign_key "member_events", "members"
   add_foreign_key "member_events", "registrations"
+  add_foreign_key "payments", "members"
+  add_foreign_key "payments", "registrations"
+  add_foreign_key "registration_entries", "members"
   add_foreign_key "registration_entries", "registrations"
   add_foreign_key "users", "members"
 end

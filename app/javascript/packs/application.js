@@ -3,25 +3,42 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
-require("jquery")
-require("@nathanvda/cocoon")
+require('@rails/ujs').start()
+require('turbolinks').start()
+require('@rails/activestorage').start()
+require('channels')
+require('jquery')
+// cocoon nested form
+require('@nathanvda/cocoon')
+// bootstrap
+require('bootstrap')
+// select 2
+import 'select2'
+import 'select2/dist/css/select2.css'
+// icons
+import '@fortawesome/fontawesome-free/css/all'
 
-require("bootstrap")
-import "../stylesheets/application";
+// application styles
+import '../stylesheets/application';
 
-import "@fortawesome/fontawesome-free/css/all"
-
-document.addEventListener("turbolinks:load", function() {
+document.addEventListener('turbolinks:load', function() {
+  // init pooperjs
   $(function () {
     $('[data-bs-toggle="tooltip"]').tooltip({
       container: 'body'
     });
     $('[data-toggle="popover"]').popover();
   })
+  // init select 2
+  $('.js-states').select2();
+  $('.js-states-autocomplete').each(function() {
+    initSelectAutocomplete(this);
+  });
+  $(document).on('cocoon:after-insert', function(e, insertedItem) {
+    console.log(insertedItem)
+    initSelectAutocomplete(insertedItem.find('.js-states-autocomplete'));
+  });
+  // generic ajax error handler
   $(document).on('ajax:error', function(xhr, status, error) {
     let alert = document.createElement('div');
     alert.className = 'alert alert-dissmissible mt-3 alert-danger';
@@ -29,6 +46,22 @@ document.addEventListener("turbolinks:load", function() {
     $('#flashbox').append(alert);
   });
 })
+
+function initSelectAutocomplete(element) {
+  let url = $(element).data('url');
+  $(element).select2({
+    minimumInputLength: 2,
+    allowClear: true,
+    ajax: {
+      url: url,
+      processResults: function(data) {
+        return {
+          results: data
+        };
+      }
+    }
+  });
+}
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)

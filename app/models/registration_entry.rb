@@ -1,13 +1,8 @@
 class RegistrationEntry < ApplicationRecord
+  has_many :payments
   belongs_to :registration
+  belongs_to :member, optional: true
   has_one :event, through: :registration
-
-  enum user_type: {
-    member: 0,
-    student: 1,
-    child: 2,
-    guest: 3
-  }
 
   enum accommodation: {
     double_room: 0,
@@ -15,19 +10,30 @@ class RegistrationEntry < ApplicationRecord
     no_accommodation: 2
   }
 
+  validate :member_xor_name
+  validates_uniqueness_of :member, scope: :registration_id
+
+  def user_type
+    if member
+      member.member_type
+    else
+      :guest
+    end
+  end
+
   def price
     price = 0
     if double_room?
       price += event.send("fee_#{user_type}")
     elsif single_room?
       price += event.send("fee_#{user_type}")
-      if guest?
+      if member.nil?
         price += event.fee_guest_single_room
       else
         price += event.fee_member_single_room
       end
     else
-      if guest?
+      if member.nil?
         price += event.base_fee_guest
       else
         price += event.base_fee_member
@@ -37,12 +43,28 @@ class RegistrationEntry < ApplicationRecord
   end
 
   def membership_fee
-    if student?
-      Rails.configuration.x.membership_fee.reduced
-    elsif member?
-      Rails.configuration.x.membership_fee.normal
+    return 0 if member.nil?
+
+    if user_type == :student
+      return Rails.configuration.x.membership_fee.reduced
     else
-      0
+      Rails.configuration.x.membership_fee.normal
+    end
+  end
+
+  def full_name
+    if member.nil?
+      name
+    else
+      member.full_name
+    end
+  end
+
+  private
+
+  def member_xor_name
+    if !(member.nil? ^ name.blank?)
+      errors.add(:name, I18n.t('model.registration_entry.error.only_member_xor_name'))
     end
   end
 end

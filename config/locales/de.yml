@@ -273,8 +273,12 @@ de:
       paid_amount: 'Bisher bezahlt'
       single_room_short: 'EZ'
       double_room_short: 'DZ'
+      name_only_for_guest_hint: 'Name muss nur für Gäste ausgefüllt werden'
+      error:
+        only_member_xor_name: 'Es kann nur entweder ein Mitglied ausgewählt oder ein Name ausgefüllt werden.'
     member:
       _name: 'Mitglied'
+      member_type: 'Art'
     user:
       error:
         only_with_token: 'Eine Anmeldung ist nur mit einem Einladungslink möglich.'
