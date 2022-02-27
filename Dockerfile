@@ -16,11 +16,13 @@ COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 
+# Copy rails code
+ADD . /app
+
 # Install webpack
 RUN bundle exec rails webpacker:install
 
-# Copy rails code
-ADD . /app
+# Precompile assets
 RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
