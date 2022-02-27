@@ -1,5 +1,5 @@
 # Use ruby image to build our own image
-FROM ruby:2.7
+FROM ruby:3.0
 
 # Install node and yarn
 RUN apt-get update -qq && apt-get install -y nodejs npm yarn postgresql-client

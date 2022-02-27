@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_26_154243) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_02_26_154243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,8 +27,8 @@ ActiveRecord::Schema.define(version: 2022_02_26_154243) do
     t.decimal "fee_guest", precision: 10, scale: 2, default: "0.0"
     t.decimal "fee_member_single_room", precision: 10, scale: 2, default: "0.0"
     t.decimal "fee_guest_single_room", precision: 10, scale: 2, default: "0.0"
-    t.datetime "created_at", precision: 6, default: -> { "now()" }, null: false
-    t.datetime "updated_at", precision: 6, default: -> { "now()" }, null: false
+    t.datetime "created_at", default: -> { "now()" }, null: false
+    t.datetime "updated_at", default: -> { "now()" }, null: false
     t.decimal "base_fee_member", precision: 10, scale: 2, default: "0.0"
     t.decimal "base_fee_guest", precision: 10, scale: 2, default: "0.0"
   end
@@ -38,8 +37,8 @@ ActiveRecord::Schema.define(version: 2022_02_26_154243) do
     t.bigint "member_id", null: false
     t.bigint "event_id", null: false
     t.string "token"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "registration_id"
     t.index ["event_id"], name: "index_member_events_on_event_id"
     t.index ["member_id"], name: "index_member_events_on_member_id"
@@ -55,8 +54,8 @@ ActiveRecord::Schema.define(version: 2022_02_26_154243) do
     t.string "zip"
     t.string "city"
     t.string "country"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "member_type", default: 0, null: false
     t.date "date_of_birth"
   end
@@ -65,8 +64,8 @@ ActiveRecord::Schema.define(version: 2022_02_26_154243) do
     t.decimal "amount"
     t.bigint "registration_id"
     t.bigint "member_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "year"
     t.index ["member_id"], name: "index_payments_on_member_id"
     t.index ["registration_id"], name: "index_payments_on_registration_id"
@@ -76,8 +75,8 @@ ActiveRecord::Schema.define(version: 2022_02_26_154243) do
     t.bigint "registration_id", null: false
     t.string "name", null: false
     t.boolean "is_vegetarian"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "accommodation", default: 0, null: false
     t.boolean "with_dog"
     t.bigint "member_id"
@@ -86,16 +85,16 @@ ActiveRecord::Schema.define(version: 2022_02_26_154243) do
   end
 
   create_table "registrations", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "registration_state", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.bigint "member_id", null: false
     t.string "password_digest"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "user_role", default: 0, null: false
     t.index ["member_id"], name: "index_users_on_member_id"
   end

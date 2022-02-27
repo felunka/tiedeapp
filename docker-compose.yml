@@ -12,7 +12,6 @@ services:
     build: .
     command: bash -c "rm -f /myapp/tmp/pids/server.pid && rails db:migrate && rails s -p 3000 -b '0.0.0.0'"
     networks:
-      - reverse_proxy
       - default
     depends_on:
       - db
@@ -31,7 +30,3 @@ services:
       - traefik.http.routers.${ROUTER_NAME:-tiedeapp}.tls.certresolver=letsencrypt
 volumes:
   db-data:
-networks:
-  reverse_proxy:
-    external:
-      name: reverse_proxy
