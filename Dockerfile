@@ -19,9 +19,6 @@ RUN bundle install
 # Copy rails code
 ADD . /app
 
-# Install webpack
-RUN bundle exec rails webpacker:install
-
 # Precompile assets
 RUN bundle exec rake assets:precompile
 
