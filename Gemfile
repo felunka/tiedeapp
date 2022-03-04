@@ -15,7 +15,6 @@ gem 'sass-rails'
 gem 'bcrypt', '~> 3.1.7'
 
 # Assets
-gem 'cssbundling-rails', '~> 1.0.0'
 gem 'importmap-rails', '~> 1.0.0'
 gem 'sprockets-rails', '~> 3.4.1'
 gem 'stimulus-rails', '~> 1.0.2'
