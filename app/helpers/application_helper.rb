@@ -9,9 +9,9 @@ module ApplicationHelper
 
   def bool_to_icon(value)
     if value
-      content_tag :i, '', class: 'fas fa-check'
+      content_tag :i, '', class: 'fa fa-check'
     else
-      content_tag :i, '', class: 'fas fa-times'
+      content_tag :i, '', class: 'fa fa-times'
     end
   end
 end
