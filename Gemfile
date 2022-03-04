@@ -11,13 +11,17 @@ gem 'pg', '~> 1.2.3'
 gem 'puma', '~> 5.6'
 # Use SCSS for stylesheets
 gem 'sass-rails'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 6.0.0.rc.6'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbo-rails', '~> 1.0.0'
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Assets
+gem 'cssbundling-rails', '~> 1.0.0'
+gem 'importmap-rails', '~> 1.0.0'
+gem 'sprockets-rails', '~> 3.4.1'
+gem 'stimulus-rails', '~> 1.0.2'
+gem 'turbo-rails', '~> 1.0.0'
+
+gem 'bootstrap', '~> 5.1.3'
 gem 'haml-rails', '~> 2.0'
 gem 'bootstrap-email'
 gem 'simple_form'
@@ -50,3 +54,5 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
+
+gem "hotwire-rails", "~> 0.1.3"
