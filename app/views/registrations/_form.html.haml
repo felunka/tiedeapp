@@ -9,10 +9,11 @@
       = f.input :event_id, as: :hidden, input_html: { value: event.id }
       - if registration.errors[:base].any?
         = f.error :base, class: 'alert alert-danger'
-      = f.fields_for :registration_entries do |entry|
-        = render 'registration_entry_fields', f: entry
-      .links
-        = link_to_add_association f, :registration_entries, class: 'btn btn-primary mt-3' do
-          %i.fas.fa-plus
-          = t 'model.registration.add_person'
+      #registration_entries{data: { controller: 'cocoon' }}
+        = f.fields_for :registration_entries do |entry|
+          = render 'registration_entry_fields', f: entry
+        .links
+          = link_to_add_association f, :registration_entries, class: 'btn btn-primary mt-3', data: { action: 'click->cocoon#addRow' } do
+            %i.fas.fa-plus
+            = t 'model.registration.add_person'
       = f.submit class: 'btn btn-primary mt-3 float-end'
