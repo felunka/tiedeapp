@@ -5,9 +5,9 @@ import 'select2'
 import "@popperjs/core"
 import * as bootstrap from "bootstrap"
 
-import BootstrapTooltips from './components/bootstrap_tooltips'
-import Select2 from './components/select2'
-import GenericAjaxErrorDisplay from './components/generic_anjax_error_display'
+import BootstrapTooltips from 'components/bootstrap_tooltips'
+import Select2 from 'components/select2'
+import GenericAjaxErrorDisplay from 'components/generic_anjax_error_display'
 
 // Fix popperjs
 window.process = {};
