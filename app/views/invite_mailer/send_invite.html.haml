@@ -29,9 +29,6 @@
           = t 'mails.invite.registration_option_1'
         = t 'mails.invite.registration_option_digital'
         = link_to t('mails.invite.registration_button'), root_url(token: @token), class: 'btn btn-primary'
-        = t 'mails.invite.registration_or'
-        %img{src: generate_qr_code(@token)}
-        = t 'mails.invite.registration_scan_qr'
     .col-lg
       .text-center
         .fw-600

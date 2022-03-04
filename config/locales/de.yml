@@ -320,6 +320,4 @@ de:
       registration_option_2: 'Option 2:'
       registration_option_digital: 'Sie melden sich Sofort digial an.'
       registration_button: 'Anmelden'
-      registration_or: '- oder -'
-      registration_scan_qr: 'Scannen Sie den QR code mit ihrem Smartphone'
       registration_option_paper: 'Drucken Sie das PDF im Anhang und folgen Sie den Anweisungen.'
