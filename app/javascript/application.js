@@ -7,6 +7,7 @@ import * as bootstrap from "bootstrap"
 
 import BootstrapTooltips from './components/bootstrap_tooltips'
 import Select2 from './components/select2'
+import GenericAjaxErrorDisplay from './components/generic_anjax_error_display'
 
 // Fix popperjs
 window.process = {};
@@ -15,3 +16,4 @@ window.process.env.NODE_ENV = "production";
 
 BootstrapTooltips.setup();
 Select2.setup();
+GenericAjaxErrorDisplay.setup();
