@@ -1,5 +1,7 @@
 class MembersController < ApplicationController
   before_action :require_admin, only: [:new, :create, :destroy]
+  # TODO: ensure user hat valid token to prevent userdata to get leaked
+  skip_before_action :require_login, only: [:autocomplete]
 
   def index
     @members = Member.all
