@@ -45,9 +45,9 @@
             .d-flex.model-buttons
               - if current_user.admin? || current_user.member.id == member.id
                 = button_to edit_member_path(member), class: 'btn btn-primary', method: :get do
-                  %i.fas.fa-pen
+                  = fa_icon 'pencil'
               - if current_user.admin?
                 = button_to member_payments_path(member), class: 'btn btn-primary', method: :get do
-                  %i.fas.fa-money-bill
+                  = fa_icon 'money'
                 = button_to member_path(member), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
-                  %i.fa.fa-trash-alt
+                  = fa_icon 'trash'

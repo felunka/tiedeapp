@@ -1,7 +1,7 @@
 .nested-fields.card.mb-3
   .card-body
     = link_to_remove_association f, class: 'float-end text-danger', data: { action: 'click->cocoon#removeRow' } do
-      %i.fa.fa-trash-alt
+      = fa_icon 'trash'
     = f.association :member, as: :select, label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_members_path } }
     = f.input :name, hint: t('model.registration_entry.name_only_for_guest_hint')
     = f.input :accommodation, collection: RegistrationEntry.accommodations.symbolize_keys.keys, include_blank: false, include_hidden: false

@@ -15,10 +15,6 @@
           = f.association :registration, collection: Registration.joins(:registration_entries).where(registration_entries: {member: @member}), label_method: :label
         .col
           = f.input :year
-      = f.input :amount do
-        .input-group
-          %span.input-group-text
-            %i.fas.fa-euro-sign
-          = f.input_field :amount, class: 'form-control'
+      = f.input :amount, as: :currency
       = f.error :amount, class: 'text-danger'
       = f.submit class: 'btn btn-primary mt-2'
