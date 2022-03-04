@@ -70,7 +70,7 @@
         %th
           = t 'model.registration.membership_fee'
           %span{data: { 'bs-toggle': :tooltip }, title: t('model.registration.hint_membership_fee')}
-            %i.fas.fa-question-circle
+            = fa_icon 'question-circle'
         %th
           = t 'model.registration.grand_total'
       - @registration.registration_entries.each do |entry|

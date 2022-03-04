@@ -32,4 +32,4 @@
           %td
             .d-flex.model-buttons
               = button_to member_payment_path(@member, payment), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
-                %i.fa.fa-trash-alt
+                = fa_icon 'trash'
