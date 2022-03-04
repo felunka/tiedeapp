@@ -14,6 +14,8 @@ window.process = {};
 window.process.env = {};
 window.process.env.NODE_ENV = "production";
 
-BootstrapTooltips.setup();
-Select2.setup();
-GenericAjaxErrorDisplay.setup();
+document.addEventListener("turbo:load", function() {
+  BootstrapTooltips.setup();
+  Select2.setup();
+  GenericAjaxErrorDisplay.setup();
+});

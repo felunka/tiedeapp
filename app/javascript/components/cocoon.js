@@ -1,4 +1,5 @@
 // Adapted from https://github.com/dabroz/cocoon-js-vanilla for usage with Stimulus
+import Select2 from 'components/select2'
 
 export default class Cocoon {
   static cocoonElementCounter = 0;
@@ -118,6 +119,7 @@ export default class Cocoon {
         let addedContent = insertionNodeElem.insertAdjacentHTML(htmlMethod, contentNode);
 
         let afterInsert = new CustomEvent('cocoon:after-insert', { detail: [contentNode, originalEvent, addedContent] });
+        Select2.setup();
         insertionNodeElem.dispatchEvent(afterInsert);
       }
     });
