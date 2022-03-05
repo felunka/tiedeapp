@@ -225,11 +225,10 @@ de:
     submit:
       confirm: 'Sind Sie sicher?'
       cancel: 'Abbrechen'
+      back: 'Zurück'
       delete: 'Löschen'
       create: 'Erstellen'
       update: 'Speichern'
-      event:
-        back: 'Zurück zur Übersicht'
       registration:
         create: 'Verbindlich anmelden'
   model:

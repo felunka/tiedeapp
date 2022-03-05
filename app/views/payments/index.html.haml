@@ -2,11 +2,9 @@
   %h5.card-header.d-flex.justify-content-between.align-items-center
     = t('model.payment._name')
     - if current_user.admin?
-      .row
-        .col
-          = button_to t('helpers.submit.cancel'), members_path, class: 'btn btn-secondary', method: :get
-        .col
-          = button_to t('helpers.submit.create'), new_member_payment_path(@member), class: 'btn btn-primary', method: :get
+      .d-flex.model-buttons
+        = button_to t('helpers.submit.create'), new_member_payment_path(@member), class: 'btn btn-primary', method: :get
+        = button_to t('helpers.submit.back'), members_path, class: 'btn btn-secondary', method: :get
   .table-responsive
     %table.table
       %tr

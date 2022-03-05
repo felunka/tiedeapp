@@ -3,7 +3,7 @@
     = @event.name
     .d-flex.model-buttons
       = button_to t('model.event.send_invites'), send_invites_event_path(@event), class: 'btn btn-primary', method: :get, data: { confirm: t('model.event.send_invites_confirm') }
-      = button_to t('helpers.submit.event.back'), events_path, class: 'btn btn-primary', method: :get
+      = button_to t('helpers.submit.back'), events_path, class: 'btn btn-secondary', method: :get
   .card-body
     .row.mb-3
       .col

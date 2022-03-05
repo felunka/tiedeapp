@@ -1,6 +1,7 @@
 .card.mt-3
-  .card-header
+  %h5.card-header.d-flex.justify-content-between.align-items-center
     = t 'model.registration._name'
+    = button_to t('helpers.submit.back'), event_path(@registration.event), class: 'btn btn-secondary', method: :get
 
   .card-body
     .row.mb-3
