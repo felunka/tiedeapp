@@ -21,7 +21,6 @@ gem 'stimulus-rails', '~> 1.0.2'
 gem 'turbo-rails', '~> 1.0.0'
 
 gem 'bootstrap', '~> 5.1.3'
-gem "font-awesome-rails"
 gem 'haml-rails', '~> 2.0'
 gem 'bootstrap-email'
 gem 'simple_form'

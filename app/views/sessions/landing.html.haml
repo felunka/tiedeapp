@@ -10,24 +10,24 @@
               = button_to t('landing.continue_without_account'), nil, class: 'btn btn-primary', disabled: true
         %ul.list-group.list-group-flush
           %li.list-group-item
-            = fa_icon 'check'
+            = icon 'check'
             = t 'landing.no_password'
           %li.list-group-item
-            = fa_icon 'times'
+            = icon 'times'
             = t 'landing.registration_can_not_be_changed'
           %li.list-group-item
-            = fa_icon 'times'
+            = icon 'times'
             = t 'landing.data_needs_to_be_entered'
       .col
         .d-flex.justify-content-center
           = button_to t('landing.create_account_or_login'), new_session_path, class: 'btn btn-primary', method: :get, params: { token: @token }
         %ul.list-group.list-group-flush
           %li.list-group-item
-            = fa_icon 'times'
+            = icon 'times'
             = t 'landing.needs_password'
           %li.list-group-item
-            = fa_icon 'check'
+            = icon 'check'
             = t 'landing.registration_can_be_changed'
           %li.list-group-item
-            = fa_icon 'check'
+            = icon 'check'
             = t 'landing.data_can_be_from_last_time'

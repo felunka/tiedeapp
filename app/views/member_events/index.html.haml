@@ -34,7 +34,7 @@
               - if event.before_deadline_signup?
                 - if event.registration_id
                   = button_to edit_registration_path(event.registration_id), class: 'btn btn-primary', method: :get do
-                    = fa_icon 'pencil'
+                    = icon 'pen'
                 - else
                   = button_to new_registration_path, class: 'btn btn-primary', method: :get, params: { event_id: event.id } do
-                    = fa_icon 'plus'
+                    = icon 'plus'
