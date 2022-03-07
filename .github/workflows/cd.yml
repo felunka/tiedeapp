@@ -18,8 +18,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Run containers
         run: >
-          ROUTER_NAME=tiedeapp
-          DOMAIN=tiedeapp.felunka.de
+          ROUTER_NAME=tiedeapp_staging
+          DOMAIN=staging.tiede.app
           IMAGE_TAG=staging
           RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
           POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
