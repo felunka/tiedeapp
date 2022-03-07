@@ -3,17 +3,42 @@
     = t 'model.registration._name'
 
   .card-body
+    
     = simple_form_for registration do |f|
       - if token
         = f.input :token, as: :hidden, input_html: { value: token }
       = f.input :event_id, as: :hidden, input_html: { value: event.id }
       - if registration.errors[:base].any?
         = f.error :base, class: 'alert alert-danger'
-      #registration_entries{data: { controller: 'cocoon' }}
+      #registration_entries{data: { controller: 'cocoon room-visualisation' }}
         = f.fields_for :registration_entries do |entry|
           = render 'registration_entry_fields', f: entry
         .links
-          = link_to_add_association f, :registration_entries, class: 'btn btn-primary mt-3', data: { action: 'click->cocoon#addRow' } do
-            = fa_icon 'plus'
+          = link_to_add_association f, :registration_entries, class: 'btn btn-primary', data: { action: 'click->cocoon#addRow click->room-visualisation#update' } do
+            = icon 'plus'
             = t 'model.registration.add_person'
-      = f.submit class: 'btn btn-primary mt-3 float-end'
+      .row.mt-3
+        .col
+          .card
+            .card-body.h5
+              = icon 'user-group'
+              = icon 'bed'
+              %span#number-double-room
+                NaN
+              = t 'model.registration.number_double_room'
+        .col
+          .card
+            .card-body.h5
+              = icon 'user'
+              = icon 'bed'
+              %span#number-single-room
+                NaN
+              = t 'model.registration.number_single_room'
+        .col
+          .card
+            .card-body.h5
+              = icon 'user'
+              %span#number-no-room
+                NaN
+              = t 'model.registration.no_room'
+      = f.submit t('helpers.submit.registration.create'), class: 'btn btn-primary mt-3 float-end'

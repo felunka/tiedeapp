@@ -31,12 +31,14 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new permit(params)
     @registration.member_event = member_event
 
-    if @registration.save
-      redirect_to success_registration_path(@registration)
-    else
-      @event = member_event.event
-      @token = member_event.token
-      render :new
+    respond_to do |format|
+      if @registration.save
+        format.html { redirect_to success_registration_path(@registration) }
+      else
+        @event = member_event.event
+        @token = member_event.token
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -47,10 +49,12 @@ class RegistrationsController < ApplicationController
   def update
     @registration = Registration.find_by params.permit(:id)
 
-    if @registration.update permit(params)
-      redirect_to success_registration_path(@registration)
-    else
-      render :edit
+    respond_to do |format|
+      if @registration.update permit(params)
+        format.html { redirect_to success_registration_path(@registration) }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
 

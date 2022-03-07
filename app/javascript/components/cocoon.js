@@ -1,5 +1,6 @@
 // Adapted from https://github.com/dabroz/cocoon-js-vanilla for usage with Stimulus
 import Select2 from 'components/select2'
+import RoomVisualisation from 'components/room_visualisation';
 
 export default class Cocoon {
   static cocoonElementCounter = 0;
@@ -151,6 +152,7 @@ export default class Cocoon {
         }
         let afterRemove = new CustomEvent('cocoon:after-remove', { detail: [nodeToDelete, originalEvent] });
         triggerNode.dispatchEvent(afterRemove);
+        RoomVisualisation.update();
       }, timeout);
     }
   };
