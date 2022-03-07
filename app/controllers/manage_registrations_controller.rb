@@ -48,11 +48,13 @@ class ManageRegistrationsController < ApplicationController
       end
     end
 
-    if @registration.update permit(params)
-      redirect_to edit_manage_registration_path(@registration)
-    else
-      @payments = Payment.where(registration: @registration).or(Payment.where(member: @registration.registered_members, year: @registration.event.event_start.year))
-      render :edit
+    respond_to do |format|
+      if @registration.update permit(params)
+        format.html { redirect_to edit_manage_registration_path(@registration) }
+      else
+        @payments = Payment.where(registration: @registration).or(Payment.where(member: @registration.registered_members, year: @registration.event.event_start.year))
+        format.html { render :edit }
+      end
     end
   end
 

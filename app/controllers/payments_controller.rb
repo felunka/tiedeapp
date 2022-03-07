@@ -14,11 +14,14 @@ class PaymentsController < ApplicationController
     @member = Member.find params[:member_id]
     @payment = Payment.new params.require(:payment).permit(:registration_id, :year, :amount)
     @payment.member_id = params[:member_id]
-    if @payment.save
-      flash[:success] = t('messages.model.created')
-      redirect_to action: 'index'
-    else
-      render :new
+
+    respond_to do |format|
+      if @payment.save
+        flash[:success] = t('messages.model.created')
+        format.html { redirect_to action: 'index' }
+      else
+        format.html { render :new }
+      end
     end
   end
 

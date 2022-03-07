@@ -14,11 +14,13 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new permit(params)
-    if @event.save
-      flash[:success] = t('messages.model.created')
-      redirect_to action: 'index'
-    else
-      render :new
+    respond_to do |format|
+      if @event.save
+        flash[:success] = t('messages.model.created')
+        format.html { redirect_to action: 'index' }
+      else
+        format.html { render :new }
+      end
     end
   end
 
@@ -28,11 +30,13 @@ class EventsController < ApplicationController
 
   def update
     @event = Event.find_by params.permit(:id)
-    if @event.update permit(params)
-      flash[:success] = t('messages.model.updated')
-      redirect_to action: 'index'
-    else
-      render :edit
+    respond_to do |format|
+      if @event.update permit(params)
+        flash[:success] = t('messages.model.updated')
+        format.html { redirect_to action: 'index' }
+      else
+        format.html { render :edit }
+      end
     end
   end
 

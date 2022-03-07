@@ -13,14 +13,16 @@ class SessionsController < ApplicationController
   def create
     user = Member.find_by(params.require(:user).permit(:email))&.user
 
-    if user && user.authenticate(params.require(:user)[:password])
-      reset_session
-      session[:user_id] = user.id
-      flash[:success] = 'Login erfolgreich'
-      redirect_to member_events_path
-    else
-      flash[:danger] = 'Login fehlgeschlagen'
-      redirect_to action: 'new'
+    respond_to do |format|
+      if user && user.authenticate(params.require(:user)[:password])
+        reset_session
+        session[:user_id] = user.id
+        flash[:success] = 'Login erfolgreich' }
+        format.html { redirect_to member_events_path
+      else
+        flash[:danger] = 'Login fehlgeschlagen'
+        format.html { redirect_to action: 'new' }
+      end
     end
   end
 

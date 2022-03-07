@@ -23,11 +23,14 @@ class MembersController < ApplicationController
 
   def create
     @member = Member.new permit(params)
-    if @member.save
-      flash[:success] = t('messages.model.created')
-      redirect_to action: 'index'
-    else
-      render :new
+
+    respond_to do |format|
+      if @member.save
+        flash[:success] = t('messages.model.created')
+        format.html { redirect_to action: 'index' }
+      else
+        format.html { render :new }
+      end
     end
   end
 
@@ -41,11 +44,13 @@ class MembersController < ApplicationController
     raise ApplicationController::NotAuthorized unless current_user.admin? || current_user.member.id == params[:id].to_i
 
     @member = Member.find_by params.permit(:id)
-    if @member.update permit(params)
-      flash[:success] = t('messages.model.updated')
-      redirect_to action: 'index'
-    else
-      render :edit
+    respond_to do |format|
+      if @member.update permit(params)
+        flash[:success] = t('messages.model.updated')
+        format.html { redirect_to action: 'index' }
+      else
+        format.html { render :edit }
+      end
     end
   end
 
