@@ -6,8 +6,14 @@ class RegistrationsController < ApplicationController
       @event = Event.find(params[:event_id])
       member = current_user.member
     else
-      @token = params[:token]
+      unless @token = params[:token]
+        flash[:danger] = t 'model.registration.error.only_with_token'
+        return
+      end
       @event = Event.joins(:member_events).where(member_events: { token: @token, registration_id: nil }).first
+      unless @event.present?
+        flash[:danger] = t 'model.registration.error.token_already_used'
+      end
       member = MemberEvent.find_by(token: @token).member
     end
     @registration = Registration.new

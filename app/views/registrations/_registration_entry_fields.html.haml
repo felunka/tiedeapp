@@ -2,7 +2,11 @@
   .card-body
     = link_to_remove_association f, class: 'float-end text-danger', data: { action: 'click->cocoon#removeRow' } do
       = icon 'trash'
-    = f.association :member, label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_members_path } }
+    - if defined?(@token)
+      - autocomplete_url = autocomplete_members_path(token: @token)
+    - else
+      - autocomplete_url = autocomplete_members_path
+    = f.association :member, label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_url } }
     = f.input :name, hint: t('model.registration_entry.name_only_for_guest_hint')
     = f.input :accommodation, collection: RegistrationEntry.accommodations.symbolize_keys.keys, include_blank: false, include_hidden: false, input_html: { data: { action: 'change->room-visualisation#update' }}
     = f.input :is_vegetarian, as: :boolean

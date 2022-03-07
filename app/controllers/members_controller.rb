@@ -1,6 +1,5 @@
 class MembersController < ApplicationController
   before_action :require_admin, only: [:new, :create, :destroy]
-  # TODO: ensure user hat valid token to prevent userdata to get leaked
   skip_before_action :require_login, only: [:autocomplete]
 
   def index
@@ -8,6 +7,9 @@ class MembersController < ApplicationController
   end
 
   def autocomplete
+    # ensure user logged in OR valid token present
+    raise ApplicationController::NotAuthorized unless current_user.present? || Event.joins(:member_events).where(member_events: { token: params.delete(:token), registration_id: nil }).any?
+
     @members = Member.where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "#{params[:term]}%").limit(10).map do |model|
       { id: model.id, text: model.full_name }
     end

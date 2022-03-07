@@ -275,6 +275,7 @@ de:
         total_amount: 'Betrag total'
       error:
         only_with_token: 'Eine Anmeldung ist nur möglich, wenn Sie eingeloggt sind oder einen Token haben.'
+        token_already_used: 'Dieser Enladungslink wurde bereits für eine Anmeldung verwendet.'
         number_double_rooms_odd: 'Die Anzahl an Personen in einem Doppelzimmer muss eine gerade Zahl sein.'
         after_event_deadline: 'Es sind keine Anmeldungen oder Änderungen mehr möglich.'
         payed_amount_too_much: 'Die Zahlung vom Mitglied ist größer als der offene Betrag! %{overpayed_amount} konnten nicht verrechnet werden.'

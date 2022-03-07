@@ -12,7 +12,7 @@
         = f.error :base, class: 'alert alert-danger'
       #registration_entries{data: { controller: 'cocoon room-visualisation' }}
         = f.fields_for :registration_entries do |entry|
-          = render 'registration_entry_fields', f: entry
+          = render 'registration_entry_fields', f: entry, token: token
         .links
           = link_to_add_association f, :registration_entries, class: 'btn btn-primary', data: { action: 'click->cocoon#addRow click->room-visualisation#update' } do
             = icon 'plus'
