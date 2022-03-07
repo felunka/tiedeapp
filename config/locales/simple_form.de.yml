@@ -15,7 +15,7 @@ de:
           child: 'Kind'
           guest: 'Gast'
         accommodation:
-          double_room: 'Im Doppenzimmer'
+          double_room: 'Im Doppelzimmer'
           single_room: 'Im Einzelzimmer'
           no_accommodation: 'Kein Hotelzimmer'
         registration_state:
@@ -36,7 +36,7 @@ de:
         base_fee_member: 'Basispreis (ohne Hotel) für Mitglieder'
         base_fee_guest: 'Basispreis (ohne Hotel) für Gäste'
         fee_member: 'Basispreis (im DZ) für Mitglieder'
-        fee_student: 'Basispreis (im DZ) für Studenten und Auszubildende'
+        fee_student: 'Basispreis (im DZ) für Studierende und Auszubildende'
         fee_childen: 'Basispreis (im DZ) für Kinder (unter 18 Jahre)'
         fee_guest: 'Basispreis (im DZ) für Gäste'
         fee_member_single_room: 'Einzelzimmerzuschlag Mitglieder'
@@ -61,6 +61,7 @@ de:
         zip: 'PLZ'
         city: 'Stadt'
         country: 'Land'
+        date_of_birth: 'Geburtsdatum'
         email: 'E-Mail'
         phone: 'Telefonnummer'
       payment:
