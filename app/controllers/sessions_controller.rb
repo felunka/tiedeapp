@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
         format.html { redirect_to member_events_path }
       else
         flash[:danger] = 'Login fehlgeschlagen'
-        format.html { redirect_to action: 'new' }
+        format.html { redirect_to action: 'new', status: :unprocessable_entity }
       end
     end
   end

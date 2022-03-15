@@ -23,7 +23,7 @@ class PaymentsController < ApplicationController
         flash[:success] = t('messages.model.created')
         format.html { redirect_to action: 'index' }
       else
-        format.html { render :new }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
   end

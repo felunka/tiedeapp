@@ -53,7 +53,7 @@ class ManageRegistrationsController < ApplicationController
         format.html { redirect_to edit_manage_registration_path(@registration) }
       else
         @payments = Payment.where(registration: @registration).or(Payment.where(member: @registration.registered_members, year: @registration.event.event_start.year))
-        format.html { render :edit }
+        format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
