@@ -48,6 +48,6 @@
                   = icon 'pen'
               - if current_user.admin?
                 = button_to member_payments_path(member), class: 'btn btn-primary', method: :get do
-                  = icon 'money'
+                  = icon 'money-bill'
                 = button_to member_path(member), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
                   = icon 'trash'
