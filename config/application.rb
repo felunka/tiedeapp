@@ -23,7 +23,7 @@ module Tiedeapp
     config.x.membership_fee.normal = 60
     config.x.membership_fee.reduced = 30
 
-    config.x.from_email = 'noreply@felunka.de'
+    config.x.from_email = 'noreply@tiede.app'
 
     config.after_initialize do
       config.x.git_ref = `git rev-parse --short HEAD`
