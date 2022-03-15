@@ -9,11 +9,12 @@ Rails.application.routes.draw do
     end
   end
   resources :members do
-    resources :payments, only: [:index, :new, :create, :destroy]
+    resources :payments, only: [:index, :new, :create]
     collection do
       get :autocomplete
     end
   end
+  resources :payments, only: [:index, :destroy]
   resources :member_events, only: [:index]
   resources :users, only: [:new, :create]
   resources :registrations do

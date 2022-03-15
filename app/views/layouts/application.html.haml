@@ -25,6 +25,7 @@
             = nav_item 'Home', root_path
             = nav_item 'Familientage', events_path, admin: true
             = nav_item 'Mitglieder', members_path
+            = nav_item 'Zahlungen', payments_path, admin: true
 
     .container-fluid{id: :flashbox }
       - flash.each do |key, value|

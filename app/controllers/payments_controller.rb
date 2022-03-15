@@ -1,8 +1,11 @@
 class PaymentsController < ApplicationController
 
   def index
-    @member = Member.find params[:member_id]
-    @payments = Payment.where member: @member
+    @payments = Payment.all.includes(:member)
+    if params[:member_id].present?
+      @member = Member.find params[:member_id] 
+      @payments = @payments.where member: @member
+    end
   end
 
   def new
