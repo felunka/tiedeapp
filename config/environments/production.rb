@@ -96,7 +96,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.sendgrid.net',
     port:                 587,
-    domain:               'felunka.de',
+    domain:               'tiede.app',
     user_name:            'apikey',
     password:             Rails.application.credentials.config[:sendgrid_api_key],
     authentication:       :plain,
