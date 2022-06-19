@@ -290,6 +290,8 @@ de:
     member:
       _name: 'Mitglied'
       member_type: 'Art'
+      error:
+        email_can_not_end_with_telekom: 'Adressen von Telekom (enden in @t-online.de) sind aus technischen Gründen nicht möglich.'
     user:
       error:
         only_with_token: 'Eine Anmeldung ist nur mit einem Einladungslink möglich.'

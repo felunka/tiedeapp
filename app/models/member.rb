@@ -11,6 +11,7 @@ class Member < ApplicationRecord
   }
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validate :email_not_ends_with_telekom
 
   def membership_fee
     if member_type == :student
@@ -22,5 +23,9 @@ class Member < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def email_not_ends_with_telekom
+    errors.add(:email, I18n.t('model.member.error.email_can_not_end_with_telekom')) if email.end_with?('t-online.de')
   end
 end
