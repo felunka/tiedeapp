@@ -68,6 +68,19 @@ class RegistrationsController < ApplicationController
     @registration = Registration.find params[:id]
   end
 
+  def invitation
+    @event = Registration.find_by(params.permit(:id)).event
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'invitation',
+          encoding: 'UTF-8',
+          show_as_html: false,
+          layout: true
+      end
+    end
+  end
+
   private
 
   def permit(params)

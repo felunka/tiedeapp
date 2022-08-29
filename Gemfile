@@ -27,6 +27,9 @@ gem 'simple_form'
 gem 'country_select'
 gem 'cocoon'
 
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 

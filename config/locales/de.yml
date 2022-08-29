@@ -267,6 +267,7 @@ de:
       number_double_room: 'Doppelzimmer'
       number_single_room: 'Einzelzimmer'
       no_room: 'Personen ohne Hotelzimmer'
+      get_invitation_as_pdf: 'Einladung als PDF anzeigen'
       bank_information:
         account_name: 'Name'
         bank_name: 'Name der Bank'
@@ -327,3 +328,25 @@ de:
       registration_option_digital: 'Sie melden sich sofort digial an.'
       registration_button: 'Anmelden'
       registration_option_paper: 'Drucken Sie das PDF im Anhang und folgen Sie den Anweisungen.'
+  pdf:
+    invite:
+      title: 'Einladung'
+      sub_title: 'zum Familientag vom %{date}<br>%{location}'
+      cost_headline: 'Für die Teilnahme werden folgende Kostenbeiträge berechnet:'
+      wire_to: 'Überweisungen bitte an:'
+      send_to: 'An:<br>Rüdiger von Tiedemann<br>Auf dem Köllenhof 44<br>53343 Wachtberg'
+      from: 'Von:'
+      number_of_people: 'Personenzahl:'
+      number_member: 'Mitglieder'
+      number_student: 'Studierende und Auszubildende'
+      number_children: 'Kinder'
+      number_guest: 'Gäste'
+      dogs: 'Hund: Ja / Nein (Aufpreis im Hotel direkt zu bezahlen)'
+      number_of_rooms: 'Anzahl Hotelzimmer:'
+      number_double_room: 'Doppelzimmer'
+      number_single_room: 'Einzelzimmer'
+      vegetatian: 'Davon Vegetarisch'
+      cost_calcuation: 'Den Kostenbeitrag €_______ und den Jahresbeitrag €_______  = insgesamt €_______ habe ich überwiesen.'
+      date: 'Datum: '
+      signature: 'Unterschrift: '
+

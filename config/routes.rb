@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :registrations do
     member do
       get :success
+      get :invitation
     end
   end
   resources :manage_registrations, only: [:edit, :update]
