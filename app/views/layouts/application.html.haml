@@ -26,6 +26,8 @@
             = nav_item 'Familientage', events_path, admin: true
             = nav_item 'Mitglieder', members_path
             = nav_item 'Zahlungen', payments_path, admin: true
+          - if current_user
+            = button_to t('login.logout'), session_path, class: 'btn btn-danger', method: :delete
 
     .container-fluid{id: :flashbox }
       - flash.each do |key, value|

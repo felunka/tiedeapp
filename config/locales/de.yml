@@ -315,6 +315,7 @@ de:
     no_account: 'Noch keinen Account?'
     no_token: 'Ein Account kann nur mit dem Link aus der Einladung erstellt werden.'
     create_account: 'Jetzt erstellen'
+    logout: 'Abmelden'
   mails:
     invite:
       subject: 'Einladung: %{event_title}'
