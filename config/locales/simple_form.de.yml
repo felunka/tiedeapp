@@ -14,6 +14,7 @@ de:
           student: 'Student oder Auszubildender'
           child: 'Kind'
           guest: 'Gast'
+          guest: 'Nichtmitglied'
         accommodation:
           double_room: 'Im Doppelzimmer'
           single_room: 'Im Einzelzimmer'

@@ -7,7 +7,8 @@ class Member < ApplicationRecord
   enum member_type: {
     member: 0,
     student: 1,
-    child: 2
+    child: 2,
+    guest: 3
   }
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
@@ -16,9 +17,10 @@ class Member < ApplicationRecord
   def membership_fee
     if member_type == :student
       return Rails.configuration.x.membership_fee.reduced
-    else
+    elsif member_type == :member
       return Rails.configuration.x.membership_fee.normal
     end
+    return 0
   end
 
   def full_name
