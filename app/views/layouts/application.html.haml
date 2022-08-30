@@ -36,6 +36,10 @@
           %button.btn-close.close{data: {bs: {dismiss: 'alert'}}, aria: {label: 'Close'}, type: 'button'}
     .container-fluid.pb-4
       = yield
+
+    - if cookies[:allow_cookies].blank?
+      = render 'layouts/cookie_banner'
+
     .footer
       = "Felix von Tiedemann • #{Date.today.year} • "
       = link_to Rails.configuration.x.git_ref, 'https://github.com/felunka/tiedeapp'

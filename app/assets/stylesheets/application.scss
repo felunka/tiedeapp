@@ -11,12 +11,23 @@
 }
 
 .footer {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    color: white;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  color: white;
 }
 
 .select2-container {
   width: 100% !important;
+}
+
+#cookie-banner {
+  position: absolute;
+  bottom: 1em;
+  background-color: white;
+  border-radius: 1em;
+  padding: 1em;
+  @media (min-width: 768px) {
+    right: 1em;
+  }
 }

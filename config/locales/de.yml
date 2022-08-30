@@ -302,6 +302,9 @@ de:
       created: 'Erfolgreich angelegt'
       updated: 'Erfolgreich aktualisiert'
       deleted: 'Eintrag wurde gelöscht'
+    cookie:
+      we_use_cookies: 'Diese Seite verwendet nur technisch notwendige Cookies. Es werden keine Daten mit dritten geteilt.'
+      accept: 'Akzeptieren'
   landing:
     registration_only_with_token: 'Ohne Account kann man sich nur mit einem Link aus der Einladung anmelden.'
     continue_without_account: 'Ohne Account fortfahren'
