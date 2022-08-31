@@ -246,7 +246,7 @@ de:
       member_fee_reduced: 'Studierende und Auszubildende'
       send_invites: 'Einladung per Email senden'
       send_invites_confirm: 'Es wird eine Einladung an alle Mitglieder per Email gesendet. Sind Sie sicher?'
-      invites_send: 'Einladungen wurden erfolgreich gesendet!'
+      invites_send: 'Einladungen werden im Hintergrund gesendet!'
       error:
         event_start_must_be_after_deadline: 'Das Startdatum muss nach dem Anmeldeschluss sein.'
         event_end_must_be_after_start: 'Das Enddatum muss nach dem Startdatum sein.'
@@ -352,4 +352,22 @@ de:
       cost_calcuation: 'Den Kostenbeitrag €_______ und den Jahresbeitrag €_______  = insgesamt €_______ habe ich überwiesen.'
       date: 'Datum: '
       signature: 'Unterschrift: '
-
+  datagrid:
+    no_results:
+      "Keine Einträge gefunden..."
+    table:
+      no_columns: "Keine Spalten ausgewählt"
+    form:
+      search: "Suchen"
+      reset: "Zurücksetzten"
+    filters:
+      title: 'Filter'
+      xboolean:
+        "yes": "Ja"
+        "no": "Nein"
+      dynamic:
+        operations:
+          ">=": "≥"
+          "<=": "≤"
+          "=": "="
+          "=~": "≈"

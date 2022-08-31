@@ -12,6 +12,9 @@
 
     = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
     = javascript_importmap_tags
+
+    :javascript
+      window.I18n = JSON.parse('#{current_translations.to_json.html_safe}')
   %body.bg-dark
     %nav.navbar.navbar-expand-lg.navbar-light.bg-light
       .container-fluid

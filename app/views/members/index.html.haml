@@ -4,50 +4,6 @@
     - if current_user.admin?
       = button_to t('helpers.submit.create'), new_member_path, class: 'btn btn-primary', method: :get
   .table-responsive
-    %table.table
-      %tr
-        %th
-          = t 'simple_form.labels.member.first_name'
-        %th
-          = t 'simple_form.labels.member.last_name'
-        %th
-          = t 'simple_form.labels.member.email'
-        %th
-          = t 'simple_form.labels.member.phone'
-        %th
-          = t 'simple_form.labels.member.street'
-        %th
-          = t 'simple_form.labels.member.zip'
-        %th
-          = t 'simple_form.labels.member.city'
-        %th
-          = t 'simple_form.labels.member.country'
-        %th
-      - @members.each do |member|
-        %tr
-          %td
-            = member.first_name
-          %td
-            = member.last_name
-          %td
-            = member.email
-          %td
-            = member.phone
-          %td
-            = member.street
-          %td
-            = member.zip
-          %td
-            = member.city
-          %td
-            = member.country
-          %td
-            .d-flex.model-buttons
-              - if current_user.admin? || current_user.member.id == member.id
-                = button_to edit_member_path(member), class: 'btn btn-primary', method: :get do
-                  = icon 'pen'
-              - if current_user.admin?
-                = button_to member_payments_path(member), class: 'btn btn-primary', method: :get do
-                  = icon 'money-bill'
-                = button_to member_path(member), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
-                  = icon 'trash'
+    = datagrid_form_for @members_grid, url: members_path
+    = datagrid_table @members_grid
+    = paginate @members_grid.assets

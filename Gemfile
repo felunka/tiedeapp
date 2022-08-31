@@ -26,6 +26,8 @@ gem 'bootstrap-email'
 gem 'simple_form'
 gem 'country_select'
 gem 'cocoon'
+gem 'datagrid', '~> 1.4', '>= 1.4.4'
+gem 'kaminari'
 
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'

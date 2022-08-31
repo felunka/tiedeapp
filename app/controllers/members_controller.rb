@@ -3,7 +3,9 @@ class MembersController < ApplicationController
   skip_before_action :require_login, only: [:autocomplete]
 
   def index
-    @members = Member.all
+    @members_grid = MembersGrid.new(params[:members_grid]) do |scope|
+      scope.page(params[:page])
+    end
   end
 
   def autocomplete
