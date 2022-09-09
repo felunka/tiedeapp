@@ -1,6 +1,4 @@
-class MembersGrid
-  include Datagrid
-
+class MembersGrid < ApplicationGrid
   #
   # Scope
   #
@@ -31,4 +29,6 @@ class MembersGrid
   column(:city)
   column(:country)
   column(:member_type) { |asset| I18n.t("simple_form.options.defaults.member_type.#{asset.member_type}") }
+
+  actions([:edit, :destroy])
 end
