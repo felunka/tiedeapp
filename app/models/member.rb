@@ -11,7 +11,7 @@ class Member < ApplicationRecord
     guest: 3
   }
 
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_nil: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true, uniqueness: true
   validate :email_not_ends_with_telekom
 
   def membership_fee
