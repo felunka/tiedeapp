@@ -1,15 +1,16 @@
 import { Controller } from '@hotwired/stimulus'
 import * as bootstrap from 'bootstrap'
+import DatagridStringFilter from 'components/datagrid_string_filter';
+import DatagridEnumFilter from 'components/datagrid_enum_filter';
 
 export default class extends Controller {
   filterOpen(event) {
     // get values for filter
     let target = event.target.closest('.filter-button');
-    let filterInputId = `${target.dataset.gridName}_${target.dataset.columnName}`;
 
-    if(target.dataset.filterIsOpen) {
-      let popover = bootstrap.Popover.getInstance(target.parentNode.querySelector('.popover'));
-      this.filterClose(popover);
+    if(target.popover) {
+      target.popover.dispose();
+      target.popover = null;
     } else {
       // Create filter input
       let header = document.createElement('div');
@@ -33,28 +34,21 @@ export default class extends Controller {
       closeButton.dataset.action = 'click->datagrid#filterCloseButtonClick';
       actionsWrapper.appendChild(closeButton);
 
-      let wrapper = document.createElement('div');
-      wrapper.classList.add('input-group');
+      let filterInputId = `${target.dataset.gridName}_${target.dataset.columnName}`;
 
-      let input = document.createElement('input');
-      input.classList.add('form-control');
-      input.dataset.action = 'keydown->datagrid#inputKeyDown';
-      input.type = 'text';
-      input.placeholder = target.dataset.label;
-      let filterInput = document.getElementById(filterInputId);
-      input.value = filterInput.value;
-      wrapper.appendChild(input);
-
-      let button = document.createElement('a');
-      button.role = 'button';
-      button.dataset.action = 'click->datagrid#searchButtonClick';
-      button.dataset.filterInputId = filterInputId;
-      button.classList.add('btn', 'btn-outline-primary');
-      wrapper.appendChild(button);
-
-      let icon = document.createElement('i');
-      icon.classList.add('fa-solid', 'fa-magnifying-glass');
-      button.appendChild(icon);
+      let wrapper = null;
+      let filter = null;
+      switch (target.dataset.filterType) {
+        case 'string':
+          filter = new DatagridStringFilter(target, filterInputId);
+          wrapper = filter.generateFilter();
+          break;
+        case 'enum':
+          filter = new DatagridEnumFilter(target, filterInputId);
+          wrapper = filter.generateFilter();
+          break;
+      }
+      target.filter = filter;
 
       // Show filter popup
       let options = {
@@ -62,59 +56,42 @@ export default class extends Controller {
         content: wrapper,
         placement: 'bottom',
         html: true,
-        trigger: 'focus',
         container: target.parentElement
       };
 
       let popover = new bootstrap.Popover(target, options);
       popover.show();
 
-      target.dataset.filterIsOpen = true;
+      target.popover = popover;
     }
   }
 
   inputKeyDown(event) {
     // keyCode == 13 => ENTER Key
     if(event.keyCode == 13) {
-      let target = event.target.parentElement.querySelector('a');
-      this.search(target);
+      let target = event.target.closest('th').querySelector('.filter-button');
+      target.filter.search();
     }
     // keyCode == 13 => ESC Key
     if(event.keyCode == 27) {
-      let popover = bootstrap.Popover.getInstance(event.target.closest('.popover'));
-      this.filterClose(popover);
+      let target = event.target.closest('th').querySelector('.filter-button');
+      target.popover.dispose();
+      target.popover = null;
     }
   }
 
   searchButtonClick(event) {
-    let target = event.target;
-    if(event.target.tagName != 'A') {
-      target = target.closest('a');
-    }
-    this.search(target);
-  }
-
-  search(target) {
-    let filterValue = target.closest('.popover').querySelector('input').value;
-    let filterInput = document.getElementById(target.dataset.filterInputId);
-    filterInput.value = filterValue;
-    filterInput.closest('form').submit();
+    let target = event.target.closest('th').querySelector('.filter-button');
+    target.filter.search();
   }
 
   filterReset(event) {
-    let target = event.target.closest('.popover').querySelector('a');
-    let filterInput = document.getElementById(target.dataset.filterInputId);
-    filterInput.value = '';
-    filterInput.closest('form').submit();
+    let target = event.target.closest('th').querySelector('.filter-button');
+    target.filter.reset();
   }
 
   filterCloseButtonClick(event) {
-    let popover = bootstrap.Popover.getInstance(event.target.closest('.popover'));
-    this.filterClose(popover);
-  }
-
-  filterClose(popover) {
-    delete popover._element.parentNode.querySelector('.filter-button').dataset.filterIsOpen;
-    popover.dispose();
+    let target = event.target.closest('th').querySelector('.filter-button');
+    target.popover.dispose();
   }
 }

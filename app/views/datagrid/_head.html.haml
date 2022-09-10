@@ -5,6 +5,7 @@
       = label
       = datagrid_order_for(grid, column, options) if column.supports_order? && options[:order]
       - if filter = grid.filters.select{ |e| e.name == column.name }.first
-        .filter-button.float-end{data: { action: 'click->datagrid#filterOpen', grid_name: grid.model_name.i18n_key, column_name: column.name, label: label}}
+
+        .filter-button.float-end{data: { action: 'click->datagrid#filterOpen', grid_name: grid.model_name.i18n_key, column_name: column.name, label: label, filter_type: filter.type, filter_options: filter.options}}
           - active_class = grid.filter_value_as_string(filter).present? ? 'active-filter' : ''
           = icon 'filter', [active_class]

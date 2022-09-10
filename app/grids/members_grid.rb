@@ -16,6 +16,8 @@ class MembersGrid < ApplicationGrid
   filter(:street, :string)
   filter(:zip, :string)
   filter(:city, :string)
+  filter(:country, :enum, select: Member.distinct.pluck(:country), multiple: true)
+  filter(:member_type, :enum, select: Member.distinct.pluck(:member_type).map{|type| [I18n.t("simple_form.options.defaults.member_type.#{type}"), type]}, multiple: true)
 
   #
   # Columns
