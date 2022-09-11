@@ -29,11 +29,13 @@ de:
           registration_fee: 'Familientag'
     labels:
       event:
+        name: 'Name'
         location: 'Ort'
         description: 'Beschreibung'
         event_start: 'Start Datum'
         event_end: 'End Datum'
         deadline_signup: 'Anmeldeschluss'
+        deadline_signup_in_words: 'Anmeldeschluss'
         base_fee_member: 'Basispreis (ohne Hotel) für Mitglieder'
         base_fee_guest: 'Basispreis (ohne Hotel) für Gäste'
         fee_member: 'Basispreis für Mitglieder'

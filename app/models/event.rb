@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  include ActionView::Helpers::DateHelper
+
   has_many :member_events, dependent: :destroy
   has_many :registrations, through: :member_events
 
@@ -19,6 +21,14 @@ class Event < ApplicationRecord
 
   def after_deadline_signup?
     deadline_signup < Date.today
+  end
+
+  def deadline_signup_in_words
+    label = I18n.l deadline_signup
+    if before_deadline_signup?
+      label = label + " (#{distance_of_time_in_words(Date.today, deadline_signup)})"
+    end
+    return label
   end
 
   private

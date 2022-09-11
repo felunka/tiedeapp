@@ -1,9 +1,17 @@
 class ApplicationGrid
   include Datagrid
 
+  def header_label(column)
+    if column.options.key? :header
+      column.options[:header]
+    else
+      model_name_key = translation_model_name || model_name.i18n_key.to_s.gsub('_grid', '').singularize
+      I18n.t("simple_form.labels.#{model_name_key}.#{column.name}")
+    end
+  end
 
   def self.actions(available_actions = [:show, :edit, :destroy])
-    column(:actions, html: true) do |asset|
+    column(:actions, html: true, header: '') do |asset|
       content_tag(:div, class: 'd-flex model-buttons') do
         if available_actions.include? :show
           concat(
