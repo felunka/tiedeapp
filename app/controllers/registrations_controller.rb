@@ -76,7 +76,16 @@ class RegistrationsController < ApplicationController
         render pdf: 'invitation',
           encoding: 'UTF-8',
           show_as_html: false,
-          layout: true
+          layout: true,
+          header: {
+            html: {
+              template: 'layouts/header',
+              layout: 'layouts/application'
+            }
+          },
+          margin: {
+            top: 10
+          }
       end
     end
   end

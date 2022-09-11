@@ -245,6 +245,7 @@ de:
       member_fee_normal: 'Normal'
       member_fee_reduced: 'Studierende und Auszubildende'
       send_invites: 'Einladung per Email senden'
+      generate_invite_pdf: 'Alle Einladungen als PDF Herunterladen'
       send_invites_confirm: 'Es wird eine Einladung an alle Mitglieder per Email gesendet. Sind Sie sicher?'
       invites_send: 'Einladungen werden im Hintergrund gesendet!'
       error:
@@ -352,6 +353,26 @@ de:
       cost_calcuation: 'Den Kostenbeitrag €_______ und den Jahresbeitrag €_______  = insgesamt €_______ habe ich überwiesen.'
       date: 'Datum: '
       signature: 'Unterschrift: '
+    invitation_letter:
+      send_back_to: 'Rüdiger von Tiedemann | Auf dem Köllenhof 44 | 53343 Wachtberg'
+      title: 'Einladung zum Familientag vom %{date}'
+      explanation: >-
+        Der Familienrat lädt alle Mitglieder des von Tiedemannschen Familienverbandes zum Familientag. Wie in der Familienratssitzung beschlossen, 
+        wird die Anmeldung erstmal sowohl digital als auch, wie gewohnt, analog möglich sein. Auf der folgenden Seite befindindet sich dazu die
+        gewohnte Einladung. Zusätzlich befindet sich unten ein QR-Code für eine digitale Anmeldung. Falls im Familienverzeichnis eine Email hinterlegt
+        wurde, wird diese Einladung ebenfalls digital mit Link zum Anmelden versendet.
+      sign_up_digital_head: 'Digital anmelden'
+      sign_up_digital_body: |-
+        • Email öffnen und link folgen oder QR Code unten scannen
+        • Anweisungen in der neuen Tiedeapp folgen
+        • fertig!
+      sign_up_analog_head: 'Analog anmelden'
+      sign_up_analog_body: |-
+        • Zweite Seite ausfüllen
+        • Mitgliederbeitrag und Hotelkosten überweisen
+        • Anmeldung per Post absenden
+        • fertig!
+      closure: 'Der Familienverband freut sich auch ein Zahlreiches erscheinen und wünscht schöne Grüße!'
   datagrid:
     no_results:
       "Keine Einträge gefunden..."

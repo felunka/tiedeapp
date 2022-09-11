@@ -1,0 +1,38 @@
+= wicked_pdf_stylesheet_link_tag 'din-5008.css'
+- @recipients.each do |recipient|
+  - tokens = recipient.delete(:tokens)
+  - address_template = Liquid::Template.parse(recipient[:country].address_format)
+  - recipient[:country] = recipient[:country].common_name
+  .page-break
+  %din-5008
+    .send-back-to
+      = t 'pdf.invitation_letter.send_back_to'
+    .address-block
+      = simple_format address_template.render(recipient.transform_keys(&:to_s))
+
+    .top-spacer
+
+    .letter-content
+      %h3
+        = simple_format (t('pdf.invitation_letter.title', date: "#{@event.event_start.strftime('%d. %m')} - #{@event.event_end.strftime('%d. %m %Y')}", location: @event.location))
+
+      %p
+        = t 'pdf.invitation_letter.explanation'
+
+      .row
+        .col
+          %h5
+            = t 'pdf.invitation_letter.sign_up_digital_head'
+          = simple_format(t 'pdf.invitation_letter.sign_up_digital_body')
+          %p
+            %img{src: generate_qr_code(tokens.first)}
+        .col
+          %h5
+            = t 'pdf.invitation_letter.sign_up_analog_head'
+          = simple_format(t 'pdf.invitation_letter.sign_up_analog_body')
+      
+      %p
+        = t 'pdf.invitation_letter.closure'
+
+  .page-break
+  = render 'registrations/invitation_page'

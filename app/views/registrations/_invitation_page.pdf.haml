@@ -1,0 +1,136 @@
+:css
+  .cutoff-line {
+    display: flex;
+    display: -webkit-box;
+    align-items: center;
+    -webkit-box-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .cutoff-line > img {
+    flex: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+  }
+
+  .dashed-devider {
+    flex: 1;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    width: 100%;
+    border-top: 2px dashed black;
+  }
+
+  .fill-line {
+    width: 50px;
+    border-top: 1px solid black;
+    display: inline-block;
+  }
+
+%h1 
+  = t 'pdf.invite.title'
+%h2
+  = simple_format (t('pdf.invite.sub_title', date: "#{@event.event_start.strftime('%d. %m')} - #{@event.event_end.strftime('%d. %m %Y')}", location: @event.location))
+
+%p
+  = simple_format(@event.description)
+
+%p
+  = t 'pdf.invite.cost_headline'
+  .card.mt-3
+    .card-header
+      = t 'model.event.base_price'
+    .card-body
+      .row
+        .col
+          .fw-bold=number_to_currency(@event.fee_member)
+          = t 'simple_form.labels.event.fee_member'
+        .col
+          .fw-bold=number_to_currency(@event.fee_student)
+          = t 'simple_form.labels.event.fee_student'
+        .col
+          .fw-bold=number_to_currency(@event.fee_childen)
+          = t 'simple_form.labels.event.fee_childen'
+        .col
+          .fw-bold=number_to_currency(@event.fee_guest)
+          = t 'simple_form.labels.event.fee_guest'
+  .card.mt-3
+    .card-header
+      = t 'model.event.single_room_fee'
+    .card-body
+      .row
+        .col
+          .fw-bold=number_to_currency(@event.fee_member_single_room)
+          = t 'simple_form.labels.event.fee_member_single_room'
+        .col
+          .fw-bold=number_to_currency(@event.fee_guest_single_room)
+          = t 'simple_form.labels.event.fee_guest_single_room'
+.row.fw-bold
+  .col
+    = t 'pdf.invite.wire_to'
+  .col
+    - bank_information = Rails.application.credentials.config[:bank_information]
+    = "#{t 'model.registration.bank_information.account_name'}: #{bank_information[:account_name]}"
+    %br
+    = "#{t 'model.registration.bank_information.bank_name'}: #{bank_information[:bank_name]}"
+    %br
+    = "#{t 'model.registration.bank_information.iban'}: #{bank_information[:iban]}"
+    %br
+    = "#{t 'model.registration.bank_information.swift'}: #{bank_information[:swift]}"
+
+.cutoff-line
+  = image_tag wicked_pdf_asset_base64('scissors-solid.png'), height: '20px'
+  .dashed-devider
+
+.row
+  .col
+    = simple_format t('pdf.invite.send_to')
+  .col
+    = t 'pdf.invite.from'
+    .fill-line{style: 'width: 250px'}
+.card.mt-3
+  .card-header
+    = t 'pdf.invite.number_of_people'
+  .card-body
+    .row.mt-3
+      .col
+        .fill-line
+        = t 'pdf.invite.number_member'
+      .col
+        .fill-line
+        = t 'pdf.invite.number_student'
+      .col
+        .fill-line
+        = t 'pdf.invite.number_children'
+      .col
+        .fill-line
+        = t 'pdf.invite.number_guest'
+    .row.mt-3
+      .col
+        = t 'pdf.invite.vegetatian'
+        .fill-line
+      .col
+        = t 'pdf.invite.dogs'
+
+.card.mt-3
+  .card-header
+    = t 'pdf.invite.number_of_rooms'
+  .card-body
+    .row.mt-3
+      .col
+        .fill-line
+        = t 'pdf.invite.number_double_room'
+      .col
+        .fill-line
+        = t 'pdf.invite.number_single_room'
+%p
+  = t 'pdf.invite.cost_calcuation'
+
+.row.mt-3
+  .col
+    = t 'pdf.invite.date'
+    .fill-line{style: 'width: 150px'}
+  .col
+    = t 'pdf.invite.signature'
+    .fill-line{style: 'width: 250px'}

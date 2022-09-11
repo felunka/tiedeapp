@@ -1,0 +1,67 @@
+din-5008 {
+  display: block;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  page-break-after: always;
+  width: 210mm;
+  height: 296mm;
+}
+din-5008[form='B'] {
+  padding-top: 45mm;
+}
+din-5008 {
+  padding-top: 27mm;
+}
+
+din-5008 send-back-to,
+din-5008 .send-back-to,
+din-5008 address-block,
+din-5008 .address-block,
+din-5008 top-spacer,
+din-5008 .top-spacer,
+din-5008 letter-content,
+din-5008 .letter-content {
+  display: block;
+}
+
+din-5008 send-back-to,
+din-5008 .send-back-to,
+din-5008 address-block,
+din-5008 .address-block {
+  position: absolute;
+  left: 15mm;
+  width: 100mm;
+}
+
+din-5008 send-back-to,
+din-5008 .send-back-to {
+  font-size: 8pt;
+  top: 47mm;
+  height: 5mm;
+}
+
+din-5008 address-block,
+din-5008 .address-block {
+  top: 54.7mm;
+  height: 27.3mm;
+}
+
+din-5008 top-spacer,
+din-5008 .top-spacer {
+  margin: 45mm 0 8.46mm 125mm;
+  max-width: 75mm;
+  min-height: 40mm;
+}
+
+din-5008 letter-content,
+din-5008 .letter-content {
+  margin: 0 0 4.23mm 15mm;
+}
+
+@media print {
+  din-5008 {
+    width: 210mm;
+  }
+}

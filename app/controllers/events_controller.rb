@@ -53,11 +53,55 @@ class EventsController < ApplicationController
       MemberEvent.where(event_id: params[:id]).joins(:member).where.not(members: {email: nil}).each do |member_event|
         InviteMailer.send_invite(member_event).deliver
       end
-      Thread.kill
     end
 
     flash[:success] = t('model.event.invites_send')
     redirect_to event_path(params[:id])
+  end
+
+  def generate_invite_pdf
+    @event = Event.find params[:id]
+
+    members = Member.select(%(
+      json_agg(jsonb_build_object('first_name', first_name, 'last_name', last_name)) AS names,
+      json_agg(member_events.token) AS tokens,
+      street,
+      zip,
+      city,
+      country
+    )).joins(:member_events).where(member_events: {event_id: @event.id}).group(:street, :zip, :city, :country).to_a
+    
+    @recipients = members.map do |member|
+      names = member.names.group_by{ |e| e['last_name'] }.map{|last_name, first_names| "#{first_names.pluck('first_name').join(', ')} #{last_name}"}
+      {
+        recipient: names.join('\n'),
+        street: member.street,
+        postalcode: member.zip,
+        city: member.city,
+        country: ISO3166::Country[member.country],
+        tokens: member.tokens
+      }
+    end
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'invitation_letter.pdf',
+          template: 'events/invitation_letter',
+          header: {
+            html: {
+              template: 'layouts/header',
+              layout: 'layouts/application'
+            }
+          },
+          encoding: 'UTF-8',
+          show_as_html: false,
+          layout: true,
+          margin: {
+            top: 10
+          }
+      end
+    end
   end
 
   private

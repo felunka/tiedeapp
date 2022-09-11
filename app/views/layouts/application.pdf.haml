@@ -1,70 +1,77 @@
-:css
-  body {
-    font-size: 12pt;
-  }
+!!!
+%html
+  %head
+    :css
+      body {
+        font-size: 12pt;
+      }
 
-  #logo {
-    max-height: 128px;
-    float: right;
-  }
+      .page-break {
+        display:block;
+        clear:both;
+        page-break-after:always;
+      }
 
-  h1, h2 {
-    text-align: center;
-  }
+      #logo {
+        max-height: 128px;
+        float: right;
+      }
 
-  p {
-    width: 100%;
-  }
+      h1, h2 {
+        text-align: center;
+      }
 
-  .row {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-  }
+      p {
+        width: 100%;
+      }
 
-  .row > div {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    flex: 1;
-  }
+      .row {
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+      }
 
-  .row > div:last-child {
-    margin-right: 0;
-  }
+      .row > div {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+      }
 
-  .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
-  }
+      .row > div:last-child {
+        margin-right: 0;
+      }
 
-  .card-body {
-    flex: 1 1 auto;
-    padding: 1rem 1rem;
-  }
+      .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+      }
 
-  .card-header {
-    padding: 0.5rem 1rem;
-    margin-bottom: 0;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  }
+      .card-body {
+        flex: 1 1 auto;
+        padding: 1rem 1rem;
+      }
 
-  .fw-bold {
-    font-weight: 700 !important;
-  }
+      .card-header {
+        padding: 0.5rem 1rem;
+        margin-bottom: 0;
+        background-color: rgba(0, 0, 0, 0.03);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+      }
 
-  .mt-3 {
-    margin-top: 1rem !important;
-  }
+      .fw-bold {
+        font-weight: 700 !important;
+      }
 
-= image_tag wicked_pdf_asset_base64('logo.png'), id: 'logo'
-
-= yield
+      .mt-3 {
+        margin-top: 1rem !important;
+      }
+  %body
+    = yield

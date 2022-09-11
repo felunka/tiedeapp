@@ -14,7 +14,7 @@
     = javascript_importmap_tags
 
     :javascript
-      window.I18n = JSON.parse('#{current_translations.to_json.html_safe}')
+      window.I18n = JSON.parse('#{current_translations.to_json.gsub("\\n", "").html_safe}')
   %body.bg-dark
     %nav.navbar.navbar-expand-lg.navbar-light.bg-light
       .container-fluid

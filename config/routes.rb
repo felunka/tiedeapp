@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :events do
     member do
       get :send_invites
+      get :generate_invite_pdf
     end
   end
   resources :members do
