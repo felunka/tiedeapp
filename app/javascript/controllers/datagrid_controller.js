@@ -62,6 +62,8 @@ export default class extends Controller {
       let popover = new bootstrap.Popover(target, options);
       popover.show();
 
+      wrapper.querySelector('input')?.focus();
+
       target.popover = popover;
     }
   }
