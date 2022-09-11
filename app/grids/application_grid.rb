@@ -10,6 +10,10 @@ class ApplicationGrid
     end
   end
 
+  def translation_model_name
+    return nil
+  end
+
   def self.actions(available_actions = [:show, :edit, :destroy])
     column(:actions, html: true, header: '') do |asset|
       content_tag(:div, class: 'd-flex model-buttons') do

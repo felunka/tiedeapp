@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.all
+    @events_grid = EventsGrid.new(params[:events_grid]) do |scope|
+      scope.page(params[:page])
+    end
   end
 
   def show

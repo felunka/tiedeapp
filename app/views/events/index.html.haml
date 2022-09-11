@@ -3,36 +3,6 @@
     = t('model.event._name')
     = button_to t('helpers.submit.create'), new_event_path, class: 'btn btn-primary', method: :get
   .table-responsive
-    %table.table
-      %tr
-        %th
-          = t 'simple_form.labels.event.name'
-        %th
-          = t 'simple_form.labels.event.location'
-        %th
-          = t 'simple_form.labels.event.event_start'
-        %th
-          = t 'simple_form.labels.event.event_end'
-        %th
-          = t 'simple_form.labels.event.deadline_signup'
-        %th
-      - @events.each do |event|
-        %tr
-          %td
-            = event.name
-          %td
-            = event.location
-          %td
-            = I18n.l event.event_start
-          %td
-            = I18n.l event.event_end
-          %td
-            = I18n.l event.deadline_signup
-          %td
-            .d-flex.model-buttons
-              = button_to event_path(event), class: 'btn btn-primary', method: :get do
-                = icon 'search'
-              = button_to edit_event_path(event), class: 'btn btn-primary', method: :get do
-                = icon 'pen'
-              = button_to event_path(event), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
-                = icon 'trash'
+    = datagrid_form_for @events_grid, url: events_path
+    = datagrid_table @events_grid
+    = paginate @events_grid.assets
