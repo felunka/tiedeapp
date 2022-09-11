@@ -6,7 +6,7 @@ class ApplicationGrid
       column.options[:header]
     else
       model_name_key = translation_model_name || model_name.i18n_key.to_s.gsub('_grid', '').singularize
-      I18n.t("simple_form.labels.#{model_name_key}.#{column.name}")
+      I18n.t("activerecord.attributes.#{model_name_key}.#{column.name}")
     end
   end
 

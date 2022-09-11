@@ -4,16 +4,16 @@
   .card-body
     .row.mb-3
       .col
-        = t 'simple_form.labels.event.location'
+        = Event.human_attribute_name(:location)
         .fw-bold=event.location
       .col
-        = t 'simple_form.labels.event.event_start'
+        = Event.human_attribute_name(:event_start)
         .fw-bold=I18n.l event.event_start
       .col
-        = t 'simple_form.labels.event.event_end'
+        = Event.human_attribute_name(:event_end)
         .fw-bold=I18n.l event.event_end
       .col
-        = t 'simple_form.labels.event.deadline_signup'
+        = Event.human_attribute_name(:deadline_signup)
         .fw-bold=I18n.l event.deadline_signup
     = event.description
 
@@ -24,16 +24,16 @@
     .row
       .col
         .fw-bold=number_to_currency(event.fee_member)
-        = t 'simple_form.labels.event.fee_member'
+        = Event.human_attribute_name(:fee_member)
       .col
         .fw-bold=number_to_currency(event.fee_student)
-        = t 'simple_form.labels.event.fee_student'
+        = Event.human_attribute_name(:fee_student)
       .col
         .fw-bold=number_to_currency(event.fee_childen)
-        = t 'simple_form.labels.event.fee_childen'
+        = Event.human_attribute_name(:fee_childen)
       .col
         .fw-bold=number_to_currency(event.fee_guest)
-        = t 'simple_form.labels.event.fee_guest'
+        = Event.human_attribute_name(:fee_guest)
 .card.mt-3
   .card-header
     = t 'model.event.single_room_fee'
@@ -41,10 +41,10 @@
     .row
       .col
         .fw-bold=number_to_currency(event.fee_member_single_room)
-        = t 'simple_form.labels.event.fee_member_single_room'
+        = Event.human_attribute_name(:fee_member_single_room)
       .col
         .fw-bold=number_to_currency(event.fee_guest_single_room)
-        = t 'simple_form.labels.event.fee_guest_single_room'
+        = Event.human_attribute_name(:fee_guest_single_room)
 .card.mt-3
   .card-header
     = t 'model.event.member_fee'

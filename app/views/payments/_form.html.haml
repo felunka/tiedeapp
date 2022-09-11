@@ -1,6 +1,6 @@
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
-    = t('model.payment._name')
+    = Payment.model_name.human
     .row
       - if @payment.id.present?
         .col.p-0

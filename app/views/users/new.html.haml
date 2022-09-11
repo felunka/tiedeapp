@@ -1,21 +1,21 @@
 .card.mt-3
   .card-header
-    = t 'model.member._name'
+    = Member.model_name.human
   .card-body
     .row
       .col-sm
         .fw-bold=@member.first_name
-        = t 'simple_form.labels.member.first_name'
+        = Member.human_attribute_name(:first_name)
       .col-sm
         .fw-bold=@member.last_name
-        = t 'simple_form.labels.member.last_name'
+        = Member.human_attribute_name(:last_name)
       .col-sm
         .fw-bold=@member.email
-        = t 'simple_form.labels.member.email'
+        = Member.human_attribute_name(:email)
 
 .card.mt-3
   .card-header
-    = t 'model.user._name'
+    = User.model_name.human
   .card-body
     = simple_form_for @user do |f|
       = f.input :member_id, as: :hidden, input_html: { value: @member.id }

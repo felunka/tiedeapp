@@ -1,0 +1,119 @@
+de:
+  activerecord:
+    models:
+      member: 'Mitglied'
+      event: 'Familientag'
+      registration: 'Anmeldung'
+      user: 'Benutzer'
+      payment: 'Zahlung'
+    attributes:
+      member:
+        first_name: 'Vorname'
+        last_name: 'Nachname'
+        member_type: 'Art'
+        street: 'Straße'
+        zip: 'PLZ'
+        city: 'Stadt'
+        country: 'Land'
+        date_of_birth: 'Geburtsdatum'
+        email: 'E-Mail'
+        phone: 'Telefonnummer'
+      event:
+        name: 'Name'
+        location: 'Ort'
+        description: 'Beschreibung'
+        event_start: 'Start Datum'
+        event_end: 'End Datum'
+        deadline_signup: 'Anmeldeschluss'
+        deadline_signup_in_words: 'Anmeldeschluss'
+        base_fee_member: 'Basispreis (ohne Hotel) für Mitglieder'
+        base_fee_guest: 'Basispreis (ohne Hotel) für Gäste'
+        fee_member: 'Basispreis für Mitglieder'
+        fee_student: 'Basispreis für Studierende und Auszubildende'
+        fee_childen: 'Basispreis für Kinder (unter 18 Jahre)'
+        fee_guest: 'Basispreis für Gäste'
+        fee_member_single_room: 'Einzelzimmerzuschlag Mitglieder'
+        fee_guest_single_room: 'Einzelzimmerzuschlag Gäste'
+      registration:
+        paid_amount: 'Bisher bezahlt'
+        add_payment_amount: 'Betrag hinzufügen'
+        single_rooms: 'Anzahl Einzelzimmer'
+        double_rooms: 'Anzahl Doppelzimmer'
+      registration_entry:
+        name: 'Name'
+        member: 'Mitglied'
+        with_dog: 'Mit Hund'
+        accommodation: 'Unterkunft'
+        registration_state: 'Anmeldestatus'
+        is_vegetarian: 'Vegetarisch'
+      user:
+        password: 'Passwort'
+        password_confirmation: 'Passwort bestätigen'
+      payment:
+        year: 'Jahr des Mitgliederbeitrags'
+        registration: 'Familientag für die Zahlung'
+        amount: 'Gezahlter Betrag'
+        created_at: 'Erfasst am'
+  model:
+    payment:
+      type: 'Art der Zahlung'
+      error:
+        fee_too_large: 'Der eingegebene Betrag ist größer als der noch zu zahlende Betrag. Noch offener Betrag: %{fee_open}'
+    event: 
+      base_price: 'Grundpreis im Doppelzimmer'
+      single_room_fee: 'Einzelzimmerzuschlag'
+      member_fee: 'Mitgliederbeitrag'
+      member_fee_normal: 'Normal'
+      member_fee_reduced: 'Studierende und Auszubildende'
+      send_invites: 'Einladung per Email senden'
+      generate_invite_pdf: 'Alle Einladungen als PDF Herunterladen'
+      send_invites_confirm: 'Es wird eine Einladung an alle Mitglieder per Email gesendet. Sind Sie sicher?'
+      invites_send: 'Einladungen werden im Hintergrund gesendet!'
+      error:
+        event_start_must_be_after_deadline: 'Das Startdatum muss nach dem Anmeldeschluss sein.'
+        event_end_must_be_after_start: 'Das Enddatum muss nach dem Startdatum sein.'
+    registration:
+      label: 'Anmeldung für: %{event_name}'
+      add_person: 'Person hinzufügen'
+      success: 'Die Anmeldung war erfolgreich!'
+      transfer_amount: 'Bitte überweisen Sie %{total_price} und den Mitgliederbeitrag von %{membership_fee} an folgende Bankverbindung:'
+      registred_from: 'Anmeldung von'
+      registred_with: 'Personen'
+      signup_date: 'Anmeldedatum'
+      last_edited: 'Zuletzt bearbeitet'
+      total_price: 'Gesamtpreis (nur Familientag)'
+      membership_fee: 'Mitgliedsbeiträge'
+      hint_membership_fee: 'Bereits gezahlte Beiträge werden abgezogen.'
+      grand_total: 'Summe total'
+      number_double_room: 'Doppelzimmer'
+      number_single_room: 'Einzelzimmer'
+      no_room: 'Personen ohne Hotelzimmer'
+      get_invitation_as_pdf: 'Einladung als PDF anzeigen'
+      bank_information:
+        account_name: 'Name'
+        bank_name: 'Name der Bank'
+        iban: 'IBAN'
+        swift: 'SWIFT/BIC'
+        total_amount: 'Betrag total'
+      error:
+        only_with_token: 'Eine Anmeldung ist nur möglich, wenn Sie eingeloggt sind oder einen Token haben.'
+        token_already_used: 'Dieser Einladungslink wurde bereits für eine Anmeldung verwendet.'
+        number_double_rooms_odd: 'Die Anzahl an Personen in einem Doppelzimmer muss eine gerade Zahl sein.'
+        after_event_deadline: 'Es sind keine Anmeldungen oder Änderungen mehr möglich.'
+        payed_amount_too_much: 'Die Zahlung vom Mitglied ist größer als der offene Betrag! %{overpayed_amount} konnten nicht verrechnet werden.'
+    registration_entry:
+      registration_state: 'Anmeldestatus'
+      paid_amount: 'Bisher bezahlt'
+      single_room_short: 'EZ'
+      double_room_short: 'DZ'
+      name_only_for_guest_hint: 'Name muss nur für Gäste ausgefüllt werden'
+      error:
+        only_member_xor_name: 'Es kann nur entweder ein Mitglied ausgewählt oder ein Name ausgefüllt werden.'
+    member:
+      member_type: 'Art'
+      error:
+        email_can_not_end_with_telekom: 'Adressen von Telekom (enden in @t-online.de) sind aus technischen Gründen nicht möglich.'
+    user:
+      error:
+        only_with_token: 'Eine Anmeldung ist nur mit einem Einladungslink möglich.'
+        token_invalid: 'Der Vewendete Token ist ungültig. Benutzer kann nicht erstellt werden'

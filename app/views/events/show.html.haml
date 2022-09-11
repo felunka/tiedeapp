@@ -8,16 +8,16 @@
   .card-body
     .row.mb-3
       .col
-        = t 'simple_form.labels.event.location'
+        = Event.human_attribute_name(:location)
         .fw-bold=@event.location
       .col
-        = t 'simple_form.labels.event.event_start'
+        = Event.human_attribute_name(:event_start)
         .fw-bold=I18n.l @event.event_start
       .col
-        = t 'simple_form.labels.event.event_end'
+        = Event.human_attribute_name(:event_end)
         .fw-bold=I18n.l @event.event_end
       .col
-        = t 'simple_form.labels.event.deadline_signup'
+        = Event.human_attribute_name(:deadline_signup)
         .fw-bold=I18n.l @event.deadline_signup
     = @event.description
 
@@ -28,16 +28,16 @@
     .row
       .col
         .fw-bold=number_to_currency(@event.fee_member)
-        = t 'simple_form.labels.event.fee_member'
+        = Event.human_attribute_name(:fee_member)
       .col
         .fw-bold=number_to_currency(@event.fee_student)
-        = t 'simple_form.labels.event.fee_student'
+        = Event.human_attribute_name(:fee_student)
       .col
         .fw-bold=number_to_currency(@event.fee_childen)
-        = t 'simple_form.labels.event.fee_childen'
+        = Event.human_attribute_name(:fee_childen)
       .col
         .fw-bold=number_to_currency(@event.fee_guest)
-        = t 'simple_form.labels.event.fee_guest'
+        = Event.human_attribute_name(:fee_guest)
 .card.mt-3
   .card-header
     = t 'model.event.single_room_fee'
@@ -45,10 +45,10 @@
     .row
       .col
         .fw-bold=number_to_currency(@event.fee_member_single_room)
-        = t 'simple_form.labels.event.fee_member_single_room'
+        = Event.human_attribute_name(:fee_member_single_room)
       .col
         .fw-bold=number_to_currency(@event.fee_guest_single_room)
-        = t 'simple_form.labels.event.fee_guest_single_room'
+        = Event.human_attribute_name(:fee_guest_single_room)
 
 .row.mt-3
   .col
@@ -68,17 +68,17 @@
       .card-body
         .h2
           = @entries.where(with_dog: true).count
-        = t 'simple_form.labels.registration.registration_entries.with_dog'
+        = Registration.human_attribute_name(:with_dog)
   .col
     .card
       .card-body
         .h2
           = @entries.where(is_vegetarian: true).count
-        = t 'simple_form.labels.registration.registration_entries.is_vegetarian'
+        = Registration.human_attribute_name(:is_vegetarian)
 
 .card.mt-3
   .card-header
-    = t 'model.registration._name'
+    = Registration.model_name.human
   .table-responsive
     %table.table
       %tr
@@ -87,11 +87,11 @@
         %th
           = t 'model.registration.registred_with'
         %th
-          = t 'simple_form.labels.registration.registration_entries.accommodation'
+          = RegistrationEntry.human_attribute_name(:accommodation)
         %th
-          = t 'simple_form.labels.registration.registration_entries.is_vegetarian'
+          = RegistrationEntry.human_attribute_name(:is_vegetarian)
         %th
-          = t 'simple_form.labels.registration.registration_entries.with_dog'
+          = RegistrationEntry.human_attribute_name(:with_dog)
         %th
           = t 'model.registration_entry.registration_state'
         %th

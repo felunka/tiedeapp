@@ -1,6 +1,6 @@
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
-    = t 'model.registration._name'
+    = t Registration.model_name.human
     .d-flex.model-buttons
       = button_to t('model.registration.get_invitation_as_pdf'), invitation_registration_path(format: :pdf), class: 'btn btn-secondary', method: :get
       = button_to t('helpers.submit.back'), event_path(@registration.event), class: 'btn btn-secondary', method: :get
@@ -31,19 +31,19 @@
 
 .card.mt-3
   .card-header
-    = t 'model.payment._name'
+    = Payment.model_name.human
 
   .table-responsive
     %table.table
       %tr
         %th
-          = t 'simple_form.labels.payment.amount'
+          = Payment.human_attribute_name(:amount)
         %th
           = t 'model.payment.type'
         %th
-          = t 'simple_form.labels.payment.year'
+          = Payment.human_attribute_name(:year)
         %th
-          = t 'simple_form.labels.payment.created_at'
+          = Payment.human_attribute_name(:created_at)
       - @payments.each do |payment|
         %tr
           %td
@@ -63,11 +63,11 @@
         %th
           = t 'model.registration.registred_from'
         %th
-          = t 'simple_form.labels.registration.registration_entries.accommodation'
+          = RegistrationEntry.human_attribute_name(:accommodation)
         %th
-          = t 'simple_form.labels.registration.registration_entries.is_vegetarian'
+          = RegistrationEntry.human_attribute_name(:is_vegetarian)
         %th
-          = t 'simple_form.labels.registration.registration_entries.with_dog'
+          = RegistrationEntry.human_attribute_name(:with_dog)
         %th
           = t 'model.registration.total_price'
         %th

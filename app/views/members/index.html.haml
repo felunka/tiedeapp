@@ -1,6 +1,6 @@
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
-    = t('model.member._name')
+    = Member.model_name.human
     - if current_user.admin?
       = button_to t('helpers.submit.create'), new_member_path, class: 'btn btn-primary', method: :get
   .table-responsive

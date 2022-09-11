@@ -1,6 +1,6 @@
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
-    = t('model.event._name')
+    = Event.model_name.human
   .table-responsive
     = datagrid_form_for @member_events_grid, url: member_events_path
     = datagrid_table @member_events_grid

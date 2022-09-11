@@ -7,20 +7,20 @@
 %p
   .row
     .col-lg
-      = t 'simple_form.labels.event.location'
+      = Event.human_attribute_name(:location)
       .fw-700=@event.location
     .col-lg
-      = t 'simple_form.labels.event.event_start'
+      = Event.human_attribute_name(:event_start)
       .fw-700=I18n.l @event.event_start
     .col-lg
-      = t 'simple_form.labels.event.event_end'
+      = Event.human_attribute_name(:event_end)
       .fw-700=I18n.l @event.event_end
     .col-lg
-      = t 'simple_form.labels.event.deadline_signup'
+      = Event.human_attribute_name(:deadline_signup)
       .fw-700=I18n.l @event.deadline_signup
 .devider
 %p
-  %h4= t 'model.registration._name'
+  %h4= Registration.model_name.human
   = t 'mails.invite.registration_option'
   .row.mt-3
     .col-lg

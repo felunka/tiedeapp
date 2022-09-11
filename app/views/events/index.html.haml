@@ -1,6 +1,6 @@
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
-    = t('model.event._name')
+    = Event.model_name.human
     = button_to t('helpers.submit.create'), new_event_path, class: 'btn btn-primary', method: :get
   .table-responsive
     = datagrid_form_for @events_grid, url: events_path

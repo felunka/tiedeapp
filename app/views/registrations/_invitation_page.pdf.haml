@@ -44,28 +44,28 @@
     .card-body
       .row
         .col
-          .fw-bold=number_to_currency(@event.fee_member)
-          = t 'simple_form.labels.event.fee_member'
+          .fw-bold=number_to_currency(event.fee_member)
+          = Event.human_attribute_name(:fee_member)
         .col
-          .fw-bold=number_to_currency(@event.fee_student)
-          = t 'simple_form.labels.event.fee_student'
+          .fw-bold=number_to_currency(event.fee_student)
+          = Event.human_attribute_name(:fee_student)
         .col
-          .fw-bold=number_to_currency(@event.fee_childen)
-          = t 'simple_form.labels.event.fee_childen'
+          .fw-bold=number_to_currency(event.fee_childen)
+          = Event.human_attribute_name(:fee_childen)
         .col
-          .fw-bold=number_to_currency(@event.fee_guest)
-          = t 'simple_form.labels.event.fee_guest'
+          .fw-bold=number_to_currency(event.fee_guest)
+          = Event.human_attribute_name(:fee_guest)
   .card.mt-3
     .card-header
       = t 'model.event.single_room_fee'
     .card-body
       .row
         .col
-          .fw-bold=number_to_currency(@event.fee_member_single_room)
-          = t 'simple_form.labels.event.fee_member_single_room'
+          .fw-bold=number_to_currency(event.fee_member_single_room)
+          = Event.human_attribute_name(:fee_member_single_room)
         .col
-          .fw-bold=number_to_currency(@event.fee_guest_single_room)
-          = t 'simple_form.labels.event.fee_guest_single_room'
+          .fw-bold=number_to_currency(event.fee_guest_single_room)
+          = Event.human_attribute_name(:fee_guest_single_room)
 .row.fw-bold
   .col
     = t 'pdf.invite.wire_to'

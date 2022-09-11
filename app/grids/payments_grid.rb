@@ -21,8 +21,8 @@ class PaymentsGrid < ApplicationGrid
   #
   # Columns
   #
-  column(:first_name, header: I18n.t('simple_form.labels.member.first_name'))
-  column(:last_name, header: I18n.t('simple_form.labels.member.last_name'))
+  column(:first_name, header: Member.human_attribute_name(:first_name))
+  column(:last_name, header: Member.human_attribute_name(:last_name))
   column(:amount)
   column(:payment_type, header: I18n.t('model.payment.type')) { |asset| I18n.t "simple_form.options.defaults.payment_type.#{asset.payment_type}" }
   column(:year)
