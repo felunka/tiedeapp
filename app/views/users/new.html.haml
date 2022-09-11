@@ -17,7 +17,7 @@
   .card-header
     = t 'model.user._name'
   .card-body
-    = simple_form_for User.new(member: @member) do |f|
+    = simple_form_for @user do |f|
       = f.input :member_id, as: :hidden, input_html: { value: @member.id }
       = f.input :token, as: :hidden, input_html: { value: @token }
       - unless @member.email.present?

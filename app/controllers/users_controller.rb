@@ -13,12 +13,14 @@ class UsersController < ApplicationController
       flash[:danger] = t('model.user.error.token_invalid')
       redirect_to root_path
     end
+    @user = User.new(member: @member)
   end
 
   def create
     respond_to do |format|
       # First check if token is valid
-      if Member.joins(:member_events).where(id: params[:user][:member_id], member_events: { token: params[:user].delete(:token) })
+      @token = params[:user].delete(:token)
+      if Member.joins(:member_events).where(id: params[:user][:member_id], member_events: { token: @token })
         # Check if user already exsist
         if User.find_by(member_id: params[:user][:member_id])
           flash[:danger] = t('model.user.error.user_exists')
@@ -29,10 +31,15 @@ class UsersController < ApplicationController
             Member.find(params[:user][:member_id]).update email: email
           end
           # Create user and log him in
-          user = User.create params.require(:user).permit(:member_id, :password, :password_confirmation)
-          session[:user_id] = user.id
-          flash[:success] = t('messages.model.created')
-          format.html { redirect_to root_path }
+          @user = User.new params.require(:user).permit(:member_id, :password, :password_confirmation)
+          if @user.save
+            session[:user_id] = @user.id
+            flash[:success] = t('messages.model.created')
+            format.html { redirect_to root_path }
+          else
+            @member = @user.member
+            format.html { render :new, status: :unprocessable_entity }
+          end
         end
       else
         flash[:danger] = t('model.user.error.token_invalid')
