@@ -17,10 +17,10 @@ class SessionsController < ApplicationController
       if user && user.authenticate(params.require(:user)[:password])
         reset_session
         session[:user_id] = user.id
-        flash[:success] = 'Login erfolgreich'
+        flash[:success] = t('messages.login.success')
         format.html { redirect_to member_events_path }
       else
-        flash[:danger] = 'Login fehlgeschlagen'
+        flash[:danger] = t('messages.login.fail')
         format.html { redirect_to action: 'new', status: :unprocessable_entity }
       end
     end

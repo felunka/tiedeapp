@@ -24,6 +24,10 @@ class UsersController < ApplicationController
           flash[:danger] = t('model.user.error.user_exists')
           format.html { redirect_to new_session_path }
         else
+          # Check if email was supplied => update member
+          if email = params[:user].delete(:email)
+            Member.find(params[:user][:member_id]).update email: email
+          end
           # Create user and log him in
           user = User.create params.require(:user).permit(:member_id, :password, :password_confirmation)
           session[:user_id] = user.id
