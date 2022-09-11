@@ -6,36 +6,6 @@
         = button_to t('helpers.submit.create'), new_member_payment_path(@member), class: 'btn btn-primary', method: :get
         = button_to t('helpers.submit.back'), members_path, class: 'btn btn-secondary', method: :get
   .table-responsive
-    %table.table
-      %tr
-        %th
-          = t 'simple_form.labels.member.first_name'
-        %th
-          = t 'simple_form.labels.member.last_name'
-        %th
-          = t 'simple_form.labels.payment.amount'
-        %th
-          = t 'model.payment.type'
-        %th
-          = t 'simple_form.labels.payment.year'
-        %th
-          = t 'simple_form.labels.payment.created_at'
-        %th
-      - @payments.each do |payment|
-        %tr
-          %td
-            = payment.member.first_name
-          %td
-            = payment.member.last_name
-          %td
-            = number_to_currency payment.amount
-          %td
-            = t "simple_form.options.defaults.payment_type.#{payment.payment_type}"
-          %td
-            = payment.year
-          %td
-            = I18n.l payment.created_at
-          %td
-            .d-flex.model-buttons
-              = button_to payment_path(payment), class: 'btn btn-danger', method: :delete, data: { confirm: t('helpers.submit.confirm') } do
-                = icon 'trash'
+    = datagrid_form_for @payments_grid, url: payments_path
+    = datagrid_table @payments_grid
+    = paginate @payments_grid.assets

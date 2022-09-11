@@ -1,10 +1,15 @@
 class PaymentsController < ApplicationController
 
   def index
-    @payments = Payment.all.includes(:member)
     if params[:member_id].present?
       @member = Member.find params[:member_id] 
-      @payments = @payments.where member: @member
+    end
+    @payments_grid = PaymentsGrid.new(params[:payments_grid]) do |scope|
+      if @member
+        scope.page(params[:page]).where(member: @member)
+      else
+        scope.page(params[:page])
+      end
     end
   end
 
