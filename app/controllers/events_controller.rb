@@ -64,7 +64,7 @@ class EventsController < ApplicationController
 
     members = Member.select(%(
       json_agg(jsonb_build_object('first_name', first_name, 'last_name', last_name)) AS names,
-      json_agg(member_events.token) AS tokens,
+      json_agg(jsonb_build_object('full_name', CONCAT(first_name, ' ', last_name), 'token', member_events.token)) AS tokens,
       street,
       zip,
       city,
@@ -72,7 +72,7 @@ class EventsController < ApplicationController
     )).joins(:member_events).where(member_events: {event_id: @event.id}).group(:street, :zip, :city, :country).to_a
     
     @recipients = members.map do |member|
-      names = member.names.group_by{ |e| e['last_name'] }.map{|last_name, first_names| "#{first_names.pluck('first_name').join(', ')} #{last_name}"}
+      names = member.names.group_by{ |e| e['last_name'] }.map{|last_name, first_names| "#{first_names.pluck('first_name').to_sentence} #{last_name}"}
       {
         recipient: names.join('\n'),
         street: member.street,

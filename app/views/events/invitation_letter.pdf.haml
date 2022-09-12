@@ -1,4 +1,10 @@
 = wicked_pdf_stylesheet_link_tag 'din-5008.css'
+
+:css
+  .qr-wrapper img {
+    display: block;
+  }
+
 - @recipients.each do |recipient|
   - tokens = recipient.delete(:tokens)
   - address_template = Liquid::Template.parse(recipient[:country].address_format)
@@ -24,14 +30,17 @@
           %h5
             = t 'pdf.invitation_letter.sign_up_digital_head'
           = simple_format(t 'pdf.invitation_letter.sign_up_digital_body')
-          %p
-            %img{src: generate_qr_code(tokens.first)}
         .col
           %h5
             = t 'pdf.invitation_letter.sign_up_analog_head'
           = simple_format(t 'pdf.invitation_letter.sign_up_analog_body')
+      .row.mt-3
+        - tokens.each do |token|
+          .col.qr-wrapper
+            = token['full_name']
+            %img{src: generate_qr_code(token['token'])} 
       
-      %p
+      %p.mt-3
         = t 'pdf.invitation_letter.closure'
 
   .page-break

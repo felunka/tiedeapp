@@ -63,7 +63,8 @@ de:
       explanation: >-
         Der Familienrat lädt alle Mitglieder des von Tiedemannschen Familienverbandes zum Familientag. Wie in der Familienratssitzung beschlossen, 
         wird die Anmeldung erstmal sowohl digital als auch, wie gewohnt, analog möglich sein. Auf der folgenden Seite befindindet sich dazu die
-        gewohnte Einladung. Zusätzlich befindet sich unten ein QR-Code für eine digitale Anmeldung. Falls im Familienverzeichnis eine Email hinterlegt
+        gewohnte Einladung. Zusätzlich befindet sich unten ein QR-Code für eine digitale Anmeldung. Je Mitglied exsistiert jeweils ein QR Code, in
+        einer Anmeldung können aber mehrere Personen erfasst werden. Falls im Familienverzeichnis eine Email hinterlegt
         wurde, wird diese Einladung ebenfalls digital mit Link zum Anmelden versendet.
       sign_up_digital_head: 'Digital anmelden'
       sign_up_digital_body: |-
