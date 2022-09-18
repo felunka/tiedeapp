@@ -23,9 +23,9 @@ class Member < ApplicationRecord
   end
 
   def membership_fee
-    if member_type == :student
+    if member_type == 'student'
       return Rails.configuration.x.membership_fee.reduced
-    elsif member_type == :member
+    elsif member_type == 'member'
       return Rails.configuration.x.membership_fee.normal
     end
     return 0
