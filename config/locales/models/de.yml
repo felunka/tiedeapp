@@ -39,6 +39,8 @@ de:
         add_payment_amount: 'Betrag hinzufügen'
         single_rooms: 'Anzahl Einzelzimmer'
         double_rooms: 'Anzahl Doppelzimmer'
+        with_dog: 'Mit Hund'
+        is_vegetarian: 'Vegetarisch'
       registration_entry:
         name: 'Name'
         member: 'Mitglied'
