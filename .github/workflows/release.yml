@@ -2,15 +2,14 @@ name: Release
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    release:
-      types: [published]
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy:
     runs-on: [self-hosted]
@@ -24,5 +23,6 @@ jobs:
           IMAGE_TAG=prod
           RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
           POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+          GITHUB_REF=${{ github.ref }}
           POSTGRES_HOSTNAME=XbFkVz
           /usr/local/bin/docker-compose --file docker-compose.yml --project-name tiedeapp_prod up --detach --remove-orphans --build

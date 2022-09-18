@@ -26,7 +26,11 @@ module Tiedeapp
     config.x.from_email = 'noreply@tiede.app'
 
     config.after_initialize do
-      config.x.git_ref = `git rev-parse --short HEAD`
+      if ENV['GITHUB_REF'] && ENV['GITHUB_REF'] != 'not_set'
+        config.x.git_ref = ENV['GITHUB_REF']
+      else
+        config.x.git_ref = `git rev-parse --short HEAD`
+      end
     end
   end
 end
