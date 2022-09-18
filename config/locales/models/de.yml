@@ -118,4 +118,4 @@ de:
     user:
       error:
         only_with_token: 'Eine Anmeldung ist nur mit einem Einladungslink möglich.'
-        token_invalid: 'Der Vewendete Token ist ungültig. Benutzer kann nicht erstellt werden'
+        token_invalid: 'Der verwendete Token ist ungültig. Benutzer kann nicht erstellt werden'

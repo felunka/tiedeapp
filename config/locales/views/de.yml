@@ -33,7 +33,7 @@ de:
       registration_option: 'Sie haben zwei Option, sich anzumelden:'
       registration_option_1: 'Option 1:'
       registration_option_2: 'Option 2:'
-      registration_option_digital: 'Sie melden sich sofort digial an.'
+      registration_option_digital: 'Sie melden sich sofort digital an.'
       registration_button: 'Anmelden'
       registration_option_paper: 'Drucken Sie das PDF im Anhang und folgen Sie den Anweisungen.'
   pdf:
@@ -62,10 +62,10 @@ de:
       title: 'Einladung zum Familientag vom %{date}'
       explanation: >-
         Der Familienrat lädt alle Mitglieder des von Tiedemannschen Familienverbandes zum Familientag. Wie in der Familienratssitzung beschlossen, 
-        wird die Anmeldung erstmal sowohl digital als auch, wie gewohnt, analog möglich sein. Auf der folgenden Seite befindindet sich dazu die
-        gewohnte Einladung. Zusätzlich befindet sich unten ein QR-Code für eine digitale Anmeldung. Je Mitglied exsistiert jeweils ein QR Code, in
+        wird die Anmeldung erstmals sowohl digital als auch, wie gewohnt, analog möglich sein. Auf der folgenden Seite befindet sich dazu die
+        gewohnte Einladung. Zusätzlich befindet sich unten ein QR-Code für eine digitale Anmeldung. Je Mitglied existiert jeweils ein QR Code, in
         einer Anmeldung können aber mehrere Personen erfasst werden. Falls im Familienverzeichnis eine Email hinterlegt
-        wurde, wird diese Einladung ebenfalls digital mit Link zum Anmelden versendet.
+        wurde, wird diese Einladung ebenfalls digital mit einem Link zum Anmelden versendet.
       sign_up_digital_head: 'Digital anmelden'
       sign_up_digital_body: |-
         • Email öffnen und link folgen oder QR Code unten scannen
