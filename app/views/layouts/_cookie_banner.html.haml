@@ -1,6 +1,7 @@
 #cookie-banner{data: { controller: 'cookie-banner' }}
   %p
     = t 'messages.cookie.we_use_cookies'
+    = link_to t('imprint.data_privacy'), impressum_path
   %button.btn.btn-primary.btn-block.w-100{data: { action: 'click->cookie-banner#accept' }}
     = icon 'check'
     = t 'messages.cookie.accept'

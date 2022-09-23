@@ -45,4 +45,6 @@
 
     .footer
       = "Felix von Tiedemann • #{Date.today.year} • "
+      = link_to t('imprint.title'), impressum_path
+      = ' • '
       = link_to Rails.configuration.x.git_ref, 'https://github.com/felunka/tiedeapp'

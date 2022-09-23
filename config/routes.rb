@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   root 'sessions#landing'
 
+  get '/impressum', to: 'imprint#show' 
+
   resources :events do
     member do
       get :send_invites

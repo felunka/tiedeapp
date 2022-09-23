@@ -25,6 +25,9 @@ de:
     no_token: 'Ein Account kann nur mit dem Link aus der Einladung erstellt werden.'
     create_account: 'Jetzt erstellen'
     logout: 'Abmelden'
+  imprint:
+    title: 'Impressum'
+    data_privacy: 'Datenschutzerklärung'
   mails:
     invite:
       subject: 'Einladung: %{event_title}'

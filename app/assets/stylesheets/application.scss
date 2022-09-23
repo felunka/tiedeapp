@@ -23,7 +23,7 @@
 }
 
 #cookie-banner {
-  position: absolute;
+  position: fixed;
   bottom: 1em;
   background-color: white;
   border-radius: 1em;
@@ -31,4 +31,8 @@
   @media (min-width: 768px) {
     right: 1em;
   }
+}
+
+.ws-pre {
+  white-space: pre;
 }
