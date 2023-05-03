@@ -28,6 +28,10 @@ de:
   imprint:
     title: 'Impressum'
     data_privacy: 'Datenschutzerklärung'
+  success:
+    girocode:
+      title: 'EPC-QR-Code (Girocode)'
+      hint: 'Einfach mit der Online-Banking App scannen und direkt überweisen!'
   mails:
     invite:
       subject: 'Einladung: %{event_title}'

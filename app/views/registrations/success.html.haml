@@ -1,15 +1,24 @@
 - bank_information = Rails.application.credentials.config[:bank_information]
-.card.bg-success.text-white.mt-3
+.card.mt-3
   .card-body
-    .h5
-      = t 'model.registration.success'
-    %p= t 'model.registration.transfer_amount', total_price: number_to_currency(@registration.total_price), membership_fee: number_to_currency(@registration.membership_fee)
-    = "#{t 'model.registration.bank_information.account_name'}: #{bank_information[:account_name]}"
-    %br
-    = "#{t 'model.registration.bank_information.bank_name'}: #{bank_information[:bank_name]}"
-    %br
-    = "#{t 'model.registration.bank_information.iban'}: #{bank_information[:iban]}"
-    %br
-    = "#{t 'model.registration.bank_information.swift'}: #{bank_information[:swift]}"
-    %br
-    = "#{t 'model.registration.bank_information.total_amount'}: #{number_to_currency(@registration.total_price + @registration.membership_fee)}"
+    .row
+      .col-10
+        .h5
+          = t 'model.registration.success'
+        %p= t 'model.registration.transfer_amount', total_price: number_to_currency(@registration.total_price)
+        = "#{t 'model.registration.bank_information.account_name'}: #{bank_information[:account_name]}"
+        %br
+        = "#{t 'model.registration.bank_information.bank_name'}: #{bank_information[:bank_name]}"
+        %br
+        = "#{t 'model.registration.bank_information.iban'}: #{bank_information[:iban]}"
+        %br
+        = "#{t 'model.registration.bank_information.swift'}: #{bank_information[:swift]}"
+        %br
+        .fw-bold
+          = "#{t 'model.registration.bank_information.total_amount'}: #{number_to_currency(@registration.total_price)}"
+      .col.d-none.d-md-block.border-start
+        .h5
+          = "#{t 'success.girocode.title'}:"
+        - code = Girocode.new(iban: bank_information[:iban], name: bank_information[:account_name], currency: 'EUR', amount: @registration.total_price, reference: 'TODO')
+        = raw code.to_svg(viewbox: true)
+        = t 'success.girocode.hint'
