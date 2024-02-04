@@ -20,7 +20,7 @@ class PaymentsController < ApplicationController
 
   def create
     @member = Member.find params[:member_id]
-    @payment = Payment.new params.require(:payment).permit(:registration_id, :year, :amount)
+    @payment = Payment.new params.require(:payment).permit(:registration_id, :year, :amount_due, :amount_payed)
     @payment.member_id = params[:member_id]
 
     respond_to do |format|
@@ -34,7 +34,6 @@ class PaymentsController < ApplicationController
   end
 
   def destroy
-    @member = Member.find params[:member_id]
     Payment.find_by(params.permit(:id)).destroy
     flash[:danger] = t('messages.model.deleted')
     redirect_to action: 'index'

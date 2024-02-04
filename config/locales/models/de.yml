@@ -63,6 +63,7 @@ de:
       type: 'Art der Zahlung'
       error:
         fee_too_large: 'Der eingegebene Betrag ist größer als der noch zu zahlende Betrag. Noch offener Betrag: %{fee_open}'
+        only_year_xor_registration: 'Zahlung muss zu einem Familientag zugeordnet sein oder für ein Mitgleiderbeitrag ein Jahr enthalten'
     event: 
       base_price: 'Grundpreis im Doppelzimmer'
       single_room_fee: 'Einzelzimmerzuschlag'

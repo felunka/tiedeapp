@@ -10,11 +10,9 @@
 
   .card-body
     = simple_form_for @payment, url: member_payments_path(@member) do |f|
-      .row
-        .col
-          = f.association :registration, collection: Registration.joins(:registration_entries).where(registration_entries: {member: @member}), label_method: :label
-        .col
-          = f.input :year
-      = f.input :amount, as: :currency
-      = f.error :amount, class: 'text-danger'
+      = f.error :base, class: 'text-danger'
+      = f.input :year
+      = f.input :amount_due, as: :currency
+      = f.error :amount_due, class: 'text-danger'
+      = f.input :amount_payed, as: :currency
       = f.submit class: 'btn btn-primary mt-2'
