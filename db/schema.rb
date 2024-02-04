@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_11_152259) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_21_171247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,12 +61,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_152259) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.decimal "amount"
+    t.decimal "amount_due"
     t.bigint "registration_id"
     t.bigint "member_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "year"
+    t.date "due_date"
+    t.decimal "amount_payed", default: "0.0", null: false
+    t.integer "payment_state", default: 0, null: false
     t.index ["member_id"], name: "index_payments_on_member_id"
     t.index ["registration_id"], name: "index_payments_on_registration_id"
   end
@@ -87,7 +90,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_152259) do
   create_table "registrations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "registration_state", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|

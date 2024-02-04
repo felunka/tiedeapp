@@ -42,14 +42,6 @@ class RegistrationEntry < ApplicationRecord
     return price
   end
 
-  def membership_fee
-    return 0 if member.nil?
-
-    payment_amount = Payment.where(member: member, year: event.event_start.year).sum(:amount)
-
-    member.membership_fee - payment_amount
-  end
-
   def full_name
     if member.nil?
       name

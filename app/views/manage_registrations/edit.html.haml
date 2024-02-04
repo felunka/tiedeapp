@@ -16,15 +16,7 @@
       .col
         = t 'model.registration.total_price'
         .fw-bold=number_to_currency(@registration.total_price)
-      .col
-        = t 'model.registration.membership_fee'
-        .fw-bold=number_to_currency(@registration.membership_fee)
-        = t 'model.registration.hint_membership_fee'
-      .col
-        = t 'model.registration.grand_total'
-        .fw-bold=number_to_currency(@registration.total_price + @registration.membership_fee)
     = simple_form_for @registration, url: manage_registration_path(@registration) do |f|
-      = f.input :registration_state, collection: Registration.registration_states.symbolize_keys.keys, include_blank: false, include_hidden: false, label: t('model.registration_entry.registration_state')
       = f.input :paid_amount, as: :currency, disabled: true
       = f.input :add_payment_amount, as: :currency
       = f.submit class: 'btn btn-primary mt-3'
@@ -37,24 +29,15 @@
     %table.table
       %tr
         %th
-          = Payment.human_attribute_name(:amount)
-        %th
-          = t 'model.payment.type'
-        %th
-          = Payment.human_attribute_name(:year)
+          = Payment.human_attribute_name(:amount_due)
         %th
           = Payment.human_attribute_name(:created_at)
       - @payments.each do |payment|
         %tr
           %td
-            = number_to_currency payment.amount
-          %td
-            = t "simple_form.options.defaults.payment_type.#{payment.payment_type}"
-          %td
-            = payment.year
+            = number_to_currency payment.amount_due
           %td
             = I18n.l payment.created_at
-
 
 .card.mt-3
   .table-responsive
@@ -70,12 +53,6 @@
           = RegistrationEntry.human_attribute_name(:with_dog)
         %th
           = t 'model.registration.total_price'
-        %th
-          = t 'model.registration.membership_fee'
-          %span{data: { 'bs-toggle': :tooltip }, title: t('model.registration.hint_membership_fee')}
-            = icon 'question-circle'
-        %th
-          = t 'model.registration.grand_total'
       - @registration.registration_entries.each do |entry|
         %tr
           %td
@@ -88,8 +65,4 @@
             = bool_to_icon entry.with_dog
           %td
             = number_to_currency(entry.price)
-          %td
-            = number_to_currency(entry.membership_fee)
-          %td
-            = number_to_currency(entry.price + entry.membership_fee)
             

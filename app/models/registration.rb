@@ -1,23 +1,17 @@
 class Registration < ApplicationRecord
   attr_accessor :add_payment_amount
 
+  after_save :create_or_update_payment
+
   has_one :member_event, dependent: :nullify
   has_one :event, through: :member_event
   has_one :member, through: :member_event
+  has_one :payment
 
   has_many :registration_entries, dependent: :destroy
   accepts_nested_attributes_for :registration_entries, reject_if: :all_blank, allow_destroy: true
 
   has_many :registered_members, source: :member, through: :registration_entries
-
-  has_many :payments
-
-  enum registration_state: {
-    created: 0,
-    final: 1,
-    partialy_paid: 2,
-    paid: 3
-  }
 
   validates :registration_entries, presence: true
   validate :all_double_rooms_full
@@ -32,11 +26,7 @@ class Registration < ApplicationRecord
   end
 
   def paid_amount
-    payments.sum(:amount)
-  end
-
-  def membership_fee
-    registration_entries.map{ |re| re.membership_fee }.sum
+    payment.amount_payed || 0
   end
 
   def label
@@ -44,6 +34,14 @@ class Registration < ApplicationRecord
   end
 
   private
+
+  def create_or_update_payment
+    if payment.present?
+      payment.update(amount_due: total_price)
+    else
+      Payment.create registration: self, member: member, amount_due: total_price, amount_payed: 0.0
+    end
+  end
 
   def all_double_rooms_full
     if registration_entries.map(&:accommodation).count('double_room').odd?

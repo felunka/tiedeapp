@@ -55,6 +55,8 @@ de:
         year: 'Jahr des Mitgliederbeitrags'
         registration: 'Familientag für die Zahlung'
         amount: 'Gezahlter Betrag'
+        amount_due: 'Betrag (fällig)'
+        amount_payed: 'Betrag (gezahlt)'
         created_at: 'Erfasst am'
   model:
     payment:
@@ -102,7 +104,7 @@ de:
         token_already_used: 'Dieser Einladungslink wurde bereits für eine Anmeldung verwendet.'
         number_double_rooms_odd: 'Die Anzahl an Personen in einem Doppelzimmer muss eine gerade Zahl sein.'
         after_event_deadline: 'Es sind keine Anmeldungen oder Änderungen mehr möglich.'
-        payed_amount_too_much: 'Die Zahlung vom Mitglied ist größer als der offene Betrag! %{overpayed_amount} konnten nicht verrechnet werden.'
+        payed_amount_too_much: 'Die Zahlung vom Mitglied ist größer als der offene Betrag! %{overpayed_amount} wurden zu viel bezahlt.'
     registration_entry:
       registration_state: 'Anmeldestatus'
       paid_amount: 'Bisher bezahlt'
