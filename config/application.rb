@@ -20,8 +20,8 @@ module Tiedeapp
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :de
 
-    config.x.membership_fee.normal = 60
-    config.x.membership_fee.reduced = 30
+    config.x.membership_fee.normal = 50
+    config.x.membership_fee.reduced = 25
 
     config.x.from_email = 'noreply@tiede.app'
 
