@@ -29,9 +29,9 @@ de:
         base_fee_member: 'Basispreis (ohne Hotel) für Mitglieder'
         base_fee_guest: 'Basispreis (ohne Hotel) für Gäste'
         fee_member: 'Basispreis für Mitglieder'
-        fee_student: 'Basispreis für Studierende und Auszubildende'
-        fee_childen: 'Basispreis für Kinder (unter 18 Jahre)'
-        fee_guest: 'Basispreis für Gäste'
+        fee_student: 'Studierende und Auszubildende (Mitglieder)'
+        fee_childen: 'Kinder (unter 18 Jahre, Mitglieder)'
+        fee_guest: 'Gäste und Nichtmitglieder'
         fee_member_single_room: 'Einzelzimmerzuschlag Mitglieder'
         fee_guest_single_room: 'Einzelzimmerzuschlag Gäste'
       registration:
@@ -65,7 +65,7 @@ de:
         fee_too_large: 'Der eingegebene Betrag ist größer als der noch zu zahlende Betrag. Noch offener Betrag: %{fee_open}'
         only_year_xor_registration: 'Zahlung muss zu einem Familientag zugeordnet sein oder für ein Mitgleiderbeitrag ein Jahr enthalten'
     event: 
-      base_price: 'Grundpreis im Doppelzimmer'
+      base_price: 'Grundpreis'
       single_room_fee: 'Einzelzimmerzuschlag'
       member_fee: 'Mitgliederbeitrag'
       member_fee_normal: 'Normal'
