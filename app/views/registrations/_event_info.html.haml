@@ -34,25 +34,26 @@
       .col
         .fw-bold=number_to_currency(event.fee_guest)
         = Event.human_attribute_name(:fee_guest)
-.card.mt-3
-  .card-header
-    = t 'model.event.single_room_fee'
-  .card-body
-    .row
-      .col
-        .fw-bold=number_to_currency(event.fee_member_single_room)
-        = Event.human_attribute_name(:fee_member_single_room)
-      .col
-        .fw-bold=number_to_currency(event.fee_guest_single_room)
-        = Event.human_attribute_name(:fee_guest_single_room)
+// Not currently needed
+// .card.mt-3
+//   .card-header
+//     = t 'model.event.single_room_fee'
+//   .card-body
+//     .row
+//       .col
+//         .fw-bold=number_to_currency(event.fee_member_single_room)
+//         = Event.human_attribute_name(:fee_member_single_room)
+//       .col
+//         .fw-bold=number_to_currency(event.fee_guest_single_room)
+//         = Event.human_attribute_name(:fee_guest_single_room)
 .card.mt-3
   .card-header
     = t 'model.event.member_fee'
   .card-body
     .row
       .col
-        = t 'model.event.member_fee_normal'
         .fw-bold=number_to_currency(Rails.configuration.x.membership_fee.normal)
+        = t 'model.event.member_fee_normal'
       .col
-        = t 'model.event.member_fee_reduced'
         .fw-bold=number_to_currency(Rails.configuration.x.membership_fee.reduced)
+        = t 'model.event.member_fee_reduced'
