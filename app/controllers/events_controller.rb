@@ -50,7 +50,7 @@ class EventsController < ApplicationController
 
   def send_invites
     Thread.new do
-      MemberEvent.where(event_id: params[:id]).joins(:member).where.not(members: {email: nil}).each do |member_event|
+      MemberEvent.where(event_id: 1).joins(:member).where(members: {member_type: :member}).where.not(members: {email: nil}).each do |member_event|
         InviteMailer.send_invite(member_event).deliver
       end
     end
