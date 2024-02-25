@@ -44,7 +44,7 @@ class Registration < ApplicationRecord
   end
 
   def all_double_rooms_full
-    if registration_entries.map(&:accommodation).count('double_room').odd?
+    if registration_entries.filter_map{|r| r.accommodation unless r._destroy}.count('double_room').odd?
       errors.add(:base, I18n.t('model.registration.error.number_double_rooms_odd'))
     end
   end

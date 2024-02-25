@@ -10,7 +10,7 @@ export default class RoomVisualisation {
       no_accommodation: 0
     }
     // check seleced value for all persons
-    let accomondationSelectElements = document.querySelectorAll('select[name$="][accommodation]"]');
+    let accomondationSelectElements = document.querySelectorAll('.nested-fields:not([style*="display: none"]) .registration_registration_entries_accommodation select[name$="][accommodation]"]');
     accomondationSelectElements.forEach(function(element) {
       roomNumers[element.value]++;
     });
