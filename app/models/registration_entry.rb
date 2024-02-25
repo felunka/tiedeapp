@@ -11,7 +11,7 @@ class RegistrationEntry < ApplicationRecord
   }
 
   validate :member_xor_name
-  validates_uniqueness_of :member, scope: :registration_id
+  validates_uniqueness_of :member, scope: :registration_id, allow_blank: true
 
   def user_type
     if member

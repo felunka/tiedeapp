@@ -6,7 +6,7 @@ class Registration < ApplicationRecord
   has_one :member_event, dependent: :nullify
   has_one :event, through: :member_event
   has_one :member, through: :member_event
-  has_one :payment
+  has_one :payment, dependent: :destroy
 
   has_many :registration_entries, dependent: :destroy
   accepts_nested_attributes_for :registration_entries, reject_if: :all_blank, allow_destroy: true

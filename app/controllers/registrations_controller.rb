@@ -31,6 +31,7 @@ class RegistrationsController < ApplicationController
       unless member_event = MemberEvent.find_by(token: params[:registration][:token], registration_id: nil)
         flash[:danger] = t 'model.registration.error.only_with_token'
         redirect_to root_path
+        return
       end
     end
 
