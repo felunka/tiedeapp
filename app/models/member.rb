@@ -35,6 +35,11 @@ class Member < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def full_name_and_status
+    type_name = I18n.t("simple_form.options.defaults.member_type.#{member_type}")
+    "#{full_name} (#{type_name})"
+  end
+
   def email_not_ends_with_telekom
     errors.add(:email, I18n.t('model.member.error.email_can_not_end_with_telekom')) if email.present? && email.end_with?('t-online.de')
   end

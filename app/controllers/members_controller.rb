@@ -13,7 +13,7 @@ class MembersController < ApplicationController
     raise ApplicationController::NotAuthorized unless current_user.present? || Event.joins(:member_events).where(member_events: { token: params.delete(:token), registration_id: nil }).any?
 
     @members = Member.where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "#{params[:term]}%").limit(10).map do |model|
-      { id: model.id, text: model.full_name }
+      { id: model.id, text: model.full_name_and_status }
     end
 
     respond_to do |format|
