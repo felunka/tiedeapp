@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_21_171247) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_14_191425) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_21_171247) do
     t.date "deadline_signup"
     t.decimal "fee_member", precision: 10, scale: 2, default: "0.0"
     t.decimal "fee_student", precision: 10, scale: 2, default: "0.0"
-    t.decimal "fee_childen", precision: 10, scale: 2, default: "0.0"
+    t.decimal "fee_child", precision: 10, scale: 2, default: "0.0"
     t.decimal "fee_guest", precision: 10, scale: 2, default: "0.0"
     t.decimal "fee_member_single_room", precision: 10, scale: 2, default: "0.0"
     t.decimal "fee_guest_single_room", precision: 10, scale: 2, default: "0.0"

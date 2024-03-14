@@ -30,7 +30,7 @@ de:
         base_fee_guest: 'Basispreis (ohne Hotel) für Gäste'
         fee_member: 'Basispreis für Mitglieder'
         fee_student: 'Studierende und Auszubildende (Mitglieder)'
-        fee_childen: 'Kinder (unter 18 Jahre, Mitglieder)'
+        fee_child: 'Kinder (unter 18 Jahre, Mitglieder)'
         fee_guest: 'Gäste und Nichtmitglieder'
         fee_member_single_room: 'Einzelzimmerzuschlag Mitglieder'
         fee_guest_single_room: 'Einzelzimmerzuschlag Gäste'

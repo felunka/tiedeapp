@@ -116,7 +116,7 @@ class EventsController < ApplicationController
       :deadline_signup,
       :fee_member,
       :fee_student,
-      :fee_childen,
+      :fee_child,
       :fee_guest,
       :fee_member_single_room,
       :fee_guest_single_room,
