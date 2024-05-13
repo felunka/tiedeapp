@@ -35,6 +35,6 @@ module ApplicationHelper
 
   def generate_qr_code(token)
     target_url = CGI.escape(root_url(token: token))
-    return "https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=#{target_url}&choe=UTF-8"
+    return "https://quickchart.io/qr?text=#{target_url}"
   end
 end
