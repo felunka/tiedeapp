@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
 import * as bootstrap from 'bootstrap'
-import DatagridStringFilter from '../components/datagrid_string_filter';
-import DatagridEnumFilter from '../components/datagrid_enum_filter';
+import DatagridStringFilter from 'components/datagrid_string_filter';
+import DatagridEnumFilter from 'components/datagrid_enum_filter';
 
 export default class extends Controller {
   filterOpen(event) {
