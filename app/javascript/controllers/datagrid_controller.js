@@ -1,16 +1,16 @@
 import { Controller } from '@hotwired/stimulus'
 import * as bootstrap from 'bootstrap'
-import DatagridStringFilter from 'components/datagrid_string_filter';
-import DatagridEnumFilter from 'components/datagrid_enum_filter';
+import DatagridStringFilter from '../components/datagrid_string_filter';
+import DatagridEnumFilter from '../components/datagrid_enum_filter';
 
 export default class extends Controller {
   filterOpen(event) {
     // get values for filter
     let target = event.target.closest('.filter-button');
 
-    if(target.popover) {
-      target.popover.dispose();
-      target.popover = null;
+    if(target.dataset.popover) {
+      target.dataset.popover.dispose();
+      target.dataset.popover = null;
     } else {
       // Create filter input
       let header = document.createElement('div');
@@ -48,7 +48,14 @@ export default class extends Controller {
           wrapper = filter.generateFilter();
           break;
       }
-      target.filter = filter;
+
+      // Add filter event listeners
+      target.addEventListener('search', (_) => {
+        filter.search();
+      });
+      target.addEventListener('reset', (_) => {
+        filter.reset();
+      });
 
       // Show filter popup
       let options = {
@@ -63,8 +70,6 @@ export default class extends Controller {
       popover.show();
 
       wrapper.querySelector('input')?.focus();
-
-      target.popover = popover;
     }
   }
 
@@ -72,28 +77,29 @@ export default class extends Controller {
     // keyCode == 13 => ENTER Key
     if(event.keyCode == 13) {
       let target = event.target.closest('th').querySelector('.filter-button');
-      target.filter.search();
+      target.dispatchEvent(new Event('search'));
     }
     // keyCode == 13 => ESC Key
     if(event.keyCode == 27) {
       let target = event.target.closest('th').querySelector('.filter-button');
-      target.popover.dispose();
-      target.popover = null;
+      let popover = bootstrap.Popover.getInstance(target);
+      popover.dispose();
     }
   }
 
   searchButtonClick(event) {
     let target = event.target.closest('th').querySelector('.filter-button');
-    target.filter.search();
+    target.dispatchEvent(new Event('search'));
   }
 
   filterReset(event) {
     let target = event.target.closest('th').querySelector('.filter-button');
-    target.filter.reset();
+    target.dispatchEvent(new Event('reset'));
   }
 
   filterCloseButtonClick(event) {
     let target = event.target.closest('th').querySelector('.filter-button');
-    target.popover.dispose();
+    let popover = bootstrap.Popover.getInstance(target);
+    popover.dispose();
   }
 }
