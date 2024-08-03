@@ -78,6 +78,8 @@ de:
         event_start_must_be_after_deadline: 'Das Startdatum muss nach dem Anmeldeschluss sein.'
         event_end_must_be_after_start: 'Das Enddatum muss nach dem Startdatum sein.'
     registration:
+      create: 'Anmelden'
+      edit: 'Anmeldung bearbeiten'
       label: 'Anmeldung für: %{event_name}'
       add_person: 'Person hinzufügen'
       success: 'Die Anmeldung war erfolgreich!'

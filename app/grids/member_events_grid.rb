@@ -29,11 +29,11 @@ class MemberEventsGrid < ApplicationGrid
     if asset.before_deadline_signup?
       if asset.registration_id
         button_to edit_registration_path(asset.registration_id), class: 'btn btn-primary btn-sm', method: :get do
-          icon 'pen'
+          t 'model.registration.edit'
         end
       else
         button_to new_registration_path, class: 'btn btn-primary btn-sm', method: :get, params: { event_id: asset.id } do
-          icon 'plus'
+          t 'model.registration.create'
         end
       end
     end
