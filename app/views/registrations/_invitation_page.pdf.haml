@@ -31,7 +31,7 @@
 %h1 
   = t 'pdf.invite.title'
 %h2
-  = simple_format (t('pdf.invite.sub_title', date: "#{@event.event_start.strftime('%d. %m')} - #{@event.event_end.strftime('%d. %m %Y')}", location: @event.location))
+  = simple_format (t('pdf.invite.sub_title', date: "#{@event.event_start.strftime('%d.%m.')} - #{@event.event_end.strftime('%d.%m.%Y')}", location: @event.location))
 
 %p
   = simple_format(@event.description)
