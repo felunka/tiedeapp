@@ -11,6 +11,12 @@ de:
       success: 'Login erfolgreich'
       fail: 'Login fehlgeschlagen'
   landing:
+    welcome: 'Willkommen auf der Website des von Tiedemannschen Familienverbandes!'
+    welcome_body: >-
+      Ihr habt nun zwei Zugangsmöglichkeiten. Ihr könnt Euch entweder ohne Anlegen eines Accounts einloggen oder Euch einen Account anlegen.
+      Ohne Account könnt Ihr Euch nur einmalig für den nächsten Familientag anmelden, aber nicht die sonstigen Funktionen der tiedeapp nutzen. Beim
+      nächsten Familientag müsst Ihr dann auch immer wieder alle Eure Daten eingeben. Wir empfehlen deshalb, einen Account anzulegen. Das ist ganz
+      einfach und Ihr könnt zukünftig alle Funktionen nutzen (das Mitgliederverzeichnis, zukünftig den geplanten Stammbaum etc.).
     registration_only_with_token: 'Ohne Account kann man sich nur mit einem Link aus der Einladung anmelden.'
     continue_without_account: 'Ohne Account fortfahren'
     create_account_or_login: 'Account erstellen oder anmelden'
@@ -20,6 +26,10 @@ de:
     needs_password: 'Passwort notwendig (kann beim ersten Mal erstellt werden)'
     registration_can_be_changed: 'Anmeldung kann geändert werden'
     data_can_be_from_last_time: 'Daten können von letzter Anmeldung übernommen werden'
+  member_events:
+    header: >-
+      Falls die Anmedung für einen Familientag aktuell möglich ist, kommt Ihr hier über den Button "Anmelden" zum Anmeldeformular für den nächsten
+      Familientag. Ihr könnt dort eintragen, wer kommen wird (einschließlich Hund) und erhaltet unmittelbar die Kostenberechnung und Zahlungsaufforderung.
   login:
     no_account: 'Noch keinen Account?'
     no_token: 'Ein Account kann nur mit dem Link aus der Einladung erstellt werden.'
