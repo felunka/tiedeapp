@@ -25,4 +25,4 @@ jobs:
           POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
           GITHUB_RELEASE_VERSION=${{ github.ref }}
           POSTGRES_HOSTNAME=XbFkVz
-          /usr/local/bin/docker-compose --file docker-compose.yml --project-name tiedeapp_prod up --detach --remove-orphans --build
+          docker compose --file docker-compose.yml --project-name tiedeapp_prod up --detach --remove-orphans --build
