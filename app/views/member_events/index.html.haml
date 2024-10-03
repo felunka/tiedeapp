@@ -1,6 +1,10 @@
 .card.mt-3
   .card-body
+    %h5.card-title
+      = t('landing.welcome')
     = t('member_events.header')
+    .container
+      = image_tag '20230422_191638.webp', class: 'mw-75 img-fluid'
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
     = Event.model_name.human
