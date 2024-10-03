@@ -59,7 +59,7 @@ de:
       sub_title: 'zum Familientag vom %{date}<br>%{location}'
       cost_headline: 'Für die Teilnahme werden folgende Kostenbeiträge berechnet:'
       wire_to: 'Überweisungen bitte an:'
-      send_to: 'An:<br>Rüdiger von Tiedemann<br>Auf dem Köllenhof 44<br>53343 Wachtberg'
+      send_to: 'An:<br>Andreas von Tiedemann<br>Benfeyweg 3<br>37075 Göttingen'
       from: 'Von:'
       number_of_people: 'Personenzahl:'
       number_member: 'Mitglieder'
@@ -75,7 +75,7 @@ de:
       date: 'Datum: '
       signature: 'Unterschrift: '
     invitation_letter:
-      send_back_to: 'Rüdiger von Tiedemann | Auf dem Köllenhof 44 | 53343 Wachtberg'
+      send_back_to: 'Andreas von Tiedemann | Benfeyweg 3 | 37075 Göttingen'
       title: 'Einladung zum Familientag vom %{date}'
       explanation: >-
         Der Familienrat lädt alle Mitglieder des von Tiedemannschen Familienverbandes zum Familientag. Wie in der Familienratssitzung beschlossen, 
