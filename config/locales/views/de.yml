@@ -28,7 +28,7 @@ de:
     data_can_be_from_last_time: 'Daten können von letzter Anmeldung übernommen werden'
   member_events:
     header: >-
-      Falls die Anmedung für einen Familientag aktuell möglich ist, kommt Ihr hier über den Button 'Anmelden' zum Anmeldeformular für den nächsten
+      Falls die Anmeldung für einen Familientag aktuell möglich ist, kommt Ihr hier über den Button 'Anmelden' zum Anmeldeformular für den nächsten
       Familientag. Ihr könnt dort eintragen, wer kommen wird (einschließlich Hund) und erhaltet unmittelbar die Kostenberechnung und Zahlungsaufforderung.
   login:
     no_account: 'Noch keinen Account?'
