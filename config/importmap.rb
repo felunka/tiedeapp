@@ -14,3 +14,5 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from 'app/javascript/components', under: 'components'
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "js-cookie", to: "https://ga.jspm.io/npm:js-cookie@3.0.1/dist/js.cookie.mjs"
+pin "lodash", to: "https://ga.jspm.io/npm:lodash@4.17.21/lodash.js"
+pin "d3-dtree", to: "https://ga.jspm.io/npm:d3-dtree@2.4.1/dist/dTree.js"

@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   root 'sessions#landing'
 
-  get '/impressum', to: 'imprint#show' 
+  get '/impressum', to: 'imprint#show'
+
+  get 'family-tree', to: 'family_tree#show'
 
   resources :events do
     member do
