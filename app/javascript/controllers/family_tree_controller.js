@@ -4,77 +4,80 @@ import Tree from 'components/tree';
 export default class extends Controller {
 
   async connect() {
-    const treeData = {};
+    const treeData = ;
 
-    const svg = document.getElementById("family-tree");
-    let viewBox = { x: 0, y: 0, width: svg.clientWidth, height: svg.clientHeight };
-    let isPanning = false;
-    let startX = 0, startY = 0;
-    let zoomFactor = 1.1; // Zoom in/out factor
+    this.svg = document.getElementById("family-tree");
+    this.viewBox = { x: 0, y: 0, width: this.svg.clientWidth, height: this.svg.clientHeight };
+    this.isPanning = false;
+    this.startX = 0
+    this.startY = 0;
+    this.zoomFactor = 1.1; // Zoom in/out factor
 
     // Apply initial viewBox
-    svg.setAttribute("viewBox", `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`);
+    this.updateSvg();
 
-    // Mouse wheel zooming
-    svg.addEventListener("wheel", (event) => {
-      event.preventDefault();
-
-      const scale = event.deltaY < 0 ? 1 / zoomFactor : zoomFactor; // Zoom in or out
-      const mouseX = event.offsetX / svg.clientWidth * viewBox.width + viewBox.x;
-      const mouseY = event.offsetY / svg.clientHeight * viewBox.height + viewBox.y;
-
-      // Adjust the viewBox to zoom in or out
-      viewBox.width *= scale;
-      viewBox.height *= scale;
-      viewBox.x = mouseX - (mouseX - viewBox.x) * scale;
-      viewBox.y = mouseY - (mouseY - viewBox.y) * scale;
-
-      svg.setAttribute("viewBox", `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`);
-    });
-
-    // Mouse drag panning
-    svg.addEventListener("mousedown", (event) => {
-      event.preventDefault();
-      isPanning = true;
-      startX = event.clientX;
-      startY = event.clientY;
-    });
-
-    svg.addEventListener("mousemove", (event) => {
-      if (!isPanning) return;
-
-      const dx = (event.clientX - startX) * (viewBox.width / svg.clientWidth);
-      const dy = (event.clientY - startY) * (viewBox.height / svg.clientHeight);
-
-      viewBox.x -= dx;
-      viewBox.y -= dy;
-
-      svg.setAttribute("viewBox", `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`);
-
-      startX = event.clientX;
-      startY = event.clientY;
-    });
-
-    svg.addEventListener("mouseup", () => {
-      isPanning = false;
-    });
-
-    svg.addEventListener("mouseleave", () => {
-      isPanning = false;
-    });
-
+    const windowStyle = window.getComputedStyle(document.body);
     const layoutConfig = {
       xGap: 100,
       yGap: 100,
       nodeWidth: 200,
-      nodeHight: 50,
+      nodeHight: 100,
       spouseGap: 20,
-      nodeColor: "red",
-      nodeSelectedColor: "blue",
-      nodePathColor: "lightblue",
-      pathColor: "white",
-      pathHighlightColor: "red"
+      pathColor: windowStyle.getPropertyValue("--bs-gray-100"),
+      pathHighlightColor: windowStyle.getPropertyValue("--bs-info")
     };
-    const tree = new Tree(treeData, layoutConfig);
+    this.tree = new Tree(treeData, layoutConfig);
+  }
+
+  zoom(event) {
+    event.preventDefault();
+
+    const scale = event.deltaY < 0 ? 1 / this.zoomFactor : this.zoomFactor; // Zoom in or out
+    const mouseX = event.offsetX / this.svg.clientWidth * this.viewBox.width + this.viewBox.x;
+    const mouseY = event.offsetY / this.svg.clientHeight * this.viewBox.height + this.viewBox.y;
+
+    // Adjust the viewBox to zoom in or out
+    this.viewBox.width *= scale;
+    this.viewBox.height *= scale;
+    this.viewBox.x = mouseX - (mouseX - this.viewBox.x) * scale;
+    this.viewBox.y = mouseY - (mouseY - this.viewBox.y) * scale;
+
+    this.updateSvg();
+  }
+
+  dragStart(event) {
+    event.preventDefault();
+    this.isPanning = true;
+    this.startX = event.clientX;
+    this.startY = event.clientY;
+  }
+
+  pan(event) {
+    if (!this.isPanning) return;
+
+    const dx = (event.clientX - this.startX) * (this.viewBox.width / this.svg.clientWidth);
+    const dy = (event.clientY - this.startY) * (this.viewBox.height / this.svg.clientHeight);
+
+    this.viewBox.x -= dx;
+    this.viewBox.y -= dy;
+
+    this.updateSvg();
+
+    this.startX = event.clientX;
+    this.startY = event.clientY;
+  }
+
+  dragStop(_) {
+    this.isPanning = false;
+  }
+
+  updateSvg() {
+    this.svg.setAttribute("viewBox", `${this.viewBox.x} ${this.viewBox.y} ${this.viewBox.width} ${this.viewBox.height}`);
+  }
+
+  search(event) {
+    event.preventDefault();
+    const searchString = document.querySelector("#search-wrapper input").value;
+    this.tree.search(searchString);
   }
 }

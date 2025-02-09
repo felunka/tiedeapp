@@ -1,2 +1,10 @@
-%svg#family-tree{data: { controller: 'family-tree' }}
-  %g#connector-lines
+#family-tree-wrapper{data: { controller: 'family-tree' }}
+  #search-wrapper
+    .row.mt-3
+      .col.col-md-2
+        .input-group
+          %input.form-control{placeholder: t('datagrid.form.search'), type: 'text'}/
+          %button.btn.btn-primary{type: 'button', data: { action: 'click->family-tree#search' }}
+            = t('datagrid.form.search')
+  %svg#family-tree{ data: { action: 'wheel->family-tree#zoom mousedown->family-tree#dragStart mousemove->family-tree#pan mouseup->family-tree#dragStop mouseleave->family-tree#dragStop' }}
+    %g#connector-lines

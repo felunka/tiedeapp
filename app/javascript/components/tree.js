@@ -1,50 +1,43 @@
 import Node from 'components/node';
-import _initWasm, { Tidy } from 'wasm_dist/wasm';
+import _initWasm, { Tidy } from 'tidy_layout/wasm';
 
 export default class Tree {
 
   constructor(treeData, layoutConfig) {
     this.layoutConfig = layoutConfig;
+    this.selectedNodes = [];
     this.init(treeData);
   }
 
   async init(treeData) {
     let promise = _initWasm();
 
+    // Build tree from JSON
     this.root = this.addToTree(treeData, null);
 
+    // Wait for wasm init to be completed
     await promise;
     this.tidy = Tidy.with_layered_tidy(this.layoutConfig.yGap, this.layoutConfig.xGap);
 
-    this.idToNode = new Map();
-    this.buildLayout();
+    // Calculate layout using tidy algorithm
+    this.idToNode = this.buildLayout();
 
-    this.tidy.layout();
+    // Assign position to nodes
     const positions = this.tidy.get_pos();
-    let minX = 0;
-    let minY = 0;
     for (let i = 0; i < positions.length; i += 3) {
       const id = positions[i] | 0;
       const node = this.idToNode.get(id);
       node.x = positions[i + 1];
       node.y = positions[i + 2];
-
-      if (node.x < minX) {
-        minX = node.x;
-      }
-      if (node.y < minY) {
-        minY = node.y;
-      }
     }
 
-    this.root.shiftPos(minX, minY);
-
+    // Render tree
     this.render();
   }
 
   addToTree(member, parent, parentIndex = 0) {
     const id = member.id.charCodeAt(0) * 100 + parseInt(member.id.substring(2));
-    const node = new Node(this.layoutConfig, id, member.id, parent, member.name, 1, parentIndex = parentIndex);
+    const node = new Node(this.layoutConfig, id, member.id, parent, member.name, member.birthDate, member.deathDate, 1, parentIndex = parentIndex);
 
     let children = [];
     member.marriages.forEach((marriage, index) => {
@@ -59,6 +52,7 @@ export default class Tree {
   }
 
   buildLayout() {
+    const idToNode = new Map();
     const stack = [this.root];
     const ids = [];
     const width = [];
@@ -71,7 +65,7 @@ export default class Tree {
       width.push(node.getGroupWidth());
       height.push(this.layoutConfig.nodeHight);
       parents.push(node.parentId);
-      this.idToNode.set(node.id, node);
+      idToNode.set(node.id, node);
       for (const child of node.children.concat().reverse()) {
         if (child.parentId == null) {
           child.parentId = node.id;
@@ -81,58 +75,97 @@ export default class Tree {
       }
     }
 
+    // Pass data to wasm tidy layout algorithm and calculate positions
     this.tidy.data(
       new Uint32Array(ids),
       new Float64Array(width),
       new Float64Array(height),
       new Uint32Array(parents),
     );
+    this.tidy.layout();
+
+    return idToNode;
   }
 
   render() {
     this.root.render();
 
-    let selectedNodes = [];
-
-    document.querySelectorAll("#family-tree rect").forEach((nodeEl) => {
+    document.querySelectorAll("#family-tree .node").forEach((nodeEl) => {
       const id = parseInt(nodeEl.dataset.nodeId);
-      const element = nodeEl;
       if (id) {
         nodeEl.addEventListener("click", (_) => {
-          element.setAttribute("fill", this.layoutConfig.nodeSelectedColor);
-
-          // Add the selected node in to the list of selected ids, only keep the 2 newest ids
-          selectedNodes.push(id);
-          if (selectedNodes.length > 2) {
-            const unselectElement = this.idToNode.get(selectedNodes.shift()).rect;
-            unselectElement.setAttribute("fill", this.layoutConfig.nodeColor);
-          }
-
-          if (selectedNodes.length === 2) {
-            // Clear any old path
-            document.querySelectorAll("#family-tree rect").forEach(nodeElement => {
-              nodeElement.setAttribute("fill", this.layoutConfig.nodeColor);
-            });
-            document.querySelectorAll("#connector-lines path").forEach(nodeElement => {
-              if (nodeElement.dataset.highlight) {
-                nodeElement.remove();
-              }
-            });
-            // Find new path
-            const shortestPath = this.bfs(this.idToNode.get(selectedNodes[0]), this.idToNode.get(selectedNodes[1]));
-            // Highlight new path nodes
-            if (shortestPath) {
-              shortestPath.forEach(pathNode => {
-                pathNode.rect.setAttribute("fill", this.layoutConfig.nodePathColor);
-                if (shortestPath.includes(pathNode.parent)) {
-                  pathNode.drawConnector(null, this.layoutConfig.pathHighlightColor, { highlight: true });
-                }
-              });
-            }
-          }
+          this.nodeClick(id);
         });
       }
     });
+  }
+
+  resetHighlights() {
+    document.querySelectorAll("#family-tree .node").forEach((nodeEl) => {
+      nodeEl.classList.remove("selected");
+      nodeEl.classList.remove("in-path");
+    });
+
+    document.querySelectorAll("#connector-lines path").forEach(nodeElement => {
+      if (nodeElement.dataset.highlight) {
+        nodeElement.remove();
+      }
+    });
+  }
+
+  search(searchString) {
+    searchString = searchString.toLowerCase();
+
+    this.selectedNodes = [];
+    this.resetHighlights();
+
+    this.idToNode.forEach((node, _) => {
+      if (node.name.toLowerCase().includes(searchString)) {
+        node.rect.classList.add("selected");
+      }
+
+      node.spouses.forEach((spouseName, index) => {
+        if (spouseName.toLowerCase().includes(searchString)) {
+          node.spouseElements[index].classList.add("selected");
+        }
+      })
+    })
+  }
+
+  nodeClick(id) {
+    this.resetHighlights();
+
+    // Add the selected node in to the list of selected ids, only keep the 2 newest ids
+    this.selectedNodes.push(id);
+    if (this.selectedNodes.length > 2) {
+      this.selectedNodes.shift();
+    }
+    this.selectedNodes.forEach((selectedId) => {
+      this.idToNode.get(selectedId).rect.classList.add("selected");
+    });
+
+    if (this.selectedNodes.length === 2) {
+      // Find new path
+      const shortestPath = this.bfs(this.idToNode.get(this.selectedNodes[0]), this.idToNode.get(this.selectedNodes[1]));
+      // Highlight new path nodes
+      if (shortestPath) {
+        shortestPath.forEach(pathNode => {
+          if (this.selectedNodes.includes(pathNode.id)) {
+            pathNode.rect.classList.add("selected");
+          } else {
+            pathNode.rect.classList.add("in-path");
+          }
+
+          if (shortestPath.includes(pathNode.parent)) {
+            // Color correct partner if present
+            if (pathNode.parent) {
+              pathNode.parent.spouseElements[pathNode.parentIndex].classList.add("in-path");
+            }
+            pathNode.drawConnector(null, this.layoutConfig.pathHighlightColor, { highlight: true });
+          }
+        });
+      }
+    }
   }
 
   bfs(start, end) {

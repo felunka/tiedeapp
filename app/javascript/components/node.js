@@ -1,6 +1,6 @@
 export default class Node {
 
-  constructor(layoutConfig, id, tag, parent, name, nullId, parentIndex = null) {
+  constructor(layoutConfig, id, tag, parent, name, birthDate, deathDate, nullId, parentIndex = null) {
     this.layoutConfig = layoutConfig;
 
     this.id = id;
@@ -8,6 +8,8 @@ export default class Node {
 
     this.parent = parent;
     this.name = name;
+    this.birthDate = birthDate;
+    this.deathDate = deathDate;
     if (this.parent) {
       this.parentId = parent.id;
     } else {
@@ -18,6 +20,7 @@ export default class Node {
 
     this.children = [];
     this.spouses = [];
+    this.spouseElements = [];
   }
 
   centerX() {
@@ -43,7 +46,13 @@ export default class Node {
     this.rect = this.drawRect(this.x, this.y, this.name, { nodeId: this.id });
 
     this.spouses.forEach((spouse, index) => {
-      this.drawRect(this.x + (index + 1) * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap), this.y, spouse);
+      this.spouseElements.push(
+        this.drawRect(
+          this.x + (index + 1) * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap),
+          this.y,
+          spouse
+        )
+      );
 
       // Draw connector to partner
       this.drawConnector(`
@@ -61,29 +70,38 @@ export default class Node {
   }
 
   drawRect(x, y, text, data = {}) {
-    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    const wrapper = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+    
+    wrapper.setAttribute("x", x);
+    wrapper.setAttribute("y", y);
+    wrapper.setAttribute("width", this.layoutConfig.nodeWidth);
+    wrapper.setAttribute("height", this.layoutConfig.nodeHight);
+    
+    const div = document.createElement("div");
+    div.classList.add("node");
 
-    rect.setAttribute("x", x);
-    rect.setAttribute("y", y);
-    rect.setAttribute("width", this.layoutConfig.nodeWidth);
-    rect.setAttribute("height", this.layoutConfig.nodeHight);
-    rect.setAttribute("fill", this.layoutConfig.nodeColor);
+    const span = document.createElement("span");
+    span.innerText = text;
+    div.appendChild(span);
 
-    Object.assign(rect.dataset, data);
+    Object.assign(div.dataset, data);
 
-    document.getElementById("family-tree").appendChild(rect);
+    const ul = document.createElement("ul");
+    ul.classList.add("list-group");
+    ul.classList.add("list-group-flush");
+    div.appendChild(ul);
 
-    const textBox = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    textBox.setAttribute("x", x + this.layoutConfig.nodeWidth / 2);
-    textBox.setAttribute("y", y + this.layoutConfig.nodeHight / 2);
-    textBox.setAttribute("dominant-baseline", "middle");
-    textBox.setAttribute("text-anchor", "middle");
-    textBox.textContent = text;
-    textBox.style.fill = this.layoutConfig.pathColor;
+    if(this.birthDate) {
+      ul.appendChild(this.iconRow("fa-cake-candles", this.birthDate));
+    }
+    if(this.deathDate) {
+      ul.appendChild(this.iconRow("fa-cross", this.deathDate));
+    }
 
-    document.getElementById("family-tree").appendChild(textBox);
+    wrapper.appendChild(div);
+    document.getElementById("family-tree").appendChild(wrapper);
 
-    return rect;
+    return div;
   }
 
   drawConnector(path = null, color = this.layoutConfig.pathColor, data = {}) {
@@ -113,5 +131,34 @@ export default class Node {
     document.getElementById("connector-lines").appendChild(connector);
 
     return connector;
+  }
+
+  iconRow(iconName, text) {
+    const li = document.createElement("li");
+    li.classList.add("list-group-item");
+    li.classList.add("py-0");
+
+    const row = document.createElement("div");
+    row.classList.add("row");
+    li.appendChild(row);
+
+    const colIcon = document.createElement("div");
+    colIcon.classList.add("col-2");
+    colIcon.appendChild(this.icon(iconName));
+    row.appendChild(colIcon);
+
+    const colText = document.createElement("div");
+    colText.classList.add("col");
+    colText.innerText = text;
+    row.appendChild(colText);
+
+    return li;
+  }
+
+  icon(name, type = "fa-solid") {
+    const icon = document.createElement("i");
+    icon.classList.add(type);
+    icon.classList.add(name);
+    return icon;
   }
 }
