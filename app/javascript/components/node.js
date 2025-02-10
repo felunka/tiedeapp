@@ -1,12 +1,12 @@
 export default class Node {
 
-  constructor(layoutConfig, id, parent, name, birthDate, deathDate, nullId, parentIndex = null) {
+  constructor(layoutConfig, id, parent, name, birthDate, deathDate, nullId, parentSpouse = null) {
     this.layoutConfig = layoutConfig;
 
     this.id = id;
 
     this.parent = parent;
-    this.parentIndex = parentIndex;
+    this.parentSpouse = parentSpouse;
     
     if (this.parent) {
       this.parentId = parent.id;
@@ -18,10 +18,10 @@ export default class Node {
     this.birthDate = birthDate;
     this.deathDate = deathDate;
 
-    this.children = [];
-    this.spouses = [];
-    this.spouseElements = [];
     this.spouseNodes = [];
+    this.children = [];
+
+    this.spouseVPlitMap = new Map();
   }
 
   centerX() {
@@ -33,7 +33,7 @@ export default class Node {
   }
 
   getGroupWidth() {
-    return this.layoutConfig.nodeWidth + (this.spouses.length + 1) * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap);
+    return this.layoutConfig.nodeWidth + (this.spouseNodes.length + 1) * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap);
   }
 
   shiftPos(minX, minY) {
@@ -46,20 +46,8 @@ export default class Node {
   render() {
     this.rect = this.drawRect(this.x, this.y, this.name, { nodeId: this.id });
 
-    this.spouses.forEach((spouse, index) => {
-      this.spouseElements.push(
-        this.drawRect(
-          this.x + (index + 1) * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap),
-          this.y,
-          spouse
-        )
-      );
-
-      // Draw connector to partner
-      this.drawConnector(`
-        M${this.centerX()},${this.centerY()}
-        L${this.centerX() + (index + 1) * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap)},${this.centerY()}
-      `);
+    this.spouseNodes.forEach((spouseNode) => {
+      spouseNode.render();
     });
 
     // Link to parents
@@ -105,6 +93,25 @@ export default class Node {
     return div;
   }
 
+  getVSplitFor(spouse, child) {
+    if(this.spouseVPlitMap.has(spouse)) {
+      return this.spouseVPlitMap.get(spouse);
+    } else {
+      const startX = spouse.centerX() - (this.layoutConfig.nodeWidth+this.layoutConfig.spouseGap)/2;
+      const parentIndex = this.spouseNodes.indexOf(spouse);
+      let vSplit = (this.centerY() + child.centerY()) / 2;
+      if(startX < child.centerX()) {
+        vSplit -= parentIndex * this.layoutConfig.spouseGap;
+      } else {
+        vSplit += parentIndex * this.layoutConfig.spouseGap;
+      }
+
+      this.spouseVPlitMap.set(spouse, vSplit);
+
+      return vSplit;
+    }
+  }
+
   drawConnector(path = null, color = this.layoutConfig.pathColor, data = {}) {
     if(path == null) {
       if(this.y == this.parent.y) {
@@ -113,14 +120,11 @@ export default class Node {
           L${this.parent.centerX()},${this.parent.centerY()}
         `;
       } else {
-        let vSplit = (this.parent.centerY() + this.centerY()) / 2;
-        if(this.parent.centerX() < this.centerX()) {
-          vSplit -= this.parentIndex * this.layoutConfig.spouseGap;
-        } else {
-          vSplit += this.parentIndex * this.layoutConfig.spouseGap;
-        }
+        const vSplit = this.parent.getVSplitFor(this.parentSpouse, this);
+        const startX = this.parentSpouse.centerX() - (this.layoutConfig.nodeWidth+this.layoutConfig.spouseGap)/2
+
         path = `
-          M${this.parent.centerX() + this.layoutConfig.spouseGap / 2 + this.layoutConfig.nodeWidth / 2 + this.parentIndex * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap)},${this.parent.centerY()}
+          M${startX},${this.parent.centerY()}
           V${vSplit}
           H${this.centerX()}
           V${this.centerY()}

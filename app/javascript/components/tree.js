@@ -35,6 +35,7 @@ export default class Tree {
 
       // Assign spouse nodes
       node.spouseNodes.forEach((spouseNode, index) => {
+        this.idToNode.set(spouseNode.id, spouseNode);
         spouseNode.x = node.x + (index + 1) * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap);
         spouseNode.y = node.y;
       });
@@ -44,7 +45,7 @@ export default class Tree {
     this.render();
   }
 
-  addToTree(member, parent, parentIndex = 0) {
+  addToTree(member, parent, parentSpouse = null) {
     const node = new Node(
       this.layoutConfig,
       member.id,
@@ -53,25 +54,24 @@ export default class Tree {
       member.date_of_birth,
       member.date_of_death,
       Tidy.null_id(),
-      parentIndex = parentIndex
+      parentSpouse = parentSpouse
     );
 
     let children = [];
-    member.marriages.forEach((marriage, index) => {
+    member.marriages.forEach((marriage) => {
       const spouseNode = new Node(
         this.layoutConfig,
-        marriage.id,
-        parent,
-        marriage.name,
-        marriage.date_of_birth,
-        marriage.date_of_death,
+        marriage.spouse.id,
+        node,
+        marriage.spouse.name,
+        marriage.spouse.date_of_birth,
+        marriage.spouse.date_of_death,
         Tidy.null_id()
       );
       node.spouseNodes.push(spouseNode);
 
-      node.spouses.push(marriage.spouse.name);
       marriage.children.forEach(child => {
-        children.push(this.addToTree(child, node, index));
+        children.push(this.addToTree(child, node, spouseNode));
       });
     });
     node.children = children;
@@ -153,12 +153,6 @@ export default class Tree {
       if (node.name.toLowerCase().includes(searchString)) {
         node.rect.classList.add("selected");
       }
-
-      node.spouses.forEach((spouseName, index) => {
-        if (spouseName.toLowerCase().includes(searchString)) {
-          node.spouseElements[index].classList.add("selected");
-        }
-      })
     })
   }
 
@@ -188,8 +182,8 @@ export default class Tree {
 
           if (shortestPath.includes(pathNode.parent)) {
             // Color correct partner if present
-            if (pathNode.parent) {
-              pathNode.parent.spouseElements[pathNode.parentIndex].classList.add("in-path");
+            if (pathNode.parentSpouse) {
+              pathNode.parentSpouse.rect.classList.add("in-path");
             }
             pathNode.drawConnector(null, this.layoutConfig.pathHighlightColor, { highlight: true });
           }
