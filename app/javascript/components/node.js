@@ -1,26 +1,27 @@
 export default class Node {
 
-  constructor(layoutConfig, id, tag, parent, name, birthDate, deathDate, nullId, parentIndex = null) {
+  constructor(layoutConfig, id, parent, name, birthDate, deathDate, nullId, parentIndex = null) {
     this.layoutConfig = layoutConfig;
 
     this.id = id;
-    this.tag = tag;
 
     this.parent = parent;
-    this.name = name;
-    this.birthDate = birthDate;
-    this.deathDate = deathDate;
+    this.parentIndex = parentIndex;
+    
     if (this.parent) {
       this.parentId = parent.id;
     } else {
       this.parentId = nullId;
     }
 
-    this.parentIndex = parentIndex;
+    this.name = name;
+    this.birthDate = birthDate;
+    this.deathDate = deathDate;
 
     this.children = [];
     this.spouses = [];
     this.spouseElements = [];
+    this.spouseNodes = [];
   }
 
   centerX() {
@@ -106,18 +107,25 @@ export default class Node {
 
   drawConnector(path = null, color = this.layoutConfig.pathColor, data = {}) {
     if(path == null) {
-      let vSplit = (this.parent.centerY() + this.centerY()) / 2;
-      if(this.parent.centerX() < this.centerX()) {
-        vSplit -= this.parentIndex * this.layoutConfig.spouseGap;
+      if(this.y == this.parent.y) {
+        path = `
+          M${this.centerX()},${this.centerY()}
+          L${this.parent.centerX()},${this.parent.centerY()}
+        `;
       } else {
-        vSplit += this.parentIndex * this.layoutConfig.spouseGap;
+        let vSplit = (this.parent.centerY() + this.centerY()) / 2;
+        if(this.parent.centerX() < this.centerX()) {
+          vSplit -= this.parentIndex * this.layoutConfig.spouseGap;
+        } else {
+          vSplit += this.parentIndex * this.layoutConfig.spouseGap;
+        }
+        path = `
+          M${this.parent.centerX() + this.layoutConfig.spouseGap / 2 + this.layoutConfig.nodeWidth / 2 + this.parentIndex * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap)},${this.parent.centerY()}
+          V${vSplit}
+          H${this.centerX()}
+          V${this.centerY()}
+        `;
       }
-      path = `
-        M${this.parent.centerX() + this.layoutConfig.spouseGap / 2 + this.layoutConfig.nodeWidth / 2 + this.parentIndex * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap)},${this.parent.centerY()}
-        V${vSplit}
-        H${this.centerX()}
-        V${this.centerY()}
-      `;
     }
 
     const connector = document.createElementNS("http://www.w3.org/2000/svg", "path");

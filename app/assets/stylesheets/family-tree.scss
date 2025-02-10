@@ -8,6 +8,13 @@
     height: 100%;
   }
 
+  i.loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color: #fff;
+  }
+
   #search-wrapper {
     position: absolute;
     top: 0px;

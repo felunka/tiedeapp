@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get '/impressum', to: 'imprint#show'
 
   get 'family-tree', to: 'family_tree#show'
+  get 'family-tree/data', to: 'family_tree#data'
+  post 'family-tree/import', to: 'family_tree#import'
 
   resources :events do
     member do

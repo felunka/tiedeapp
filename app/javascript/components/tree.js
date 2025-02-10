@@ -3,14 +3,17 @@ import _initWasm, { Tidy } from 'tidy_layout/wasm';
 
 export default class Tree {
 
-  constructor(treeData, layoutConfig) {
+  constructor(layoutConfig) {
     this.layoutConfig = layoutConfig;
     this.selectedNodes = [];
-    this.init(treeData);
+    this.init();
   }
 
-  async init(treeData) {
+  async init() {
     let promise = _initWasm();
+
+    const response = await fetch("family-tree/data");
+    const treeData = await response.json();
 
     // Build tree from JSON
     this.root = this.addToTree(treeData, null);
@@ -29,6 +32,12 @@ export default class Tree {
       const node = this.idToNode.get(id);
       node.x = positions[i + 1];
       node.y = positions[i + 2];
+
+      // Assign spouse nodes
+      node.spouseNodes.forEach((spouseNode, index) => {
+        spouseNode.x = node.x + (index + 1) * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap);
+        spouseNode.y = node.y;
+      });
     }
 
     // Render tree
@@ -36,15 +45,34 @@ export default class Tree {
   }
 
   addToTree(member, parent, parentIndex = 0) {
-    const id = member.id.charCodeAt(0) * 100 + parseInt(member.id.substring(2));
-    const node = new Node(this.layoutConfig, id, member.id, parent, member.name, member.birthDate, member.deathDate, 1, parentIndex = parentIndex);
+    const node = new Node(
+      this.layoutConfig,
+      member.id,
+      parent,
+      member.name,
+      member.date_of_birth,
+      member.date_of_death,
+      Tidy.null_id(),
+      parentIndex = parentIndex
+    );
 
     let children = [];
     member.marriages.forEach((marriage, index) => {
+      const spouseNode = new Node(
+        this.layoutConfig,
+        marriage.id,
+        parent,
+        marriage.name,
+        marriage.date_of_birth,
+        marriage.date_of_death,
+        Tidy.null_id()
+      );
+      node.spouseNodes.push(spouseNode);
+
       node.spouses.push(marriage.spouse.name);
       marriage.children.forEach(child => {
         children.push(this.addToTree(child, node, index));
-      })
+      });
     });
     node.children = children;
 
@@ -98,6 +126,8 @@ export default class Tree {
         });
       }
     });
+
+    document.querySelector("#family-tree-wrapper i.loading").remove();
   }
 
   resetHighlights() {

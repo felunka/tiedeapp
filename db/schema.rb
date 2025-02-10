@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_14_191425) do
+ActiveRecord::Schema[7.0].define(version: 2025_02_09_152417) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,8 +34,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_191425) do
   end
 
   create_table "member_events", force: :cascade do |t|
-    t.bigint "member_id", null: false
-    t.bigint "event_id", null: false
+    t.integer "member_id", null: false
+    t.integer "event_id", null: false
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -43,6 +43,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_191425) do
     t.index ["event_id"], name: "index_member_events_on_event_id"
     t.index ["member_id"], name: "index_member_events_on_member_id"
     t.index ["registration_id"], name: "index_member_events_on_registration_id"
+  end
+
+  create_table "member_marriages", force: :cascade do |t|
+    t.bigint "partner_1_id", null: false
+    t.bigint "partner_2_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["partner_1_id"], name: "index_member_marriages_on_partner_1_id"
+    t.index ["partner_2_id"], name: "index_member_marriages_on_partner_2_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -58,12 +67,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_191425) do
     t.datetime "updated_at", null: false
     t.integer "member_type", default: 0, null: false
     t.date "date_of_birth"
+    t.bigint "parents_marriage_id"
+    t.boolean "hidden", default: false
+    t.date "date_of_death"
+    t.index ["parents_marriage_id"], name: "index_members_on_parents_marriage_id"
   end
 
   create_table "payments", force: :cascade do |t|
     t.decimal "amount_due"
-    t.bigint "registration_id"
-    t.bigint "member_id"
+    t.integer "registration_id"
+    t.integer "member_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "year"
@@ -75,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_191425) do
   end
 
   create_table "registration_entries", force: :cascade do |t|
-    t.bigint "registration_id", null: false
+    t.integer "registration_id", null: false
     t.string "name", null: false
     t.boolean "is_vegetarian"
     t.datetime "created_at", null: false
@@ -93,7 +106,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_191425) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.bigint "member_id", null: false
+    t.integer "member_id", null: false
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -104,6 +117,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_14_191425) do
   add_foreign_key "member_events", "events"
   add_foreign_key "member_events", "members"
   add_foreign_key "member_events", "registrations"
+  add_foreign_key "member_marriages", "members", column: "partner_1_id"
+  add_foreign_key "member_marriages", "members", column: "partner_2_id"
+  add_foreign_key "members", "member_marriages", column: "parents_marriage_id"
   add_foreign_key "payments", "members"
   add_foreign_key "payments", "registrations"
   add_foreign_key "registration_entries", "members"

@@ -3,7 +3,7 @@ class MembersGrid < ApplicationGrid
   # Scope
   #
   scope do
-    Member
+    Member.visible
   end
 
   #

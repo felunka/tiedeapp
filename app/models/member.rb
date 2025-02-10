@@ -1,10 +1,22 @@
 class Member < ApplicationRecord
+  attr_accessor :skip_invite
+
   has_many :member_events
   has_many :registration_entries
   has_many :payments
-  has_one :user
+  has_many :member_marriages_as_partner_1, class_name: 'MemberMarriage', foreign_key: :partner_1_id
+  has_many :member_marriages_as_partner_2, class_name: 'MemberMarriage', foreign_key: :partner_2_id
 
-  after_create :invite_to_upcoming_events
+  has_many :marriages, ->(member) {
+    unscope(:where).where('partner_1_id = ? OR partner_2_id = ?', member.id, member.id)
+  }, class_name: 'MemberMarriage'
+
+  has_one :user
+  belongs_to :parents_marriage, class_name: 'MemberMarriage', optional: true
+
+  scope :visible, -> { where(hidden: false) }
+
+  after_create :invite_to_upcoming_events, unless: :skip_invite?
 
   enum member_type: {
     member: 0,
@@ -15,6 +27,13 @@ class Member < ApplicationRecord
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true, uniqueness: true
   validate :email_not_ends_with_telekom
+
+  def parents
+    [
+      parents_marriage.partner_1,
+      parents_marriage.partner_2
+    ]
+  end
 
   def invite_to_upcoming_events
     Event.where('deadline_signup > ?', Date.today).each do |event|
@@ -42,5 +61,9 @@ class Member < ApplicationRecord
 
   def email_not_ends_with_telekom
     errors.add(:email, I18n.t('model.member.error.email_can_not_end_with_telekom')) if email.present? && email.end_with?('t-online.de')
+  end
+
+  def skip_invite?
+    skip_invite
   end
 end

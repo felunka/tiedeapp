@@ -4,8 +4,6 @@ import Tree from 'components/tree';
 export default class extends Controller {
 
   async connect() {
-    const treeData = ;
-
     this.svg = document.getElementById("family-tree");
     this.viewBox = { x: 0, y: 0, width: this.svg.clientWidth, height: this.svg.clientHeight };
     this.isPanning = false;
@@ -26,7 +24,7 @@ export default class extends Controller {
       pathColor: windowStyle.getPropertyValue("--bs-gray-100"),
       pathHighlightColor: windowStyle.getPropertyValue("--bs-info")
     };
-    this.tree = new Tree(treeData, layoutConfig);
+    this.tree = new Tree(layoutConfig);
   }
 
   zoom(event) {
