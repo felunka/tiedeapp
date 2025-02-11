@@ -1,18 +1,12 @@
 import { Controller } from '@hotwired/stimulus'
 import Tree from 'components/tree';
+import panzoom from 'panzoom'
 
 export default class extends Controller {
 
   async connect() {
-    this.svg = document.getElementById("family-tree");
-    this.viewBox = { x: 0, y: 0, width: this.svg.clientWidth, height: this.svg.clientHeight };
-    this.isPanning = false;
-    this.startX = 0
-    this.startY = 0;
-    this.zoomFactor = 1.1; // Zoom in/out factor
-
-    // Apply initial viewBox
-    this.updateSvg();
+    this.svg = document.querySelector("svg#family-tree g#scene");
+    panzoom(this.svg);
 
     const windowStyle = window.getComputedStyle(document.body);
     const layoutConfig = {
@@ -25,52 +19,6 @@ export default class extends Controller {
       pathHighlightColor: windowStyle.getPropertyValue("--bs-info")
     };
     this.tree = new Tree(layoutConfig);
-  }
-
-  zoom(event) {
-    event.preventDefault();
-
-    const scale = event.deltaY < 0 ? 1 / this.zoomFactor : this.zoomFactor; // Zoom in or out
-    const mouseX = event.offsetX / this.svg.clientWidth * this.viewBox.width + this.viewBox.x;
-    const mouseY = event.offsetY / this.svg.clientHeight * this.viewBox.height + this.viewBox.y;
-
-    // Adjust the viewBox to zoom in or out
-    this.viewBox.width *= scale;
-    this.viewBox.height *= scale;
-    this.viewBox.x = mouseX - (mouseX - this.viewBox.x) * scale;
-    this.viewBox.y = mouseY - (mouseY - this.viewBox.y) * scale;
-
-    this.updateSvg();
-  }
-
-  dragStart(event) {
-    event.preventDefault();
-    this.isPanning = true;
-    this.startX = event.clientX;
-    this.startY = event.clientY;
-  }
-
-  pan(event) {
-    if (!this.isPanning) return;
-
-    const dx = (event.clientX - this.startX) * (this.viewBox.width / this.svg.clientWidth);
-    const dy = (event.clientY - this.startY) * (this.viewBox.height / this.svg.clientHeight);
-
-    this.viewBox.x -= dx;
-    this.viewBox.y -= dy;
-
-    this.updateSvg();
-
-    this.startX = event.clientX;
-    this.startY = event.clientY;
-  }
-
-  dragStop(_) {
-    this.isPanning = false;
-  }
-
-  updateSvg() {
-    this.svg.setAttribute("viewBox", `${this.viewBox.x} ${this.viewBox.y} ${this.viewBox.width} ${this.viewBox.height}`);
   }
 
   search(event) {

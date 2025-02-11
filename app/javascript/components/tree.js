@@ -15,14 +15,13 @@ export default class Tree {
     const response = await fetch("family-tree/data");
     const treeData = await response.json();
 
+    // Wait for wasm init to be completed
+    await promise;
     // Build tree from JSON
     this.root = this.addToTree(treeData, null);
 
-    // Wait for wasm init to be completed
-    await promise;
-    this.tidy = Tidy.with_layered_tidy(this.layoutConfig.yGap, this.layoutConfig.xGap);
-
     // Calculate layout using tidy algorithm
+    this.tidy = Tidy.with_layered_tidy(this.layoutConfig.yGap, this.layoutConfig.xGap);
     this.idToNode = this.buildLayout();
 
     // Assign position to nodes

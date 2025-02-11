@@ -7,5 +7,6 @@
           %input.form-control{placeholder: t('datagrid.form.search'), type: 'text'}/
           %button.btn.btn-primary{type: 'button', data: { action: 'click->family-tree#search' }}
             = t('datagrid.form.search')
-  %svg#family-tree{ data: { action: 'wheel->family-tree#zoom mousedown->family-tree#dragStart mousemove->family-tree#pan mouseup->family-tree#dragStop mouseleave->family-tree#dragStop' }}
-    %g#connector-lines
+  %svg#family-tree
+    %g#scene
+      %g#connector-lines

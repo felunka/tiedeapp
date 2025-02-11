@@ -88,7 +88,7 @@ export default class Node {
     }
 
     wrapper.appendChild(div);
-    document.getElementById("family-tree").appendChild(wrapper);
+    document.querySelector("svg#family-tree g#scene").appendChild(wrapper);
 
     return div;
   }

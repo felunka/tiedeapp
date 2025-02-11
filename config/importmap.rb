@@ -15,3 +15,8 @@ pin_all_from 'app/javascript/components', under: 'components'
 pin_all_from 'app/javascript/tidy_layout', under: 'tidy_layout'
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "js-cookie", to: "https://ga.jspm.io/npm:js-cookie@3.0.1/dist/js.cookie.mjs"
+pin "panzoom", to: "https://ga.jspm.io/npm:panzoom@9.4.3/index.js"
+pin "amator", to: "https://ga.jspm.io/npm:amator@1.1.0/index.js"
+pin "bezier-easing", to: "https://ga.jspm.io/npm:bezier-easing@2.1.0/src/index.js"
+pin "ngraph.events", to: "https://ga.jspm.io/npm:ngraph.events@1.2.2/index.js"
+pin "wheel", to: "https://ga.jspm.io/npm:wheel@1.0.0/index.js"
