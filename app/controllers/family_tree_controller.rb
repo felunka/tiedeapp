@@ -11,11 +11,14 @@ class FamilyTreeController < ApplicationController
   end
 
   def data
-    root = Member.order(:date_of_birth).first
+    tree_data = Rails.cache.fetch("tree_data") do
+      root = Member.order(:date_of_birth).first
+      render_tree_data(root)
+    end
 
     respond_to do |format|
       format.json do
-        render json: render_tree_data(root)
+        render json: tree_data
       end
     end
   end
