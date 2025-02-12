@@ -39,6 +39,10 @@
       overflow: hidden;
     }
 
+    .list-group {
+      text-align: left;
+    }
+
     &.selected {
       color: #fff;
       background-color: var(--bs-primary);

@@ -46,8 +46,9 @@ export default class Node {
   render() {
     this.rect = this.drawRect(this.x, this.y, this.name, { nodeId: this.id });
 
-    this.spouseNodes.forEach((spouseNode) => {
+    this.spouseNodes.forEach((spouseNode, index) => {
       spouseNode.render();
+      spouseNode.drawTag(`Partner ${index+1}`);
     });
 
     // Link to parents
@@ -56,6 +57,27 @@ export default class Node {
     }
 
     this.children.forEach(child => child.render());
+  }
+
+  drawTag(text) {
+    const tagHeight = 24;
+    const tagOverlap = 6;
+
+    const wrapper = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+    
+    wrapper.setAttribute("x", this.x);
+    wrapper.setAttribute("y", this.y-tagHeight+tagOverlap);
+    wrapper.setAttribute("width", this.layoutConfig.nodeWidth);
+    wrapper.setAttribute("height", tagHeight);
+
+    const div = document.createElement("div");
+    div.classList.add("badge");
+    div.classList.add("bg-secondary");
+    div.innerText = text;
+    wrapper.appendChild(div);
+    document.querySelector("svg#family-tree g#scene").appendChild(wrapper);
+
+    return div;
   }
 
   drawRect(x, y, text, data = {}) {
