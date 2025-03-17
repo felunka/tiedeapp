@@ -32,6 +32,8 @@ class InviteMailer < ApplicationMailer
       }}
     )
 
-    bootstrap_mail to: @member.email, subject: t('mails.reminder.subject', event_title: @event.name)
+    bootstrap_mail to: @member.email, subject: t('mails.reminder.subject', event_title: @event.name) do |format|
+      format.html { render :send_invite }
+    end
   end
 end
