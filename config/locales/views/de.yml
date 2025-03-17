@@ -53,6 +53,8 @@ de:
       registration_option_digital: 'Sie melden sich sofort digital an.'
       registration_button: 'Anmelden'
       registration_option_paper: 'Drucken Sie das PDF im Anhang und folgen Sie den Anweisungen.'
+    reminder:
+      subject: 'Letzte Erinnerung: %{event_title}'
   pdf:
     invite:
       title: 'Einladung'
