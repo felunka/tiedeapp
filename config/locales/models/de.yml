@@ -18,6 +18,9 @@ de:
         date_of_birth: 'Geburtsdatum'
         email: 'E-Mail'
         phone: 'Telefonnummer'
+      member_marriage:
+        partner_1: 'Elternteil 1'
+        partner_2: 'Elternteil 2'
       event:
         name: 'Name'
         location: 'Ort'

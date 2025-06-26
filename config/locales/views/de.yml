@@ -42,6 +42,8 @@ de:
     girocode:
       title: 'EPC-QR-Code (Girocode)'
       hint: 'Einfach mit der Online-Banking App scannen und direkt überweisen!'
+  member_form:
+    admin: 'Admin-Optionen'
   mails:
     invite:
       subject: 'Einladung: %{event_title}'

@@ -4,8 +4,8 @@ class Member < ApplicationRecord
   has_many :member_events
   has_many :registration_entries
   has_many :payments
-  has_many :member_marriages_as_partner_1, class_name: 'MemberMarriage', foreign_key: :partner_1_id
-  has_many :member_marriages_as_partner_2, class_name: 'MemberMarriage', foreign_key: :partner_2_id
+  has_many :member_marriages_as_partner_1, class_name: 'MemberMarriage', foreign_key: :partner_1_id, dependent: :nullify
+  has_many :member_marriages_as_partner_2, class_name: 'MemberMarriage', foreign_key: :partner_2_id, dependent: :nullify
 
   has_many :marriages, ->(member) {
     unscope(:where).where('partner_1_id = ? OR partner_2_id = ?', member.id, member.id)
@@ -13,6 +13,8 @@ class Member < ApplicationRecord
 
   has_one :user
   belongs_to :parents_marriage, class_name: 'MemberMarriage', optional: true
+
+  accepts_nested_attributes_for :parents_marriage, reject_if: :all_blank, allow_destroy: true
 
   scope :visible, -> { where(hidden: false) }
 

@@ -12,7 +12,7 @@ class MembersController < ApplicationController
     # ensure user logged in OR valid token present
     raise ApplicationController::NotAuthorized unless current_user.present? || Event.joins(:member_events).where(member_events: { token: params.delete(:token), registration_id: nil }).any?
 
-    @members = Member.where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "#{params[:term]}%").limit(10).map do |model|
+    @members = Member.visible.where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:term]}%").limit(10).map do |model|
       { id: model.id, text: model.full_name_and_status }
     end
 
@@ -23,6 +23,7 @@ class MembersController < ApplicationController
 
   def new
     @member = Member.new
+    @member.parents_marriage = MemberMarriage.new
   end
 
   def create
@@ -42,6 +43,7 @@ class MembersController < ApplicationController
     raise ApplicationController::NotAuthorized unless current_user.admin? || current_user.member.id == params[:id].to_i
 
     @member = Member.find_by params.permit(:id)
+    @member.parents_marriage = MemberMarriage.new unless @member.parents_marriage
   end
 
   def update
@@ -49,11 +51,33 @@ class MembersController < ApplicationController
 
     @member = Member.find_by params.permit(:id)
     respond_to do |format|
-      if @member.update permit(params)
-        flash[:success] = t('messages.model.updated')
-        format.html { redirect_to action: 'index' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
+      ActiveRecord::Base.transaction do
+        permitted_params = permit(params)
+        if permitted_params.has_key? :parents_marriage_attributes
+          marriage = MemberMarriage.find_by(
+            partner_1_id: permitted_params[:parents_marriage_attributes][:partner_1_id],
+            partner_2_id: permitted_params[:parents_marriage_attributes][:partner_2_id]
+          )
+          unless marriage
+            marriage = MemberMarriage.create(
+              partner_1_id: permitted_params[:parents_marriage_attributes][:partner_1_id],
+              partner_2_id: permitted_params[:parents_marriage_attributes][:partner_2_id]
+            )
+          end
+
+          permitted_params[:parents_marriage_id] = marriage.id
+          permitted_params.delete(:parents_marriage_attributes)
+
+          Rails.cache.delete("tree_data")
+        end
+        if @member.update permitted_params
+          # Clean up stale marriages
+          MemberMarriage.where.missing(:members).destroy_all
+          flash[:success] = t('messages.model.updated')
+          format.html { redirect_to action: 'index' }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -67,6 +91,27 @@ class MembersController < ApplicationController
   private
 
   def permit(params)
-    params.require(:member).permit(:first_name, :last_name, :member_type, :date_of_birth, :email, :phone, :street, :zip, :city, :country)
+    if current_user.admin?
+      params.require(:member).permit(
+        :first_name,
+        :last_name,
+        :member_type,
+        :date_of_birth,
+        :date_of_death,
+        :email,
+        :phone,
+        :street,
+        :zip,
+        :city,
+        :country,
+        parents_marriage_attributes: [
+          :id,
+          :partner_1_id,
+          :partner_2_id
+        ]
+      )
+    else
+      params.require(:member).permit(:first_name, :last_name, :date_of_birth, :email, :phone, :street, :zip, :city, :country)
+    end
   end
 end

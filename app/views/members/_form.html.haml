@@ -20,8 +20,18 @@
         .col
           = f.input :city
       = f.input :country
-      = f.input :member_type, collection: Member.member_types.symbolize_keys.keys, include_blank: false, include_hidden: false
       = f.input :date_of_birth, as: :date, html5: true
       = f.input :email
       = f.input :phone
+      - if current_user.admin?
+        .card.border-danger.mt-3
+          .card-body
+            %h5
+              = t('member_form.admin')
+            = f.input :member_type, collection: Member.member_types.symbolize_keys.keys, include_blank: false, include_hidden: false
+            = f.input :date_of_death, as: :date, html5: true
+
+            = f.simple_fields_for :parents_marriage do |parents_marriage|
+              = parents_marriage.association :partner_1, label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_members_path } }
+              = parents_marriage.association :partner_2, label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_members_path } }
       = f.submit class: 'btn btn-primary mt-2'
