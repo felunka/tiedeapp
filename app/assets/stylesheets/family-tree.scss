@@ -8,6 +8,10 @@
     height: 100%;
   }
 
+  svg:focus {
+    outline: none;
+  }
+
   i.loading {
     position: fixed;
     top: 50%;

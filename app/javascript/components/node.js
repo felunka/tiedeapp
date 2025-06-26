@@ -22,6 +22,9 @@ export default class Node {
     this.children = [];
 
     this.spouseVPlitMap = new Map();
+
+    // Safari has special needs to allow the elements to pan correctly
+    this.isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   }
 
   centerX() {
@@ -90,6 +93,9 @@ export default class Node {
     
     const div = document.createElement("div");
     div.classList.add("node");
+    if(this.isSafari) {
+      div.style.position = "unset";
+    }
 
     const span = document.createElement("span");
     span.innerText = text;
@@ -170,6 +176,9 @@ export default class Node {
   iconRow(iconName, text) {
     const li = document.createElement("li");
     li.classList.add("list-group-item");
+    if(this.isSafari) {
+      li.style.position = "unset";
+    }
     li.classList.add("py-0");
 
     const row = document.createElement("div");
