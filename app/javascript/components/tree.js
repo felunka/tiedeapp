@@ -123,6 +123,38 @@ export default class Tree {
         nodeEl.addEventListener("click", (_) => {
           this.nodeClick(id);
         });
+        // Touch tap detection: only trigger if touch is short and no movement
+        let touchStartTime = 0;
+        let touchMoved = false;
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        nodeEl.addEventListener("touchstart", (e) => {
+          if (e.touches.length === 1) {
+            touchStartTime = Date.now();
+            touchMoved = false;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+          }
+        }, { passive: true });
+
+        nodeEl.addEventListener("touchmove", (e) => {
+          if (e.touches.length === 1) {
+            const dx = e.touches[0].clientX - touchStartX;
+            const dy = e.touches[0].clientY - touchStartY;
+            if (Math.abs(dx) > 10 || Math.abs(dy) > 10) {
+              touchMoved = true;
+            }
+          }
+        }, { passive: true });
+
+        nodeEl.addEventListener("touchend", (e) => {
+          const touchDuration = Date.now() - touchStartTime;
+          if (!touchMoved && touchDuration < 300) {
+            e.preventDefault();
+            this.nodeClick(id);
+          }
+        }, { passive: false });
       }
     });
 
