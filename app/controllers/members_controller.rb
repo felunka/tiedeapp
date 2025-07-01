@@ -3,8 +3,13 @@ class MembersController < ApplicationController
   skip_before_action :require_login, only: [:autocomplete]
 
   def index
+    @show_hidden = params[:show_hidden]
     @members_grid = MembersGrid.new(params[:members_grid]) do |scope|
-      scope.page(params[:page])
+      if @show_hidden
+        scope.page(params[:page])
+      else
+        scope.visible.page(params[:page])
+      end
     end
   end
 
@@ -104,6 +109,7 @@ class MembersController < ApplicationController
         :zip,
         :city,
         :country,
+        :hidden,
         parents_marriage_attributes: [
           :id,
           :partner_1_id,

@@ -28,6 +28,7 @@
           .card-body
             %h5
               = t('member_form.admin')
+            = f.input :hidden, hint: t('activerecord.attributes.member.hint_hidden')
             = f.input :member_type, collection: Member.member_types.symbolize_keys.keys, include_blank: false, include_hidden: false
             = f.input :date_of_death, as: :date, html5: true
 

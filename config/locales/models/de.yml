@@ -18,6 +18,8 @@ de:
         date_of_birth: 'Geburtsdatum'
         email: 'E-Mail'
         phone: 'Telefonnummer'
+        hidden: 'Verstecken?'
+        hint_hidden: '(Versteckte Mitglieder werden in der Liste nicht angezeigt, bleiben aber im Stammbaum.)'
       member_marriage:
         partner_1: 'Elternteil 1'
         partner_2: 'Elternteil 2'
@@ -121,6 +123,8 @@ de:
         only_member_xor_name: 'Es kann nur entweder ein Mitglied ausgewählt oder ein Name ausgefüllt werden.'
     member:
       member_type: 'Art'
+      show_hidden: 'Versteckte anzeigen'
+      hide_hidden: 'Versteckte ausblenden'
       error:
         email_can_not_end_with_telekom: 'Adressen von Telekom (enden in @t-online.de) sind aus technischen Gründen nicht möglich.'
     user:
