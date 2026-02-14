@@ -18,17 +18,17 @@
             = icon 'check'
             = t 'landing.no_password'
           %li.list-group-item
-            = icon 'times'
+            = icon 'x'
             = t 'landing.registration_can_not_be_changed'
           %li.list-group-item
-            = icon 'times'
+            = icon 'x'
             = t 'landing.data_needs_to_be_entered'
       .col
         .d-flex.justify-content-center
           = button_to t('landing.create_account_or_login'), new_session_path, class: 'btn btn-primary', method: :get, params: { token: @token }
         %ul.list-group.list-group-flush
           %li.list-group-item
-            = icon 'times'
+            = icon 'x'
             = t 'landing.needs_password'
           %li.list-group-item
             = icon 'check'
