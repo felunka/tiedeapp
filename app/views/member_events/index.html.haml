@@ -1,13 +1,36 @@
-.card.mt-3
-  .card-body
-    %h5.card-title
-      = t('landing.welcome')
-    = t('member_events.header')
-    .container
-      = image_tag '20230422_191638.webp', class: 'mw-75 img-fluid'
+.row.mt-3
+  .col
+    .card
+      .card-body
+        %h5.card-title
+          = t('landing.welcome')
+        = t('member_events.header')
+        .container
+          = image_tag '20230422_191638.webp', class: 'mw-75 img-fluid'
+  .col-3
+    .card
+      .card-body
+        - next_event = @member_events.order(event_start: :desc).first
+        %h5.card-title
+          = t('landing.next_event')
+        - if next_event.before_deadline_signup?
+          .fw-bold
+            = Event.human_attribute_name(:event_start)
+          = I18n.l next_event.event_start
+          .fw-bold
+            = Event.human_attribute_name(:deadline_signup_in_words)
+          = next_event.deadline_signup_in_words
+
+          - if next_event.registration_id
+            = button_to t('model.registration.edit'), edit_registration_path(next_event.registration_id), class: 'btn btn-primary mt-3', method: :get
+          - else
+            = button_to t('model.registration.create'), new_registration_path, class: 'btn btn-primary mt-3', method: :get, params: { event_id: next_event.id }
+        - else
+          = t('landing.no_upcoming')
+
 .card.mt-3
   %h5.card-header.d-flex.justify-content-between.align-items-center
-    = Event.model_name.human
+    = t('landing.more_events')
   .table-responsive
     = datagrid_form_for @member_events_grid, url: member_events_path
     = datagrid_table @member_events_grid

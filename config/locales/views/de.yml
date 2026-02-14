@@ -26,6 +26,9 @@ de:
     needs_password: 'Passwort notwendig (kann beim ersten Mal erstellt werden)'
     registration_can_be_changed: 'Anmeldung kann geändert werden'
     data_can_be_from_last_time: 'Daten können von letzter Anmeldung übernommen werden'
+    next_event: 'Der nächste Familientag:'
+    no_upcoming: 'Aktuell kein Familientag geplant...'
+    more_events: 'Weitere Familientage'
   member_events:
     header: >-
       Falls die Anmeldung für einen Familientag aktuell möglich ist, kommt Ihr hier über den Button 'Anmelden' zum Anmeldeformular für den nächsten
