@@ -100,11 +100,11 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.sendgrid.net',
+    address: 'tiede.app',
     port: 587,
     domain: 'tiede.app',
-    user_name: 'apikey',
-    password: Rails.application.credentials.config[:sendgrid_api_key],
+    user_name: 'noreply@tiede.app',
+    password: Rails.application.credentials.config[:mail_password],
     authentication: :plain,
     enable_starttls_auto: true
   }

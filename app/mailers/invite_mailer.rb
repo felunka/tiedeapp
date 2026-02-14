@@ -1,5 +1,5 @@
 class InviteMailer < ApplicationMailer
-  default from: Rails.configuration.x.from_email
+  default from: email_address_with_name(Rails.configuration.x.from_email, 'Tiedeapp')
 
   def send_invite(member_event)
     @member = member_event.member
@@ -7,12 +7,12 @@ class InviteMailer < ApplicationMailer
     @token = member_event.token
 
     attachments['invite.pdf'] = WickedPdf.new.pdf_from_string(
-      render_to_string('registrations/invitation', layout: 'application'), {encoding: 'UTF-8', header: {
-        content: render_to_string(template: 'layouts/header', layout: 'layouts/application')
-      },
-      margin: {
-        top: 10
-      }}
+      render_to_string('registrations/invitation', layout: 'application'), { encoding: 'UTF-8', header: {
+                                                                                                  content: render_to_string(template: 'layouts/header', layout: 'layouts/application')
+                                                                                                },
+                                                                             margin: {
+                                                                               top: 10
+                                                                             } }
     )
 
     bootstrap_mail to: @member.email, subject: t('mails.invite.subject', event_title: @event.name)
@@ -24,12 +24,12 @@ class InviteMailer < ApplicationMailer
     @token = member_event.token
 
     attachments['invite.pdf'] = WickedPdf.new.pdf_from_string(
-      render_to_string('registrations/invitation', layout: 'application'), {encoding: 'UTF-8', header: {
-        content: render_to_string(template: 'layouts/header', layout: 'layouts/application')
-      },
-      margin: {
-        top: 10
-      }}
+      render_to_string('registrations/invitation', layout: 'application'), { encoding: 'UTF-8', header: {
+                                                                                                  content: render_to_string(template: 'layouts/header', layout: 'layouts/application')
+                                                                                                },
+                                                                             margin: {
+                                                                               top: 10
+                                                                             } }
     )
 
     bootstrap_mail to: @member.email, subject: t('mails.reminder.subject', event_title: @event.name) do |format|
