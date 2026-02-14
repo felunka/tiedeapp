@@ -23,5 +23,6 @@ jobs:
           IMAGE_TAG=staging
           RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}
           POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+          GITHUB_RELEASE_VERSION=${{ github.ref }}
           POSTGRES_HOSTNAME=gTduNm
           docker compose --file docker-compose.yml --project-name tiedeapp up --detach --remove-orphans --build
