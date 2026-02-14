@@ -27,6 +27,14 @@ de:
         payment_type:
           membership_fee: 'Mitgliederbeitrag'
           registration_fee: 'Familientag'
+        family_house_origin:
+          labehn: 'Haus Labehn'
+          seeheim: 'Haus Seeheim'
+          russoschin: 'Haus Russoschin'
+          sydney: 'Haus Sydney'
+          kranz: 'Haus Kranz'
+          potsdam_wannsee: 'Haus Potsdam - Wannsee'
+          kronberg_roschau: 'Haus Kronberg - Roschau'
     labels:
       registration:
         registration_entries:

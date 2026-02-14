@@ -52,6 +52,7 @@ export default class Tree {
       member.name,
       member.date_of_birth,
       member.date_of_death,
+      member.comment,
       Tidy.null_id(),
       parentSpouse = parentSpouse
     );
@@ -65,6 +66,7 @@ export default class Tree {
         marriage.spouse.name,
         marriage.spouse.date_of_birth,
         marriage.spouse.date_of_death,
+        marriage.spouse.comment,
         Tidy.null_id()
       );
       node.spouseNodes.push(spouseNode);
@@ -158,7 +160,7 @@ export default class Tree {
       }
     });
 
-    document.querySelector("#family-tree-wrapper i.loading").remove();
+    document.querySelector("#family-tree-wrapper .spinner-border").remove();
   }
 
   resetHighlights() {

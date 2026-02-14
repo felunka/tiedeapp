@@ -19,6 +19,9 @@ de:
         email: 'E-Mail'
         phone: 'Telefonnummer'
         hidden: 'Verstecken?'
+        date_of_death: 'Todesdatum'
+        family_tree_comment: 'Kommentar im Stammbaum'
+        family_house_origin: 'Haus'
         hint_hidden: '(Versteckte Mitglieder werden in der Liste nicht angezeigt, bleiben aber im Stammbaum.)'
       member_marriage:
         partner_1: 'Elternteil 1'

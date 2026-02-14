@@ -29,7 +29,7 @@ export default class DatagridEnumFilter {
     wrapper.appendChild(button);
 
     let icon = document.createElement('i');
-    icon.classList.add('fa-solid', 'fa-magnifying-glass');
+    icon.classList.add('bi', 'bi-search');
     button.appendChild(icon);
 
     return wrapper;

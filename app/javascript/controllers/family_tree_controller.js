@@ -13,7 +13,7 @@ export default class extends Controller {
       xGap: 100,
       yGap: 100,
       nodeWidth: 200,
-      nodeHight: 100,
+      nodeHight: 140,
       spouseGap: 20,
       pathColor: windowStyle.getPropertyValue("--bs-gray-100"),
       pathHighlightColor: windowStyle.getPropertyValue("--bs-info")

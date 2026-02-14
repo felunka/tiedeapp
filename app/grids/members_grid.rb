@@ -44,7 +44,7 @@ class MembersGrid < ApplicationGrid
       if current_user.admin?
         concat(
           button_to(member_payments_path(member), class: 'btn btn-primary btn-sm', method: :get) do
-            icon 'money-bill'
+            icon 'cash'
           end
         )
         concat(

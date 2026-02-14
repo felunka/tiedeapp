@@ -4,10 +4,10 @@ class RegistrationEntry < ApplicationRecord
   belongs_to :member, optional: true
   has_one :event, through: :registration
 
-  enum accommodation: {
+  enum :accommodation, {
     double_room: 0,
     single_room: 1,
-    no_accommodation: 2
+    no_accommodation: 2,
   }
 
   validate :member_xor_name

@@ -12,7 +12,7 @@
     outline: none;
   }
 
-  i.loading {
+  .spinner-border {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -45,6 +45,12 @@
 
     .list-group {
       text-align: left;
+
+      .col-10 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: normal;
+      }
     }
 
     &.selected {

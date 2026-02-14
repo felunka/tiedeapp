@@ -8,8 +8,8 @@ class User < ApplicationRecord
   validates :password, length: {in: 8..51}
   validates :password_confirmation, length: {in: 8..51}
 
-  enum user_role: {
+  enum :user_role, {
     member: 0,
-    admin: 1
+    admin: 1,
   }
 end

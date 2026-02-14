@@ -25,12 +25,12 @@ export default class extends Controller {
       header.appendChild(actionsWrapper);
 
       let clearButton = document.createElement('i');
-      clearButton.classList.add('fa-solid', 'fa-arrow-rotate-left');
+      clearButton.classList.add('bi', 'bi-arrow-clockwise');
       clearButton.dataset.action = 'click->datagrid#filterReset';
       actionsWrapper.appendChild(clearButton);
 
       let closeButton = document.createElement('i');
-      closeButton.classList.add('filter-close-button', 'fa-solid', 'fa-times');
+      closeButton.classList.add('filter-close-button', 'bi', 'bi-x-circle');
       closeButton.dataset.action = 'click->datagrid#filterCloseButtonClick';
       actionsWrapper.appendChild(closeButton);
 

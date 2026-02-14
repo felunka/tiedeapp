@@ -1,6 +1,6 @@
 export default class Node {
 
-  constructor(layoutConfig, id, parent, name, birthDate, deathDate, nullId, parentSpouse = null) {
+  constructor(layoutConfig, id, parent, name, birthDate, deathDate, comment, nullId, parentSpouse = null) {
     this.layoutConfig = layoutConfig;
 
     this.id = id;
@@ -17,6 +17,7 @@ export default class Node {
     this.name = name;
     this.birthDate = birthDate;
     this.deathDate = deathDate;
+    this.comment = comment;
 
     this.spouseNodes = [];
     this.children = [];
@@ -108,11 +109,14 @@ export default class Node {
     ul.classList.add("list-group-flush");
     div.appendChild(ul);
 
+    if(this.comment) {
+      ul.appendChild(this.iconRow("bi-chat-left-fill", this.comment));
+    }
     if(this.birthDate) {
-      ul.appendChild(this.iconRow("fa-cake-candles", this.birthDate));
+      ul.appendChild(this.iconRow("bi-cake-fill", this.birthDate));
     }
     if(this.deathDate) {
-      ul.appendChild(this.iconRow("fa-cross", this.deathDate));
+      ul.appendChild(this.iconRow("bi-candle", this.deathDate));
     }
 
     wrapper.appendChild(div);
@@ -191,14 +195,14 @@ export default class Node {
     row.appendChild(colIcon);
 
     const colText = document.createElement("div");
-    colText.classList.add("col");
+    colText.classList.add("col-10");
     colText.innerText = text;
     row.appendChild(colText);
 
     return li;
   }
 
-  icon(name, type = "fa-solid") {
+  icon(name, type = "bi") {
     const icon = document.createElement("i");
     icon.classList.add(type);
     icon.classList.add(name);

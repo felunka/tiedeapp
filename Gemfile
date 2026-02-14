@@ -1,33 +1,37 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.7'
+ruby '3.4.8'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.0.2'
+# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 8.1.1"
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
 # Use psql as the database for Active Record
-gem 'pg', '~> 1.2.3'
-# Use Puma as the app server
-gem 'puma', '~> 5.6'
-# Use SCSS for stylesheets
-gem 'sass-rails'
-# Use Active Model has_secure_password
-gem 'bcrypt', '~> 3.1.7'
+gem "pg"
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", ">= 5.0"
+# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
+gem "importmap-rails"
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "turbo-rails"
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "stimulus-rails"
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem "jbuilder"
 
-# Assets
-gem 'importmap-rails', '~> 1.0.0'
-gem 'sprockets-rails', '~> 3.4.1'
-gem 'stimulus-rails', '~> 1.0.2'
-gem 'turbo-rails', '~> 1.0.0'
+# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
+gem "bcrypt", "~> 3.1.21"
 
-gem 'bootstrap', '~> 5.1.3'
-gem 'haml-rails', '~> 2.0'
+gem 'bootstrap'
+gem "sass-rails"
+gem 'haml-rails'
 gem 'liquid'
 gem 'bootstrap-email'
 gem 'simple_form'
 gem 'country_select'
 gem 'cocoon'
-gem 'datagrid', '~> 1.4', '>= 1.4.4'
+gem 'datagrid'
 gem 'kaminari'
 gem 'girocode'
 
@@ -38,27 +42,15 @@ gem 'wkhtmltopdf-binary'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+
+  # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
+  gem "bundler-audit", require: false
+
+  # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
+  gem "brakeman", require: false
+
+  # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
+  gem "rubocop-rails-omakase", require: false
 end
-
-group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-
-  gem 'pry-rails'
-end
-
-group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
-end
-
-gem "hotwire-rails", "~> 0.1.3"

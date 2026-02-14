@@ -110,6 +110,8 @@ class MembersController < ApplicationController
         :city,
         :country,
         :hidden,
+        :family_tree_comment,
+        :family_house_origin,
         parents_marriage_attributes: [
           :id,
           :partner_1_id,

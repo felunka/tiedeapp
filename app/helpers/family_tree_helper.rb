@@ -6,6 +6,8 @@ module FamilyTreeHelper
       name: member.full_name,
       date_of_birth: format_date(member.date_of_birth),
       date_of_death: format_date(member.date_of_death),
+      comment: member.family_tree_comment,
+      house_origin: member.family_house_origin,
       marriages: []
     }
 
@@ -16,6 +18,8 @@ module FamilyTreeHelper
           name: marriage.partner_2.full_name,
           date_of_birth: format_date(marriage.partner_2.date_of_birth),
           date_of_death: format_date(marriage.partner_2.date_of_death),
+          comment: marriage.partner_2.family_tree_comment,
+          house_origin: marriage.partner_2.family_house_origin,
         },
         children: []
       }

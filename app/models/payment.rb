@@ -7,7 +7,7 @@ class Payment < ApplicationRecord
 
   scope :in_year, ->(year) { where('extract(year from created_at) = ?', year) }
 
-  enum payment_state: {
+  enum :payment_state, {
     created: 0,
     partialy_paid: 2,
     fully_paid: 3

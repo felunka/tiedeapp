@@ -20,11 +20,20 @@ class Member < ApplicationRecord
 
   after_create :invite_to_upcoming_events, unless: :skip_invite?
 
-  enum member_type: {
+  enum :member_type, {
     member: 0,
     student: 1,
     child: 2,
     guest: 3
+  }
+  enum :family_house_origin, {
+    labehn: 0,
+    seeheim: 1,
+    russoschin: 2,
+    sydney: 3,
+    kranz: 4,
+    potsdam_wannsee: 5,
+    kronberg_roschau: 6,
   }
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true, uniqueness: true
