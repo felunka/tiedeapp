@@ -1,6 +1,6 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Tiedeapp
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 8.1
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -26,11 +26,11 @@ module Tiedeapp
     config.x.from_email = 'noreply@tiede.app'
 
     config.after_initialize do
-      if ENV['GITHUB_RELEASE_VERSION'] && ENV['GITHUB_RELEASE_VERSION'] != 'not_set'
-        config.x.git_ref = ENV['GITHUB_RELEASE_VERSION']
-      else
-        config.x.git_ref = `git rev-parse --short HEAD`
-      end
+      config.x.git_ref = if ENV['GITHUB_RELEASE_VERSION'] && ENV['GITHUB_RELEASE_VERSION'] != 'not_set'
+                           ENV['GITHUB_RELEASE_VERSION']
+                         else
+                           `git rev-parse --short HEAD`
+                         end
     end
   end
 end
