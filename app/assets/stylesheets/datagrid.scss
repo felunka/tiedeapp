@@ -59,6 +59,7 @@ table.datagrid {
   width: 100%;
   justify-content: center;
   gap: 5px;
+  @extend .mb-3;
   a {
     @extend .btn;
     @extend .btn-outline-primary;

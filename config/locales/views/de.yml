@@ -106,3 +106,10 @@ de:
         • Anmeldung per Post absenden
         • fertig!
       closure: 'Der Familienverband freut sich auch ein Zahlreiches erscheinen und wünscht schöne Grüße!'
+  views:
+    pagination:
+      first: 'Erste Seite'
+      previous: 'Vorherige Seite'
+      next: 'Nächste Seite'
+      last: 'Letzte Seite'
+      truncate: '...'
