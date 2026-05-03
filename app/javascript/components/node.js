@@ -22,7 +22,7 @@ export default class Node {
     this.spouseNodes = [];
     this.children = [];
 
-    this.spouseVPlitMap = new Map();
+    this.spouseVSplitMap = new Map();
 
     // Safari has special needs to allow the elements to pan correctly
     this.isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -125,20 +125,31 @@ export default class Node {
     return div;
   }
 
+  // Returns the Y coordinate of the horizontal segment used by connector lines
+  // from a specific marriage to its children. Each marriage gets a distinct Y level
+  // so that connector lines from different marriages don't overlap.
+  // The result is cached per spouse so all children of the same marriage share
+  // the same horizontal routing level.
   getVSplitFor(spouse, child) {
-    if(this.spouseVPlitMap.has(spouse)) {
-      return this.spouseVPlitMap.get(spouse);
+    if(this.spouseVSplitMap.has(spouse)) {
+      return this.spouseVSplitMap.get(spouse);
     } else {
+      // X position of the gap between parent and spouse (where the connector starts)
       const startX = spouse.centerX() - (this.layoutConfig.nodeWidth+this.layoutConfig.spouseGap)/2;
+      // Which marriage this is (0 = first spouse, 1 = second, etc.)
       const parentIndex = this.spouseNodes.indexOf(spouse);
+      // Base split: starting point between parent and child vertically
       let vSplit = (this.centerY() + child.centerY()) / 2;
+      // Offset each marriage's routing level so lines don't overlap.
+      // Direction depends on whether the child is left or right of the
+      // connection point, so lines fan outward cleanly in both directions.
       if(startX < child.centerX()) {
         vSplit -= parentIndex * this.layoutConfig.spouseGap;
       } else {
         vSplit += parentIndex * this.layoutConfig.spouseGap;
       }
 
-      this.spouseVPlitMap.set(spouse, vSplit);
+      this.spouseVSplitMap.set(spouse, vSplit);
 
       return vSplit;
     }

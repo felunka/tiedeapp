@@ -35,6 +35,9 @@ de:
           kranz: 'Haus Kranz'
           potsdam_wannsee: 'Haus Potsdam - Wannsee'
           kronberg_roschau: 'Haus Kronberg - Roschau'
+          woyanow: 'Haus Woyanow'
+          dresden: 'Haus Dresden'
+          bensheim: 'Haus Bensheim'
     labels:
       registration:
         registration_entries:

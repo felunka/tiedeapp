@@ -11,12 +11,13 @@ export default class extends Controller {
     const windowStyle = window.getComputedStyle(document.body);
     const layoutConfig = {
       xGap: 100,
-      yGap: 100,
+      yGap: 150,
       nodeWidth: 200,
       nodeHight: 140,
       spouseGap: 20,
       pathColor: windowStyle.getPropertyValue("--bs-gray-100"),
-      pathHighlightColor: windowStyle.getPropertyValue("--bs-info")
+      pathHighlightColor: windowStyle.getPropertyValue("--bs-info"),
+      houseAreaBorderColor: windowStyle.getPropertyValue("--bs-indigo")
     };
     this.tree = new Tree(layoutConfig);
   }

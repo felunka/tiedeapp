@@ -11,7 +11,8 @@ class FamilyTreeController < ApplicationController
   end
 
   def data
-    tree_data = Rails.cache.fetch("tree_data") do
+    Rails.cache.delete('tree_data')
+    tree_data = Rails.cache.fetch('tree_data') do
       root = Member.order(:date_of_birth).first
       render_tree_data(root)
     end

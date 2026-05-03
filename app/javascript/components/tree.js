@@ -1,5 +1,46 @@
 import Node from 'components/node';
 import _initWasm, { Tidy } from 'tidy_layout/wasm';
+import TreeLayout from 'components/tree_layout';
+
+function parseDate(dateStr) {
+  if (!dateStr) return null;
+  const dotMatch = dateStr.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+  if (dotMatch) return new Date(dotMatch[3], dotMatch[2] - 1, dotMatch[1]);
+  const parsed = new Date(dateStr);
+  return isNaN(parsed) ? null : parsed;
+}
+
+function compareDates(a, b) {
+  if (a === null && b === null) return 0;
+  if (a === null) return 1;
+  if (b === null) return -1;
+  return a - b;
+}
+
+function marriageSortDate(marriage) {
+  let earliest = null;
+  for (const child of marriage.children) {
+    const d = parseDate(child.date_of_birth);
+    if (d && (earliest === null || d < earliest)) earliest = d;
+  }
+  return earliest || parseDate(marriage.spouse.date_of_birth);
+}
+
+function preprocessData(data) {
+  for (const marriage of data.marriages) {
+    marriage.children.sort((a, b) =>
+      compareDates(parseDate(a.date_of_birth), parseDate(b.date_of_birth))
+    );
+    marriage.children.forEach(child => preprocessData(child));
+  }
+
+  data.marriages.sort((a, b) => {
+    const da = marriageSortDate(a);
+    const db = marriageSortDate(b);
+    if (da === null || db === null) return 0;
+    return da - db;
+  });
+}
 
 export default class Tree {
 
@@ -17,28 +58,16 @@ export default class Tree {
 
     // Wait for wasm init to be completed
     await promise;
+    // Preprocess: sort marriages and children by birth date
+    preprocessData(treeData);
     // Build tree from JSON
     this.root = this.addToTree(treeData, null);
 
     // Calculate layout using tidy algorithm
-    this.tidy = Tidy.with_layered_tidy(this.layoutConfig.yGap, this.layoutConfig.xGap);
-    this.idToNode = this.buildLayout();
-
-    // Assign position to nodes
-    const positions = this.tidy.get_pos();
-    for (let i = 0; i < positions.length; i += 3) {
-      const id = positions[i] | 0;
-      const node = this.idToNode.get(id);
-      node.x = positions[i + 1];
-      node.y = positions[i + 2];
-
-      // Assign spouse nodes
-      node.spouseNodes.forEach((spouseNode, index) => {
-        this.idToNode.set(spouseNode.id, spouseNode);
-        spouseNode.x = node.x + (index + 1) * (this.layoutConfig.nodeWidth + this.layoutConfig.spouseGap);
-        spouseNode.y = node.y;
-      });
-    }
+    const layout = new TreeLayout(this.layoutConfig);
+    const layoutResult = layout.buildLayout(this.root);
+    this.idToNode = layoutResult.idToNode;
+    this.houseAreas = layoutResult.houseAreas;
 
     // Render tree
     this.render();
@@ -57,6 +86,13 @@ export default class Tree {
       parentSpouse = parentSpouse
     );
 
+    // Assign house: use member's house if present, otherwise inherit from parent
+    if (member.house) {
+      node.house = member.house;
+    } else if (parent && parent.house) {
+      node.house = parent.house;
+    }
+
     let children = [];
     member.marriages.forEach((marriage) => {
       const spouseNode = new Node(
@@ -69,6 +105,7 @@ export default class Tree {
         marriage.spouse.comment,
         Tidy.null_id()
       );
+      if (node.house) spouseNode.house = node.house;
       node.spouseNodes.push(spouseNode);
 
       marriage.children.forEach(child => {
@@ -80,43 +117,39 @@ export default class Tree {
     return node;
   }
 
-  buildLayout() {
-    const idToNode = new Map();
-    const stack = [this.root];
-    const ids = [];
-    const width = [];
-    const height = [];
-    const parents = [];
-    while (stack.length) {
-      const node = stack.pop();
-
-      ids.push(node.id);
-      width.push(node.getGroupWidth());
-      height.push(this.layoutConfig.nodeHight);
-      parents.push(node.parentId);
-      idToNode.set(node.id, node);
-      for (const child of node.children.concat().reverse()) {
-        if (child.parentId == null) {
-          child.parentId = node.id;
-        }
-
-        stack.push(child);
-      }
-    }
-
-    // Pass data to wasm tidy layout algorithm and calculate positions
-    this.tidy.data(
-      new Uint32Array(ids),
-      new Float64Array(width),
-      new Float64Array(height),
-      new Uint32Array(parents),
-    );
-    this.tidy.layout();
-
-    return idToNode;
-  }
-
   render() {
+    // Draw house areas
+    const xPadding = Math.floor(this.layoutConfig.xGap / 3);
+    const yPadding = Math.floor(this.layoutConfig.yGap / 4);
+    this.houseAreas.forEach((houseArea) => {
+      const scene = document.querySelector("svg#family-tree g#scene");
+      const x = houseArea.x - xPadding;
+      const y = houseArea.y - yPadding;
+      const width = houseArea.width + (2 * xPadding);
+      const height = houseArea.height + (2 * yPadding);
+
+      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", x);
+      rect.setAttribute("y", y);
+      rect.setAttribute("width", width);
+      rect.setAttribute("height", height);
+      rect.setAttribute("rx", 6);
+      rect.setAttribute("ry", 6);
+      rect.setAttribute("fill", "none");
+      rect.setAttribute("stroke", this.layoutConfig.houseAreaBorderColor);
+      rect.setAttribute("stroke-width", 3);
+      scene.appendChild(rect);
+
+      const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      label.textContent = window.I18n.simple_form.options.defaults.family_house_origin[houseArea.house];
+      label.setAttribute("x", x + width - 12);
+      label.setAttribute("y", y + height - 12);
+      label.setAttribute("text-anchor", "end");
+      label.setAttribute("fill", "white");
+      label.setAttribute("font-size", "2.5rem");
+      scene.appendChild(label);
+    });
+
     this.root.render();
 
     document.querySelectorAll("#family-tree .node").forEach((nodeEl) => {
