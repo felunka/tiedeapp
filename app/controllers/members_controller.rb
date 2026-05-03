@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  before_action :require_admin, only: [:new, :create, :destroy]
+  before_action :require_admin, only: %i[new create destroy]
   skip_before_action :require_login, only: [:autocomplete]
 
   def index
@@ -15,15 +15,18 @@ class MembersController < ApplicationController
 
   def autocomplete
     # ensure user logged in OR valid token present
-    raise ApplicationController::NotAuthorized unless current_user.present? || Event.joins(:member_events).where(member_events: { token: params.delete(:token), registration_id: nil }).any?
+    raise ApplicationController::NotAuthorized unless current_user.present? || Event.joins(:member_events).where(member_events: {
+                                                                                                                   token: params.delete(:token), registration_id: nil
+                                                                                                                 }).any?
 
-    @members = Member.visible.where("CONCAT_WS(' ', first_name, last_name) ILIKE ?", "%#{params[:term]}%").limit(10).map do |model|
+    @members = Member.visible.where("CONCAT_WS(' ', first_name, last_name) ILIKE ?",
+                                    "%#{params[:term]}%").limit(10).map do |model|
       { id: model.id, text: model.full_name_and_status }
     end
 
     respond_to do |format|
       format.json { render json: @members }
-    end 
+    end
   end
 
   def new
@@ -63,17 +66,15 @@ class MembersController < ApplicationController
             partner_1_id: permitted_params[:parents_marriage_attributes][:partner_1_id],
             partner_2_id: permitted_params[:parents_marriage_attributes][:partner_2_id]
           )
-          unless marriage
-            marriage = MemberMarriage.create(
-              partner_1_id: permitted_params[:parents_marriage_attributes][:partner_1_id],
-              partner_2_id: permitted_params[:parents_marriage_attributes][:partner_2_id]
-            )
-          end
+          marriage ||= MemberMarriage.create(
+            partner_1_id: permitted_params[:parents_marriage_attributes][:partner_1_id],
+            partner_2_id: permitted_params[:parents_marriage_attributes][:partner_2_id]
+          )
 
           permitted_params[:parents_marriage_id] = marriage.id
           permitted_params.delete(:parents_marriage_attributes)
 
-          Rails.cache.delete("tree_data")
+          Rails.cache.delete('tree_data')
         end
         if @member.update permitted_params
           # Clean up stale marriages
@@ -112,14 +113,21 @@ class MembersController < ApplicationController
         :hidden,
         :family_tree_comment,
         :family_house_origin,
-        parents_marriage_attributes: [
-          :id,
-          :partner_1_id,
-          :partner_2_id
+        parents_marriage_attributes: %i[
+          id
+          partner_1_id
+          partner_2_id
+        ],
+        marriages_attributes: %i[
+          id
+          partner_1_id
+          partner_2_id
+          _destroy
         ]
       )
     else
-      params.require(:member).permit(:first_name, :last_name, :date_of_birth, :email, :phone, :street, :zip, :city, :country)
+      params.require(:member).permit(:first_name, :last_name, :date_of_birth, :email, :phone, :street, :zip, :city,
+                                     :country)
     end
   end
 end

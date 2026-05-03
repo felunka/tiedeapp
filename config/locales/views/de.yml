@@ -47,6 +47,9 @@ de:
       hint: 'Einfach mit der Online-Banking App scannen und direkt überweisen!'
   member_form:
     admin: 'Admin-Optionen'
+    parents: 'Eltern'
+    marriages: 'Ehen'
+    marriage_partner: 'Partner'
   mails:
     invite:
       subject: 'Einladung: %{event_title}'

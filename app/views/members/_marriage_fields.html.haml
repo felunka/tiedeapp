@@ -1,0 +1,7 @@
+.nested-fields.card.mb-3
+  .card-body
+    = link_to_remove_association f, class: 'float-end text-danger', data: { action: 'click->cocoon#removeRow' } do
+      = icon 'trash'
+    = f.association :partner_1, label: t('member_form.marriage_partner'), label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_members_path } }
+    = f.association :partner_2, label: t('member_form.marriage_partner'), label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_members_path } }
+

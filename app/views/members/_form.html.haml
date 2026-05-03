@@ -34,7 +34,20 @@
             = f.input :family_tree_comment
             = f.input :family_house_origin, collection: Member.family_house_origins.symbolize_keys.keys, include_blank: true, include_hidden: false
 
+            %h5
+              = t('member_form.parents')
+
             = f.simple_fields_for :parents_marriage do |parents_marriage|
               = parents_marriage.association :partner_1, label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_members_path } }
               = parents_marriage.association :partner_2, label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_members_path } }
+
+            %h5
+              = t('member_form.marriages')
+            #marriages{data: { controller: 'cocoon' }}
+              = f.fields_for :marriages do |entry|
+                = render 'marriage_fields', f: entry
+              .links
+                = link_to_add_association f, :marriages, class: 'btn btn-primary', data: { action: 'click->cocoon#addRow' } do
+                  = icon 'plus'
+                  = t 'model.registration.add_person'
       = f.submit class: 'btn btn-primary mt-2'
