@@ -7,7 +7,7 @@ class Member < ApplicationRecord
   has_many :member_marriages_as_partner_1, class_name: 'MemberMarriage', foreign_key: :partner_1_id, dependent: :nullify
   has_many :member_marriages_as_partner_2, class_name: 'MemberMarriage', foreign_key: :partner_2_id, dependent: :nullify
 
-  has_many :marriages, ->(member) {
+  has_many :marriages, lambda { |member|
     unscope(:where).where('partner_1_id = ? OR partner_2_id = ?', member.id, member.id)
   }, class_name: 'MemberMarriage'
 
@@ -33,11 +33,10 @@ class Member < ApplicationRecord
     sydney: 3,
     kranz: 4,
     potsdam_wannsee: 5,
-    kronberg_roschau: 6,
+    kronberg_roschau: 6
   }
 
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_blank: true, uniqueness: true
-  validate :email_not_ends_with_telekom
 
   def parents
     [
@@ -58,7 +57,8 @@ class Member < ApplicationRecord
     elsif member_type == 'member'
       return Rails.configuration.x.membership_fee.normal
     end
-    return 0
+
+    0
   end
 
   def full_name
@@ -68,10 +68,6 @@ class Member < ApplicationRecord
   def full_name_and_status
     type_name = I18n.t("simple_form.options.defaults.member_type.#{member_type}")
     "#{full_name} (#{type_name})"
-  end
-
-  def email_not_ends_with_telekom
-    errors.add(:email, I18n.t('model.member.error.email_can_not_end_with_telekom')) if email.present? && email.end_with?('t-online.de')
   end
 
   def skip_invite?
