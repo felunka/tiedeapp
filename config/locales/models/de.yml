@@ -80,7 +80,7 @@ de:
       member_fee_reduced: 'Studierende und Auszubildende'
       send_invites: 'Einladung per Email senden'
       generate_invite_pdf: 'Alle Einladungen als PDF Herunterladen'
-      send_invites_confirm: 'Es wird eine Einladung an alle Mitglieder per Email gesendet. Sind Sie sicher?'
+      send_invites_confirm: 'Es wird eine Einladung an alle ausgewählten Mitglieder per Email gesendet. Sind Sie sicher?'
       invites_send: 'Einladungen werden im Hintergrund gesendet!'
       error:
         event_start_must_be_after_deadline: 'Das Startdatum muss nach dem Anmeldeschluss sein.'

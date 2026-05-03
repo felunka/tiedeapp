@@ -15,7 +15,8 @@
       .col
         = Event.human_attribute_name(:deadline_signup)
         .fw-bold=I18n.l event.deadline_signup
-    = event.description
+    %div{style: 'white-space: pre-wrap;'}
+      = event.description
 
 .card.mt-3
   .card-header

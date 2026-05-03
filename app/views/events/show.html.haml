@@ -2,7 +2,8 @@
   %h5.card-header.d-flex.justify-content-between.align-items-center
     = @event.name
     .d-flex.model-buttons
-      = button_to t('model.event.send_invites'), send_invites_event_path(@event), class: 'btn btn-primary', method: :get, data: { turbo_confirm: t('model.event.send_invites_confirm') }
+      %button.btn.btn-primary{"data-bs-target" => "#mailer-modal", "data-bs-toggle" => "modal", type: "button"}
+        = t('mails.modal.modal_open_button')
       = link_to t('model.event.generate_invite_pdf'), generate_invite_pdf_event_path(@event, format: :pdf), class: 'btn btn-primary', method: :get, target: :_blank
       = button_to t('helpers.submit.back'), events_path, class: 'btn btn-secondary', method: :get
   .card-body
@@ -19,7 +20,8 @@
       .col
         = Event.human_attribute_name(:deadline_signup)
         .fw-bold=I18n.l @event.deadline_signup
-    = @event.description
+    %div{style: 'white-space: pre-wrap;'}
+      = @event.description
 
 .card.mt-3
   .card-header
@@ -118,3 +120,5 @@
           %td
             = button_to edit_manage_registration_path(registration), class: 'btn btn-primary', method: :get do
               = icon 'cash'
+
+= render partial: 'mailer_modal'

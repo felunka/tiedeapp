@@ -2,7 +2,7 @@
   %h2
     = t('mails.invite.salutation', name: @member.full_name)
   %span= t 'mails.invite.welcome_text'
-  %span= @event.description
+  %span{style: 'white-space: pre-wrap;'}= @event.description
 .devider
 %p
   .row

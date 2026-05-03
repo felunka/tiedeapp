@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  include EventsHelper
   def index
     @events_grid = EventsGrid.new(params[:events_grid]) do |scope|
       scope.page(params[:page])
@@ -48,15 +49,33 @@ class EventsController < ApplicationController
     redirect_to action: 'index'
   end
 
-  def send_invites
-    Thread.new do
-      MemberEvent.where(event_id: params[:id]).joins(:member).where(members: {member_type: :member}).where.not(members: {email: [nil, ""]}).each do |member_event|
-        InviteMailer.send_invite(member_event).deliver
-      end
+  def send_email
+    @event = Event.find(params[:id])
+    mail_params = params.require(:mail_job).permit(:template, :custom_text, :recipient_selection_strategy,
+                                                   :only_not_registered, recipients: [], member_groups: [])
+
+    template = mail_params[:template]
+    strategy = mail_params[:recipient_selection_strategy]
+
+    unless %w[invite reminder custom].include?(template)
+      return redirect_to event_path(@event), flash: { danger: t('mails.errors.invalid_template') }
     end
 
+    if template == 'custom' && mail_params[:custom_text].blank?
+      return redirect_to event_path(@event), flash: { danger: t('mails.errors.custom_text_blank') }
+    end
+
+    member_events = resolve_recipients(@event, mail_params, strategy)
+    return if member_events.nil?
+
+    if member_events.none?
+      return redirect_to event_path(@event), flash: { warning: t('mails.errors.no_matching_recipients') }
+    end
+
+    send_emails_async(member_events, template, mail_params[:custom_text])
+
     flash[:success] = t('model.event.invites_send')
-    redirect_to event_path(params[:id])
+    redirect_to event_path(@event)
   end
 
   def generate_invite_pdf
@@ -69,10 +88,12 @@ class EventsController < ApplicationController
       zip,
       city,
       country
-    )).joins(:member_events).where(member_events: {event_id: @event.id}).group(:street, :zip, :city, :country).to_a
-    
+    )).joins(:member_events).where(member_events: { event_id: @event.id }).group(:street, :zip, :city, :country).to_a
+
     @recipients = members.map do |member|
-      names = member.names.group_by{ |e| e['last_name'] }.map{|last_name, first_names| "#{first_names.pluck('first_name').to_sentence} #{last_name}"}
+      names = member.names.group_by do |e|
+        e['last_name']
+      end.map { |last_name, first_names| "#{first_names.pluck('first_name').to_sentence} #{last_name}" }
       {
         recipient: names.join('\n'),
         street: member.street,
@@ -87,24 +108,22 @@ class EventsController < ApplicationController
       format.html
       format.pdf do
         render pdf: 'invitation_letter.pdf',
-          template: 'events/invitation_letter',
-          header: {
-            html: {
-              template: 'layouts/header',
-              layout: 'layouts/application'
-            }
-          },
-          encoding: 'UTF-8',
-          show_as_html: false,
-          layout: true,
-          margin: {
-            top: 10
-          }
+               template: 'events/invitation_letter',
+               header: {
+                 html: {
+                   template: 'layouts/header',
+                   layout: 'layouts/application'
+                 }
+               },
+               encoding: 'UTF-8',
+               show_as_html: false,
+               layout: true,
+               margin: {
+                 top: 10
+               }
       end
     end
   end
-
-  private
 
   def permit(params)
     params.require(:event).permit(

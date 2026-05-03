@@ -63,7 +63,24 @@ de:
       registration_button: 'Anmelden'
       registration_option_paper: 'Drucken Sie das PDF im Anhang und folgen Sie den Anweisungen.'
     reminder:
-      subject: 'Letzte Erinnerung: %{event_title}'
+      subject: 'Erinnerung: %{event_title}'
+    custom:
+      subject: 'Information zu: %{event_title}'
+    modal:
+      modal_open_button: 'Emails senden...'
+      header: 'Emails senden'
+      explanation: >-
+        Hier kannst du E-Mails an Teilnehmer versenden. Wähle eine Vorlage oder verfasse
+        einen eigenen Text. Anschließend kannst du die Empfänger festlegen, entweder durch direkte Auswahl
+        einzelner Mitglieder oder über Mitgliedergruppen.
+      send_now: 'Jetzt senden'
+    errors:
+      invalid_template: 'Ungültige Vorlage ausgewählt.'
+      custom_text_blank: 'Bitte einen Text eingeben, wenn die Vorlage "Eigener Text" gewählt ist.'
+      no_recipients: 'Bitte mindestens einen Empfänger auswählen.'
+      no_group_selected: 'Bitte mindestens eine Mitgliedergruppe auswählen.'
+      invalid_strategy: 'Ungültige Empfängerauswahl.'
+      no_matching_recipients: 'Keine passenden Empfänger mit E-Mail-Adresse gefunden.'
   pdf:
     invite:
       title: 'Einladung'

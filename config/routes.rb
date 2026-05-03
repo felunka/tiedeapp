@@ -11,27 +11,27 @@ Rails.application.routes.draw do
 
   resources :events do
     member do
-      get :send_invites
+      post :send_email
       get :generate_invite_pdf
     end
   end
   resources :members do
-    resources :payments, only: [:index, :new, :create]
+    resources :payments, only: %i[index new create]
     collection do
       get :autocomplete
     end
   end
-  resources :payments, only: [:index, :destroy]
+  resources :payments, only: %i[index destroy]
   resources :member_events, only: [:index]
-  resources :users, only: [:new, :create]
+  resources :users, only: %i[new create]
   resources :registrations do
     member do
       get :success
       get :invitation
     end
   end
-  resources :manage_registrations, only: [:edit, :update]
-  resource :session, only: [:new, :create, :destroy] do
+  resources :manage_registrations, only: %i[edit update]
+  resource :session, only: %i[new create destroy] do
     get :landing
   end
 end

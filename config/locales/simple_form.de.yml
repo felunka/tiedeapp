@@ -15,6 +15,19 @@ de:
           child: 'Kind'
           guest: 'Gast'
           guest: 'Nichtmitglied'
+        member_groups:
+          member: 'Mitglieder'
+          student: 'Studenten und Auszubildende'
+          child: 'Kinder'
+          guest: 'Gäste'
+          guest: 'Nichtmitglieder'
+        template:
+          invite: 'Einladung'
+          reminder: 'Erinnerung'
+          custom: 'Eigener Text'
+        recipient_selection_strategy:
+          select_members: 'Mitglieder auswählen'
+          select_group: 'Gruppe auswählen'
         accommodation:
           double_room: 'Im Doppelzimmer'
           single_room: 'Im Einzelzimmer'
@@ -47,3 +60,10 @@ de:
           accommodation: 'Unterkunft'
           registration_state: 'Anmeldestatus'
           is_vegetarian: 'Vegetarisch'
+      mail_job:
+        template: 'Mailvorlage'
+        custom_text: 'Text für die Email verfassen'
+        recipient_selection_strategy: 'Empfängerauswahl'
+        recipients: 'Empfänger'
+        member_groups: 'Gruppe'
+        only_not_registered: 'Nur an Personen senden, die sich noch nicht angemeldet haben'

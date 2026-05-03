@@ -36,4 +36,11 @@ class InviteMailer < ApplicationMailer
       format.html { render :send_invite }
     end
   end
+
+  def send_custom(member_event, text)
+    @member = member_event.member
+    @event = member_event.event
+    @text = text
+    bootstrap_mail to: @member.email, subject: t('mails.custom.subject', event_title: @event.name)
+  end
 end

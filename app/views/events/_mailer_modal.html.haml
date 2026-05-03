@@ -1,0 +1,40 @@
+#mailer-modal.modal{tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5.modal-title
+          = t('mails.modal.header')
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      = simple_form_for :mail_job, url: send_email_event_path(@event), method: :post, data: { turbo_confirm: t('model.event.send_invites_confirm') } do |f|
+        .modal-body.mb-3{"data-controller" => "mailer-modal"}
+          %p
+            = t('mails.modal.explanation')
+
+          = f.input :template, as: :radio_buttons,
+            collection: %i[invite reminder custom],
+            wrapper: :radio_buttons_button_group,
+            include_hidden: false,
+            checked: :invite,
+            wrapper_html: { role: 'group', 'aria-label': 'Selection type' },
+            input_html: { "data-action" => "change->mailer-modal#selectChanged" }
+
+          = f.input :custom_text, as: :text
+          
+          = f.input :recipient_selection_strategy, as: :radio_buttons,
+            collection: %i[select_members select_group],
+            wrapper: :radio_buttons_button_group,
+            include_hidden: false,
+            checked: :select_members,
+            input_html: { "data-action" => "change->mailer-modal#selectChanged" }
+
+          .mailer-modal-member-select
+            = f.input :recipients, as: :select, collection: [],
+              input_html: { class: 'js-states-autocomplete', multiple: true, data: { url: autocomplete_members_path } }
+          .mailer-modal-group-select
+            = f.input :member_groups, as: :select, collection: Member.member_types.symbolize_keys.keys,
+              include_blank: false, include_hidden: false, input_html: { class: 'js-states', multiple: true }
+            = f.input :only_not_registered, as: :boolean
+        .modal-footer
+          %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"}
+            = t('helpers.submit.cancel')
+          = f.submit t('mails.modal.send_now'), class: 'btn btn-primary'
