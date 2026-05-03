@@ -2,6 +2,8 @@ class MembersController < ApplicationController
   before_action :require_admin, only: %i[new create destroy]
   skip_before_action :require_login, only: [:autocomplete]
 
+  include MembersHelper
+
   def index
     @show_hidden = params[:show_hidden]
     @members_grid = MembersGrid.new(params[:members_grid]) do |scope|
@@ -61,24 +63,12 @@ class MembersController < ApplicationController
     respond_to do |format|
       ActiveRecord::Base.transaction do
         permitted_params = permit(params)
-        if permitted_params.has_key? :parents_marriage_attributes
-          marriage = MemberMarriage.find_by(
-            partner_1_id: permitted_params[:parents_marriage_attributes][:partner_1_id],
-            partner_2_id: permitted_params[:parents_marriage_attributes][:partner_2_id]
-          )
-          marriage ||= MemberMarriage.create(
-            partner_1_id: permitted_params[:parents_marriage_attributes][:partner_1_id],
-            partner_2_id: permitted_params[:parents_marriage_attributes][:partner_2_id]
-          )
 
-          permitted_params[:parents_marriage_id] = marriage.id
-          permitted_params.delete(:parents_marriage_attributes)
+        update_relations(permitted_params)
 
-          Rails.cache.delete('tree_data')
-        end
         if @member.update permitted_params
-          # Clean up stale marriages
-          MemberMarriage.where.missing(:members).destroy_all
+          # Clean up orphaned marriages (no children AND at least one partner is nil)
+          MemberMarriage.where(partner_1_id: nil).or(MemberMarriage.where(partner_2_id: nil)).where.missing(:members).destroy_all
           flash[:success] = t('messages.model.updated')
           format.html { redirect_to action: 'index' }
         else

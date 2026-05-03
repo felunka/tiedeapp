@@ -15,7 +15,7 @@ class Member < ApplicationRecord
   belongs_to :parents_marriage, class_name: 'MemberMarriage', optional: true
 
   accepts_nested_attributes_for :parents_marriage, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :marriages, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :marriages, allow_destroy: false
 
   scope :visible, -> { where(hidden: false) }
 

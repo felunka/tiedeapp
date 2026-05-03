@@ -36,7 +36,6 @@
 
             %h5
               = t('member_form.parents')
-
             = f.simple_fields_for :parents_marriage do |parents_marriage|
               = parents_marriage.association :partner_1, label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_members_path } }
               = parents_marriage.association :partner_2, label_method: :full_name, input_html: { class: 'js-states-autocomplete', data: { url: autocomplete_members_path } }
@@ -49,5 +48,5 @@
               .links
                 = link_to_add_association f, :marriages, class: 'btn btn-primary', data: { action: 'click->cocoon#addRow' } do
                   = icon 'plus'
-                  = t 'model.registration.add_person'
+                  = t 'member_form.add_marriage'
       = f.submit class: 'btn btn-primary mt-2'

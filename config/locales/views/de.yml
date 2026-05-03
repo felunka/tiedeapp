@@ -50,6 +50,7 @@ de:
     parents: 'Eltern'
     marriages: 'Ehen'
     marriage_partner: 'Partner'
+    add_marriage: 'Ehe hinzufügen'
   mails:
     invite:
       subject: 'Einladung: %{event_title}'

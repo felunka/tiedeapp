@@ -1,5 +1,4 @@
 module FamilyTreeHelper
-
   def render_tree_data(member)
     result = {
       id: member.id,
@@ -19,7 +18,7 @@ module FamilyTreeHelper
           date_of_birth: format_date(marriage.partner_2.date_of_birth),
           date_of_death: format_date(marriage.partner_2.date_of_death),
           comment: marriage.partner_2.family_tree_comment,
-          house_origin: marriage.partner_2.family_house_origin,
+          house_origin: marriage.partner_2.family_house_origin
         },
         children: []
       }
@@ -34,18 +33,16 @@ module FamilyTreeHelper
     result
   end
 
-  def process_member(member_data, parents_marriage=nil)
+  def process_member(member_data, parents_marriage = nil)
     unless member = Member.find_by(id: member_data[:id])
       member = Member.new
       member.first_name = member_data[:name]
-      member.last_name = ""
+      member.last_name = ''
       member.hidden = true
       member.skip_invite = true
     end
 
-    unless parents_marriage.nil?
-      member.parents_marriage = parents_marriage
-    end
+    member.parents_marriage = parents_marriage unless parents_marriage.nil?
 
     member.date_of_birth ||= member_data[:birthDate]
     member.date_of_death ||= member_data[:deathDate]
@@ -55,11 +52,11 @@ module FamilyTreeHelper
       unless spouse = Member.find_by(id: marriage[:spouse][:id])
         spouse = Member.new
         spouse.first_name = marriage[:spouse][:name]
-        spouse.last_name = ""
+        spouse.last_name = ''
         spouse.hidden = true
         spouse.skip_invite = true
       end
-  
+
       spouse.date_of_birth ||= marriage[:spouse][:birthDate]
       spouse.date_of_death ||= marriage[:spouse][:deathDate]
       spouse.save!
@@ -75,7 +72,7 @@ module FamilyTreeHelper
 
   def format_date(date)
     return I18n.l(date) unless date.nil?
-    return ""
+
+    ''
   end
-  
 end
