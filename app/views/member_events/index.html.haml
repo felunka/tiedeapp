@@ -1,5 +1,5 @@
-.row.mt-3
-  .col
+.row
+  .col-12.col-md-9.mt-3
     .card
       .card-body
         %h5.card-title
@@ -7,7 +7,7 @@
         = t('member_events.header')
         .container
           = image_tag '20230422_191638.webp', class: 'mw-75 img-fluid'
-  .col-3
+  .col-12.col-md-3.mt-3
     .card
       .card-body
         - next_event = @member_events.order(event_start: :desc).first
