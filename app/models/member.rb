@@ -34,7 +34,7 @@ class Member < ApplicationRecord
     sydney: 3,
     kranz: 4,
     potsdam_wannsee: 5,
-    kronberg_roschau: 6,
+    kolberg_roschau: 6,
     woyanow: 7,
     dresden: 8,
     bensheim: 9
