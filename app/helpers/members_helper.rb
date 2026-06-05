@@ -21,7 +21,7 @@ module MembersHelper
     return unless marriages_attributes.present?
 
     marriages_attributes.each_value do |attrs|
-      if ['true', true].include?(attrs[:_destroy])
+      if ['true', true, '1', 1].include?(attrs[:_destroy])
         # Handle deletion if needed
         MemberMarriage.find(attrs[:id]).destroy if attrs[:id].present?
       else

@@ -1,11 +1,11 @@
 class Member < ApplicationRecord
   attr_accessor :skip_invite
 
-  has_many :member_events
-  has_many :registration_entries
-  has_many :payments
-  has_many :member_marriages_as_partner_1, class_name: 'MemberMarriage', foreign_key: :partner_1_id, dependent: :nullify
-  has_many :member_marriages_as_partner_2, class_name: 'MemberMarriage', foreign_key: :partner_2_id, dependent: :nullify
+  has_many :member_events, dependent: :destroy
+  has_many :registration_entries, dependent: :destroy
+  has_many :payments, dependent: :destroy
+  has_many :member_marriages_as_partner_1, class_name: 'MemberMarriage', foreign_key: :partner_1_id, dependent: :destroy
+  has_many :member_marriages_as_partner_2, class_name: 'MemberMarriage', foreign_key: :partner_2_id, dependent: :destroy
 
   has_many :marriages, lambda { |member|
     unscope(:where).where('partner_1_id = ? OR partner_2_id = ?', member.id, member.id)
