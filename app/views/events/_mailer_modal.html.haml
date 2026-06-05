@@ -15,14 +15,17 @@
             wrapper: :radio_buttons_button_group,
             include_hidden: false,
             checked: :invite,
-            wrapper_html: { role: 'group', 'aria-label': 'Selection type' },
+            wrapper_html: { role: 'group', 'aria-label': 'Selection type', class: 'my-3' },
             input_html: { "data-action" => "change->mailer-modal#selectChanged" }
 
-          = f.input :custom_text, as: :text
+          .mailer-modal-custom-text-block.my-3
+            = f.input :custom_text, as: :text
+            = f.input :attachments, as: :file, required: false, input_html: { multiple: true }
           
           = f.input :recipient_selection_strategy, as: :radio_buttons,
             collection: %i[select_members select_group],
             wrapper: :radio_buttons_button_group,
+            wrapper_html: { class: 'my-3' },
             include_hidden: false,
             checked: :select_members,
             input_html: { "data-action" => "change->mailer-modal#selectChanged" }

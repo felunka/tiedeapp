@@ -7,9 +7,9 @@ export default class extends Controller {
 
   selectChanged() {
     if( document.getElementById('mail_job_template_custom').checked ) {
-      document.querySelector('.mail_job_custom_text').classList.remove('d-none');
+      document.querySelector('.mailer-modal-custom-text-block').classList.remove('d-none');
     } else {
-      document.querySelector('.mail_job_custom_text').classList.add('d-none');
+      document.querySelector('.mailer-modal-custom-text-block').classList.add('d-none');
     }
 
     if( document.getElementById('mail_job_recipient_selection_strategy_select_members').checked ) {

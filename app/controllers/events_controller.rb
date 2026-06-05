@@ -52,7 +52,8 @@ class EventsController < ApplicationController
   def send_email
     @event = Event.find(params[:id])
     mail_params = params.require(:mail_job).permit(:template, :custom_text, :recipient_selection_strategy,
-                                                   :only_not_registered, recipients: [], member_groups: [])
+                                                   :only_not_registered, attachments: [], recipients: [],
+                                                                         member_groups: [])
 
     template = mail_params[:template]
     strategy = mail_params[:recipient_selection_strategy]
@@ -72,7 +73,14 @@ class EventsController < ApplicationController
       return redirect_to event_path(@event), flash: { warning: t('mails.errors.no_matching_recipients') }
     end
 
-    send_emails_async(member_events, template, mail_params[:custom_text])
+    uploaded_attachments = Array(mail_params[:attachments])
+                           .select { |f| f.respond_to?(:original_filename) }
+                           .map do |f|
+                             {
+                               filename: f.original_filename, content: f.read, content_type: f.content_type
+                             }
+    end
+    send_emails_async(member_events, template, mail_params[:custom_text], uploaded_attachments)
 
     flash[:success] = t('model.event.invites_send')
     redirect_to event_path(@event)

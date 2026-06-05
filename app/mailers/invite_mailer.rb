@@ -37,10 +37,18 @@ class InviteMailer < ApplicationMailer
     end
   end
 
-  def send_custom(member_event, text)
+  def send_custom(member_event, text, uploaded_files)
     @member = member_event.member
     @event = member_event.event
     @text = text
+
+    Array(uploaded_files).each do |file|
+      attachments[file[:filename]] = {
+        mime_type: file[:content_type],
+        content: file[:content]
+      }
+    end
+
     bootstrap_mail to: @member.email, subject: t('mails.custom.subject', event_title: @event.name)
   end
 end

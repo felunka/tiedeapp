@@ -63,6 +63,7 @@ de:
       mail_job:
         template: 'Mailvorlage'
         custom_text: 'Text für die Email verfassen'
+        attachments: 'Anhänge'
         recipient_selection_strategy: 'Empfängerauswahl'
         recipients: 'Empfänger'
         member_groups: 'Gruppe'

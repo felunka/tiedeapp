@@ -29,7 +29,7 @@ module EventsHelper
     end
   end
 
-  def send_emails_async(member_events, template, custom_text)
+  def send_emails_async(member_events, template, custom_text, attachments)
     Thread.new do
       member_events.find_each do |member_event|
         case template
@@ -38,7 +38,7 @@ module EventsHelper
         when 'reminder'
           InviteMailer.send_reminder(member_event).deliver_now
         when 'custom'
-          InviteMailer.send_custom(member_event, custom_text).deliver_now
+          InviteMailer.send_custom(member_event, custom_text, attachments).deliver_now
         end
       end
     end
