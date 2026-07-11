@@ -116,7 +116,7 @@ export default class Node {
       ul.appendChild(this.iconRow("bi-cake-fill", this.birthDate));
     }
     if(this.deathDate) {
-      ul.appendChild(this.iconRow("bi-candle", this.deathDate));
+      ul.appendChild(this.iconRow("bi-plus", this.deathDate));
     }
 
     wrapper.appendChild(div);
