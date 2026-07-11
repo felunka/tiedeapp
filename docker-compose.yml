@@ -14,6 +14,8 @@ services:
       - default
     depends_on:
       - db
+    volumes:
+      - storage:/app/storage
     environment:
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:?err}
       POSTGRES_HOSTNAME: ${POSTGRES_HOSTNAME:-db}
@@ -30,6 +32,7 @@ services:
       - traefik.http.routers.${ROUTER_NAME:-tiedeapp}.tls.certresolver=letsencrypt
 volumes:
   db-data:
+  storage:
 networks:
   reverse_proxy:
     name: reverse_proxy
