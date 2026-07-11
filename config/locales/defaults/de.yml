@@ -146,13 +146,6 @@ de:
       header:
         one: 'Konnte %{model} nicht speichern: ein Fehler.'
         other: 'Konnte %{model} nicht speichern: %{count} Fehler.'
-  helpers:
-    select:
-      prompt: Bitte wählen
-    submit:
-      create: "%{model} erstellen"
-      submit: "%{model} speichern"
-      update: "%{model} aktualisieren"
   number:
     currency:
       format:
@@ -222,15 +215,20 @@ de:
       short: "%d. %B, %H:%M Uhr"
     pm: nachmittags
   helpers:
+    select:
+      prompt: Bitte wählen
     submit:
       confirm: 'Sind Sie sicher?'
       cancel: 'Abbrechen'
       back: 'Zurück'
       delete: 'Löschen'
-      create: 'Erstellen'
-      update: 'Speichern'
       registration:
         create: 'Verbindlich anmelden'
+      edit: 'Bearbeiten'
+      login: 'Anmelden'
+      show: 'Anzeigen'
+      create: 'Erstellen'
+      update: 'Speichern'
   datagrid:
     no_results:
       "Keine Einträge gefunden..."

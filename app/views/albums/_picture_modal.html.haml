@@ -1,0 +1,13 @@
+.modal.fade{ id: "editAlbumPictureModal-#{picture.id}", tabindex: '-1', aria: { hidden: 'true' } }
+  .modal-dialog.modal-dialog-centered
+    .modal-content
+      .modal-header
+        %h5.modal-title= t('albums.show.edit_description')
+        %button.btn-close{ aria: { label: t('layouts.navigation.close') }, 'data-bs-dismiss' => 'modal', type: 'button' }
+      = simple_form_for picture, url: album_album_picture_path(album, picture), method: :patch do |f|
+        .modal-body
+          = f.input :description
+        .modal-footer
+          %button.btn.btn-secondary{ 'data-bs-dismiss' => 'modal', type: 'button' }
+            = t('helpers.submit.cancel')
+          = f.submit t('helpers.submit.update'), class: 'btn btn-primary'

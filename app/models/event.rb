@@ -2,6 +2,7 @@ class Event < ApplicationRecord
   include ActionView::Helpers::DateHelper
 
   has_many :member_events, dependent: :destroy
+  has_many :albums, dependent: :destroy
   has_many :registrations, through: :member_events
 
   after_create :invite_all_members
@@ -25,23 +26,21 @@ class Event < ApplicationRecord
 
   def deadline_signup_in_words
     label = I18n.l deadline_signup
-    if before_deadline_signup?
-      label = label + " (#{distance_of_time_in_words(Date.today, deadline_signup)})"
-    end
-    return label
+    label += " (#{distance_of_time_in_words(Date.today, deadline_signup)})" if before_deadline_signup?
+    label
   end
 
   private
 
   def event_start_after_deadline
-    if deadline_signup > event_start
-      errors.add(:deadline_signup, I18n.t('model.event.error.event_start_must_be_after_deadline'))
-    end
+    return unless deadline_signup > event_start
+
+    errors.add(:deadline_signup, I18n.t('model.event.error.event_start_must_be_after_deadline'))
   end
 
   def event_end_after_start
-    if event_start > event_end
-      errors.add(:event_start, I18n.t('model.event.error.event_end_must_be_after_start'))
-    end
+    return unless event_start > event_end
+
+    errors.add(:event_start, I18n.t('model.event.error.event_end_must_be_after_start'))
   end
 end

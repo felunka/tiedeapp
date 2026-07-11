@@ -4,7 +4,7 @@
       .modal-header
         %h5.modal-title
           = t('mails.modal.header')
-        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+        %button.btn-close{aria: { label: t('layouts.navigation.close') }, 'data-bs-dismiss' => 'modal', type: 'button'}
       = simple_form_for :mail_job, url: send_email_event_path(@event), method: :post, data: { turbo_confirm: t('model.event.send_invites_confirm') } do |f|
         .modal-body.mb-3{"data-controller" => "mailer-modal"}
           %p
@@ -15,7 +15,7 @@
             wrapper: :radio_buttons_button_group,
             include_hidden: false,
             checked: :invite,
-            wrapper_html: { role: 'group', 'aria-label': 'Selection type', class: 'my-3' },
+            wrapper_html: { role: 'group', 'aria-label': t('mails.modal.selection_type'), class: 'my-3' },
             input_html: { "data-action" => "change->mailer-modal#selectChanged" }
 
           .mailer-modal-custom-text-block.my-3

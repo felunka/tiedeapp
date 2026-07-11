@@ -2,7 +2,7 @@
 %html
   %head
     %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Tiedeapp
+    %title= t('layouts.brand')
     = csrf_meta_tags
     = csp_meta_tag
 
@@ -22,16 +22,17 @@
       .container-fluid
         %a.navbar-brand
           = image_tag(image_path('logo.png'), width: 30, height: 30, class: 'd-inline-block align-top')
-          Tiedeapp
-        %button.navbar-toggler{ data: {bs: {toggle: 'collapse', target: '#navbarToggler'}}, aria: {controls: 'navbarToggler', expanded: false, label: 'Toggle navigation'}, type: 'button'}
+          = t('layouts.brand')
+        %button.navbar-toggler{ data: {bs: {toggle: 'collapse', target: '#navbarToggler'}}, aria: {controls: 'navbarToggler', expanded: false, label: t('layouts.navigation.toggle')}, type: 'button'}
           %span.navbar-toggler-icon
         .collapse.navbar-collapse{ id: 'navbarToggler' }
           %ul.navbar-nav.me-auto.mb-2.mb-lg-0
-            = nav_item 'Home', root_path
-            = nav_item 'Familientage', events_path, admin: true
-            = nav_item 'Mitglieder', members_path
-            = nav_item 'Zahlungen', payments_path, admin: true
-            = nav_item 'Stammbaum', family_tree_path
+            = nav_item t('navigation.home'), root_path
+            = nav_item t('navigation.albums'), albums_path
+            = nav_item t('navigation.events'), events_path, admin: true
+            = nav_item t('navigation.members'), members_path
+            = nav_item t('navigation.payments'), payments_path, admin: true
+            = nav_item t('navigation.family_tree'), family_tree_path
           - if current_user
             = button_to t('login.logout'), session_path, class: 'btn btn-danger', method: :delete
 
@@ -39,7 +40,7 @@
       - flash.each do |key, value|
         .alert.alert-dismissible.mt-3{class: "alert-#{key}", role: 'alert'}
           = value
-          %button.btn-close.close{data: {bs: {dismiss: 'alert'}}, aria: {label: 'Close'}, type: 'button'}
+          %button.btn-close.close{data: {bs: {dismiss: 'alert'}}, aria: {label: t('layouts.navigation.close')}, type: 'button'}
     .container-fluid.pb-4
       = yield
 
@@ -47,7 +48,7 @@
       = render 'layouts/cookie_banner'
 
     .footer
-      = "Felix von Tiedemann • #{Date.today.year} • "
+      = t('layouts.footer', year: Date.today.year)
       = link_to t('imprint.title'), impressum_path
       = ' • '
       = link_to Rails.configuration.x.git_ref.gsub('refs/tags/', ''), 'https://github.com/felunka/tiedeapp'

@@ -1,12 +1,12 @@
 .card.mt-3
   %h5.card-header
-    Login
+    = t('sessions.new.title')
 
   .card-body
     = simple_form_for :user, url: session_path do |f|
       = f.input :email
       = f.input :password, as: :password
-      = f.submit 'Login', class: 'btn btn-primary mt-2'
+      = f.submit t('helpers.submit.login'), class: 'btn btn-primary mt-2'
   .card-footer
     - if @token.present?
       = t 'login.no_account'

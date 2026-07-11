@@ -1,0 +1,33 @@
+.row.g-3.align-items-center.mb-4
+  .col-12.col-md-8
+    .ratio.ratio-16x9.bg-body-secondary.rounded.overflow-hidden
+      = image_tag url_for(picture.data), class: 'w-100 h-100 object-fit-contain'
+  .col-12.col-md-4
+    .d-none.d-md-flex.flex-column.gap-2
+      %div
+        .text-muted.small= t('albums.show.description')
+        .fw-semibold
+          = picture.description.presence || t('albums.show.no_description')
+      .d-flex.flex-column.gap-2
+        = button_tag class: 'btn btn-primary', type: 'button', data: { bs: { toggle: 'modal', target: "#editAlbumPictureModal-#{picture.id}" } } do
+          = icon 'pen'
+          = t('helpers.submit.edit')
+        - if current_user.admin?
+          = button_to album_album_picture_path(album, picture), class: 'btn btn-danger', method: :delete do
+            = icon 'trash'
+            = t('helpers.submit.delete')
+
+    .d-md-none.mt-2
+      .text-muted.small= t('albums.show.description')
+      .fw-semibold.mb-2
+        = picture.description.presence || t('albums.show.no_description')
+      .d-grid.gap-2
+        = button_tag class: 'btn btn-primary', type: 'button', data: { bs: { toggle: 'modal', target: "#editAlbumPictureModal-#{picture.id}" } } do
+          = icon 'pen'
+          = t('helpers.submit.edit')
+        - if current_user.admin?
+          = button_to album_album_picture_path(album, picture), class: 'btn btn-danger', method: :delete do
+            = icon 'trash'
+            = t('helpers.submit.delete')
+
+= render 'picture_modal', album: album, picture: picture

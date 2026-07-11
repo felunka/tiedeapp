@@ -1,0 +1,41 @@
+- if current_user.admin?
+  .card.my-3
+    %h5.card-header.d-flex.justify-content-between.align-items-center
+      = Album.model_name.human
+      = link_to t('albums.index.create_album'), new_album_path, class: 'btn btn-primary'
+
+- if @albums.any?
+  .row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
+    - @albums.each do |album|
+      .col
+        .card.h-100.shadow-sm
+          .card-header.d-flex.justify-content-between.align-items-start.gap-2
+            .me-auto
+              .fw-semibold
+                = album.name.presence || album.event.name
+              .small.text-muted
+                = album.event.name
+                - if album.description.present?
+                  %div= album.description
+            - if current_user.admin?
+              .btn-group.btn-group-sm.flex-shrink-0
+                = button_to edit_album_path(album), class: 'btn btn-primary me-1', method: :get do
+                  = icon 'pen'
+                = button_to album_path(album), class: 'btn btn-danger', method: :delete do
+                  = icon 'trash'
+          .card-body
+            - previews = album.album_pictures.select { |picture| picture.data.attached? }.first(4)
+            - if previews.any?
+              .row.row-cols-2.g-2
+                - previews.each do |picture|
+                  .col
+                    .ratio.ratio-1x1.rounded.overflow-hidden.bg-body-secondary
+                      = image_tag url_for(picture.data), class: 'w-100 h-100 object-fit-cover'
+            - else
+              .text-muted.small= t('albums.index.no_pictures')
+          .card-footer.bg-transparent.border-0.d-flex.justify-content-end
+            = link_to t('albums.index.view_album'), album_path(album), class: 'btn btn-primary'
+
+- else
+  .alert.alert-info.mb-0
+    = t('albums.index.no_albums')

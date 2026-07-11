@@ -4,6 +4,7 @@ de:
       created: 'Erfolgreich angelegt'
       updated: 'Erfolgreich aktualisiert'
       deleted: 'Eintrag wurde gelöscht'
+      none_selected: 'Noch keine Einträge vorhanden.'
     cookie:
       we_use_cookies: 'Diese Seite verwendet nur technisch notwendige Cookies. Es werden keine Daten mit dritten geteilt.'
       accept: 'Akzeptieren'
@@ -37,6 +38,7 @@ de:
     no_account: 'Noch keinen Account?'
     no_token: 'Ein Account kann nur mit dem Link aus der Einladung erstellt werden.'
     create_account: 'Jetzt erstellen'
+    submit: 'Anmelden'
     logout: 'Abmelden'
   imprint:
     title: 'Impressum'
@@ -69,6 +71,7 @@ de:
     modal:
       modal_open_button: 'Emails senden...'
       header: 'Emails senden'
+      selection_type: 'Auswahlart'
       explanation: >-
         Hier kannst du E-Mails an Teilnehmer versenden. Wähle eine Vorlage oder verfasse
         einen eigenen Text. Anschließend kannst du die Empfänger festlegen, entweder durch direkte Auswahl
@@ -130,3 +133,38 @@ de:
       next: 'Nächste Seite'
       last: 'Letzte Seite'
       truncate: '...'
+  navigation:
+    home: 'Startseite'
+    albums: 'Alben'
+    events: 'Familientage'
+    members: 'Mitglieder'
+    payments: 'Zahlungen'
+    family_tree: 'Stammbaum'
+  layouts:
+    brand: 'Tiedeapp'
+    footer: 'Felix von Tiedemann • %{year} • '
+    navigation:
+      toggle: 'Navigation umschalten'
+      close: 'Schließen'
+  sessions:
+    new:
+      title: 'Anmelden'
+  family_tree:
+    loading: 'Lädt...'
+  albums:
+    errors:
+      no_file_selected: 'Bitte mindestens ein Bild auswählen.'
+    index:
+      create_album: 'Album anlegen'
+      no_albums: 'Noch keine Alben vorhanden.'
+      no_pictures: 'Noch keine Bilder vorhanden.'
+      view_album: 'Album ansehen'
+    show:
+      upload_pictures: 'Bilder hochladen'
+      edit_description: 'Beschreibung bearbeiten'
+      description: 'Beschreibung'
+      no_description: 'Keine Beschreibung hinterlegt'
+      no_pictures: 'Noch keine Bilder vorhanden.'
+      upload: 'Bilder hochladen'
+    form:
+      title: 'Album'

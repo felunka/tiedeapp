@@ -1,0 +1,63 @@
+.card.mt-3
+  %h5.card-header.d-flex.justify-content-between.align-items-center.gap-3
+    .me-auto
+      .fw-semibold
+        = @album.name.presence || @album.event.name
+      .small.text-muted
+        = @album.event.name
+        - if @album.description.present?
+          %div= @album.description
+    .d-flex.gap-2.flex-wrap.justify-content-end
+      %button.btn.btn-primary{"data-bs-target" => "#albumPictureUploadModal", "data-bs-toggle" => "modal", type: "button"}
+        = t('albums.show.upload_pictures')
+      - if current_user.admin?
+        = button_to album_path(@album), class: 'btn btn-danger', method: :delete do
+          = icon 'trash'
+          = t('helpers.submit.delete')
+      = button_to albums_path, class: 'btn btn-secondary', method: :get do
+        = t('helpers.submit.back')
+
+  .card-body{ data: { controller: 'album-gallery', no_description: t('albums.show.no_description') } }
+    - pictures = @album.album_pictures.select { |picture| picture.data.attached? }
+    - if pictures.any?
+      .row.g-4.align-items-start
+        .col-12.col-lg-8
+          #albumCarousel.carousel.slide.mb-3{ data: { album_gallery_target: 'carousel', action: 'slide.bs.carousel->album-gallery#slideChanged' } }
+            .carousel-inner.rounded
+              - pictures.each_with_index do |picture, index|
+                .carousel-item{ class: ('active' if index.zero?), data: { album_gallery_description: picture.description.to_s, album_gallery_modal_target: "editAlbumPictureModal-#{picture.id}" } }
+                  .ratio.ratio-16x9.bg-body-secondary.d-flex.align-items-center.justify-content-center
+                    = image_tag url_for(picture.data), class: 'd-block w-100 h-100 object-fit-contain'
+            %button.carousel-control-prev{ type: 'button', data: { bs: { target: '#albumCarousel', slide: 'prev' } } }
+              %span.carousel-control-prev-icon{ 'aria-hidden' => 'true' }
+              %span.visually-hidden= t('views.pagination.previous')
+            %button.carousel-control-next{ type: 'button', data: { bs: { target: '#albumCarousel', slide: 'next' } } }
+              %span.carousel-control-next-icon{ 'aria-hidden' => 'true' }
+              %span.visually-hidden= t('views.pagination.next')
+
+          .d-flex.flex-nowrap.gap-2.overflow-auto.pb-2
+            - pictures.each_with_index do |picture, index|
+              .flex-shrink-0{ style: 'width: 8rem;' }
+                %button.btn.btn-light.border.w-100.p-1{ type: 'button', data: { album_gallery_target: 'thumbnail', index: index, action: 'click->album-gallery#select' } }
+                  .ratio.ratio-1x1.rounded.overflow-hidden.bg-body-secondary
+                    = image_tag url_for(picture.data), class: 'w-100 h-100 object-fit-cover'
+
+        .col-12.col-lg-4.d-flex.align-items-stretch
+          .card.w-100
+            .card-body.d-flex.flex-column.justify-content-between.gap-3
+              %div
+                .text-muted.small= t('albums.show.description')
+                .fw-semibold{ data: { album_gallery_target: 'description' } }
+                  = pictures.first.description.presence || t('albums.show.no_description')
+              .d-grid.gap-2
+                %button.btn.btn-primary{ type: 'button', data: { album_gallery_target: 'editButton' }, 'data-bs-toggle' => 'modal', 'data-bs-target' => "#editAlbumPictureModal-#{pictures.first.id}" }
+                  = icon 'pen'
+                  = t('helpers.submit.edit')
+    - else
+      .alert.alert-info.mb-0
+        = t('albums.show.no_pictures')
+
+    - pictures.each do |picture|
+      = render 'picture_modal', album: @album, picture: picture
+
+  = render 'upload_modal'

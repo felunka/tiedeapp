@@ -1,12 +1,21 @@
 de:
   activerecord:
     models:
+      album: 'Album'
+      album_picture: 'Albumbild'
       member: 'Mitglied'
       event: 'Familientag'
       registration: 'Anmeldung'
       user: 'Benutzer'
       payment: 'Zahlung'
     attributes:
+      album:
+        name: 'Name'
+        description: 'Beschreibung'
+        event: 'Familientag'
+      album_picture:
+        description: 'Beschreibung'
+        data: 'Bild'
       member:
         first_name: 'Vorname'
         last_name: 'Nachname'
@@ -132,5 +141,6 @@ de:
         email_can_not_end_with_telekom: 'Adressen von Telekom (enden in @t-online.de) sind aus technischen Gründen nicht möglich.'
     user:
       error:
+        user_exists: 'Für dieses Mitglied existiert bereits ein Benutzer.'
         only_with_token: 'Eine Anmeldung ist nur mit einem Einladungslink möglich.'
         token_invalid: 'Der verwendete Token ist ungültig. Benutzer kann nicht erstellt werden'

@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   get 'family-tree/data', to: 'family_tree#data'
   post 'family-tree/import', to: 'family_tree#import'
 
+  resources :albums do
+    resources :album_pictures, only: %i[create update destroy]
+  end
+
   resources :events do
     member do
       post :send_email
