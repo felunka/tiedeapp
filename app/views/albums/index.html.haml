@@ -9,12 +9,13 @@
     - @albums.each do |album|
       .col
         .card.h-100.shadow-sm
+          - event_name = album.event&.name
           .card-header.d-flex.justify-content-between.align-items-start.gap-2
             .me-auto
               .fw-semibold
-                = album.name.presence || album.event.name
+                = album.name.presence || event_name || t('albums.index.untitled_album')
               .small.text-muted
-                = album.event.name
+                = event_name || t('albums.index.no_event')
                 - if album.description.present?
                   %div= album.description
             - if current_user.admin?

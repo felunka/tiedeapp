@@ -158,13 +158,17 @@ de:
       create_album: 'Album anlegen'
       no_albums: 'Noch keine Alben vorhanden.'
       no_pictures: 'Noch keine Bilder vorhanden.'
+      no_event: 'Kein Familientag zugeordnet'
+      untitled_album: 'Album ohne Titel'
       view_album: 'Album ansehen'
     show:
       upload_pictures: 'Bilder hochladen'
       edit_description: 'Beschreibung bearbeiten'
       description: 'Beschreibung'
+      no_event: 'Kein Familientag zugeordnet'
       no_description: 'Keine Beschreibung hinterlegt'
       no_pictures: 'Noch keine Bilder vorhanden.'
+      untitled_album: 'Album ohne Titel'
       upload: 'Bilder hochladen'
     form:
       title: 'Album'

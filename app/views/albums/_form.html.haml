@@ -12,5 +12,5 @@
     = simple_form_for @album do |f|
       = f.input :name
       = f.input :description, as: :text
-      = f.association :event, collection: Event.order(:name), include_blank: false
+      = f.association :event, collection: Event.order(:name), include_blank: true
       = f.submit class: 'btn btn-primary mt-2'
