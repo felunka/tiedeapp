@@ -1,0 +1,19 @@
+.card.mt-3
+  %h5.card-header.d-flex.justify-content-between.align-items-center.gap-3
+    .me-auto
+      .fw-semibold= @article.title
+      .small.text-muted= t('articles.show.author', name: @article.author.member.full_name)
+      .small.text-muted= t('articles.show.created_at', date: l(@article.created_at, format: :short))
+    .d-flex.gap-2.flex-wrap.justify-content-end
+      - if current_user.admin? || @article.author_id == current_user.id
+        = button_to edit_article_collection_article_path(@article_collection, @article), class: 'btn btn-primary', method: :get do
+          = icon 'pen'
+          = t('helpers.submit.edit')
+        = button_to article_collection_article_path(@article_collection, @article), class: 'btn btn-danger', method: :delete do
+          = icon 'trash'
+          = t('helpers.submit.delete')
+      = button_to article_collection_path(@article_collection), class: 'btn btn-secondary', method: :get do
+        = t('helpers.submit.back')
+
+  .card-body
+    = @article.content

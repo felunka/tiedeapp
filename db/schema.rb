@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_11_101711) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_12_124857) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
@@ -53,10 +63,27 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_11_101711) do
   create_table "albums", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "description"
-    t.bigint "event_id", null: false
+    t.bigint "event_id"
     t.string "name"
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_albums_on_event_id"
+  end
+
+  create_table "article_collections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "articles", force: :cascade do |t|
+    t.bigint "article_collection_id", null: false
+    t.bigint "author_id", null: false
+    t.datetime "created_at", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_collection_id"], name: "index_articles_on_article_collection_id"
+    t.index ["author_id"], name: "index_articles_on_author_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -297,6 +324,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_11_101711) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "album_pictures", "albums"
   add_foreign_key "albums", "events"
+  add_foreign_key "articles", "article_collections"
+  add_foreign_key "articles", "users", column: "author_id"
   add_foreign_key "member_events", "events"
   add_foreign_key "member_events", "members"
   add_foreign_key "member_events", "registrations"

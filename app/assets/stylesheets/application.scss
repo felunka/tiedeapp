@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 @import "bootstrap";
+@import "actiontext.css";
 @import "select2.css";
 @import "select2-bootstrap.css";
 @import "datagrid.scss";
@@ -36,4 +37,34 @@
 
 .ws-pre {
   white-space: pre;
+}
+
+trix-editor.article-editor {
+  min-height: 80vh;
+  max-height: 90vh;
+  overflow-y: scroll;
+}
+
+trix-editor figure[data-trix-attributes*='"presentation":"small"'] img {
+  width: 33%;
+}
+
+trix-editor figure[data-trix-attributes*='"presentation":"medium"'] img {
+  width: 66%;
+}
+
+trix-editor figure[data-trix-attributes*='"presentation":"large"'] img {
+  width: 100%;
+}
+
+.trix-content action-text-attachment[presentation='small'] .attachment img {
+  width: 33%;
+}
+
+.trix-content action-text-attachment[presentation='medium'] .attachment img {
+  width: 66%;
+}
+
+.trix-content action-text-attachment[presentation='large'] .attachment img {
+  width: 100%;
 }

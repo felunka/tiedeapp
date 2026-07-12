@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     resources :album_pictures, only: %i[create update destroy]
   end
 
+  resources :article_collections do
+    resources :articles, except: [:index]
+  end
+
   resources :events do
     member do
       post :send_email

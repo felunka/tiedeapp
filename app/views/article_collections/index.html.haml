@@ -1,0 +1,26 @@
+- if current_user.admin?
+  .card.my-3
+    %h5.card-header.d-flex.justify-content-between.align-items-center
+      = ArticleCollection.model_name.human
+      = link_to t('article_collections.index.create'), new_article_collection_path, class: 'btn btn-primary'
+
+- if @article_collections.any?
+  .row.row-cols-1.row-cols-md-2.row-cols-lg-3.g-4
+    - @article_collections.each do |article_collection|
+      .col
+        .card.h-100.shadow-sm
+          .card-header.d-flex.justify-content-between.align-items-start.gap-2
+            .me-auto
+              .fw-semibold= article_collection.name
+              .small.text-muted= article_collection.description
+            - if current_user.admin?
+              .btn-group.btn-group-sm.flex-shrink-0
+                = button_to edit_article_collection_path(article_collection), class: 'btn btn-primary me-1', method: :get do
+                  = icon 'pen'
+                = button_to article_collection_path(article_collection), class: 'btn btn-danger', method: :delete do
+                  = icon 'trash'
+          .card-footer.bg-transparent.border-0.d-flex.justify-content-end
+            = link_to t('article_collections.index.view'), article_collection_path(article_collection), class: 'btn btn-primary'
+- else
+  .alert.alert-info.mb-0
+    = t('article_collections.index.none')

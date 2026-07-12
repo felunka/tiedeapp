@@ -1,0 +1,32 @@
+.card.mt-3
+  %h5.card-header.d-flex.justify-content-between.align-items-center.gap-3
+    .me-auto
+      .fw-semibold= @article_collection.name
+      .small.text-muted= @article_collection.description.presence || t('article_collections.show.no_description')
+    .d-flex.gap-2.flex-wrap.justify-content-end
+      - if current_user.admin?
+        = button_to edit_article_collection_path(@article_collection), class: 'btn btn-primary', method: :get do
+          = icon 'pen'
+          = t('helpers.submit.edit')
+        = button_to article_collection_path(@article_collection), class: 'btn btn-danger', method: :delete do
+          = icon 'trash'
+          = t('helpers.submit.delete')
+      = button_to article_collections_path, class: 'btn btn-secondary', method: :get do
+        = t('helpers.submit.back')
+
+  .card-body
+    .d-flex.justify-content-between.align-items-center.flex-wrap.gap-2.mb-3
+      %h6.m-0= t('article_collections.show.articles')
+      = link_to t('article_collections.show.create_article'), new_article_collection_article_path(@article_collection), class: 'btn btn-primary'
+
+    - if @article_collection.articles.any?
+      .list-group
+        - @article_collection.articles.order(created_at: :desc).each do |article|
+          = link_to article_collection_article_path(@article_collection, article), class: 'list-group-item list-group-item-action' do
+            .d-flex.justify-content-between.align-items-start.gap-2
+              %span.fw-semibold= article.title
+              %span.text-muted.small= l(article.created_at, format: :short)
+            .small.text-muted= article.author.member.full_name
+    - else
+      .alert.alert-info.mb-0
+        = t('article_collections.show.none')

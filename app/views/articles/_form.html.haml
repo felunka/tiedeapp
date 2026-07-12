@@ -1,0 +1,17 @@
+.card.mt-3
+  %h5.card-header.d-flex.justify-content-between.align-items-center
+    = Article.model_name.human
+    .d-flex.gap-2
+      - if @article.persisted?
+        = button_to article_collection_article_path(@article_collection, @article), class: 'btn btn-danger', method: :delete do
+          = t('helpers.submit.delete')
+      = button_to article_collection_path(@article_collection), class: 'btn btn-secondary', method: :get do
+        = t('helpers.submit.cancel')
+
+  .card-body
+    = simple_form_for [@article_collection, @article] do |f|
+      = f.input :title
+      .mb-3{ data: { controller: 'trix-editor' } }
+        = f.label :content, t('articles.form.content'), class: 'form-label'
+        = f.rich_text_area :content, class: 'article-editor', data: { trix_editor_target: 'editor' }
+      = f.submit class: 'btn btn-primary mt-2'

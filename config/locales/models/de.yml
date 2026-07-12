@@ -3,6 +3,8 @@ de:
     models:
       album: 'Album'
       album_picture: 'Albumbild'
+      article_collection: 'Artikelsammlung'
+      article: 'Artikel'
       member: 'Mitglied'
       event: 'Familientag'
       registration: 'Anmeldung'
@@ -13,6 +15,14 @@ de:
         name: 'Name'
         description: 'Beschreibung'
         event: 'Familientag'
+      article_collection:
+        name: 'Name'
+        description: 'Beschreibung'
+      article:
+        title: 'Titel'
+        content: 'Inhalt'
+        article_collection: 'Artikelsammlung'
+        author: 'Autor'
       album_picture:
         description: 'Beschreibung'
         data: 'Bild'

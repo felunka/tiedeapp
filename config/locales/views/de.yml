@@ -136,6 +136,7 @@ de:
   navigation:
     home: 'Startseite'
     albums: 'Alben'
+    articles: 'Artikel'
     events: 'Familientage'
     members: 'Mitglieder'
     payments: 'Zahlungen'
@@ -172,3 +173,24 @@ de:
       upload: 'Bilder hochladen'
     form:
       title: 'Album'
+  article_collections:
+    index:
+      create: 'Artikelsammlung anlegen'
+      none: 'Noch keine Artikelsammlungen vorhanden.'
+      view: 'Artikelsammlung ansehen'
+    show:
+      no_description: 'Keine Beschreibung hinterlegt'
+      articles: 'Artikel'
+      none: 'Noch keine Artikel vorhanden.'
+      create_article: 'Artikel erstellen'
+    form:
+      title: 'Artikelsammlung'
+  articles:
+    show:
+      author: 'Autor: %{name}'
+      created_at: 'Erstellt am %{date}'
+    form:
+      content: 'Inhalt'
+      image_size_small: 'Klein'
+      image_size_medium: 'Mittel'
+      image_size_large: 'Groß'
