@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'sessions#landing'
 
   get '/impressum', to: 'imprint#show'
+  get '/satzung', to: 'statutes#show'
 
   get 'family-tree', to: 'family_tree#show'
   get 'family-tree/data', to: 'family_tree#data'

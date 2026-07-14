@@ -34,6 +34,7 @@
             = nav_item t('navigation.members'), members_path
             = nav_item t('navigation.payments'), payments_path, admin: true
             = nav_item t('navigation.family_tree'), family_tree_path
+            = nav_item t('navigation.statutes'), satzung_path
           - if current_user
             = button_to t('login.logout'), session_path, class: 'btn btn-danger', method: :delete
 

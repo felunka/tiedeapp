@@ -141,6 +141,7 @@ de:
     members: 'Mitglieder'
     payments: 'Zahlungen'
     family_tree: 'Stammbaum'
+    statutes: 'Satzung'
   layouts:
     brand: 'Tiedeapp'
     footer: 'Felix von Tiedemann • %{year} • '
